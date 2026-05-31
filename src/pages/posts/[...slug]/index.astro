@@ -81,7 +81,7 @@ const videoId = youtube_url
   ?.split("?")[0];
 
 const recipeProducts = affiliate_products
-  .map(id => products[id])
+  .map(id => products[id as keyof typeof products])
   .filter(Boolean);
 
 const { Content } = await render(post);
@@ -200,7 +200,7 @@ const ogImage = ogImageUrl
           title={title}
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
+          allowfullScreen
         />
       </div>
     </section>
