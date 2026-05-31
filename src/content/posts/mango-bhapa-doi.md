@@ -1,7 +1,7 @@
 ---
 title: Mango Bhapa Doi
 author: Calcutta Kitchen
-pubDatetime: 2026-05-31T00:00:00Z
+pubDatetime: 2026-05-01T00:00:00Z
 featured: true
 draft: false
 tags:
