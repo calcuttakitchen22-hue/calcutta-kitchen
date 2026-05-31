@@ -401,8 +401,10 @@ const ogImage = ogImageUrl
       const items = Array.from(current.querySelectorAll("li"));
 
       items.forEach((item, index) => {
-        const text = item.textContent?.trim() || "";
-
+        if (item.querySelector('input[type="checkbox"]')) {
+          return;
+        }
+        
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.style.accentColor = "#F24E07";
