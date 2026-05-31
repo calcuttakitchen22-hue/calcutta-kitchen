@@ -7,19 +7,22 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
-  --font-app: var(--font-google-sans-code);
+  --font-app: "Futura", sans-serif;
 }
 
 /* Light theme values */
 :root,
 [data-theme="light"] {
-  --background: #fdfdfd;
-  --foreground: #282728;
-  --accent: #006cac;
+  --background: #F8F5E6;
+  --foreground: #700D1D;
+
+  --accent: #F24E07;
   --accent-foreground: #ffffff;
-  --muted: #e6e6e6;
-  --muted-foreground: #6b7280;
-  --border: #ece9e9;
+
+  --muted: #FFF8EC;
+  --muted-foreground: #700D1D;
+
+  --border: #E8DFC9;
 }
 
 /* Dark theme values */

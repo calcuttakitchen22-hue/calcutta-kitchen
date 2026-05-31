@@ -11,6 +11,7 @@ import LinkButton from "./LinkButton.astro";
 import { stripBase, stripLocale } from "@/utils/withBase";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
+import Logo from "@/assets/images/calcutta-kitchen-logo.svg";
 
 const { site, features } = config;
 
@@ -48,12 +49,16 @@ const isActive = (path: string) => {
   <div
     class="border-border bg-background relative flex w-full items-baseline justify-between border-b py-4 sm:items-center sm:py-6"
   >
-    <a
-      href={getRelativeLocaleUrl(locale, "")}
-      class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"
-    >
-      {site.title}
-    </a>
+	<a
+	  href={getRelativeLocaleUrl(locale, "")}
+	  class="absolute sm:static sm:my-auto"
+	>
+	  <img
+		src={Logo.src}
+		alt="Calcutta Kitchen"
+		class="h-12 w-auto sm:h-14"
+	  />
+	</a>
     <nav
       id="nav-menu"
       class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"

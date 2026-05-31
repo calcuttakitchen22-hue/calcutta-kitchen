@@ -1,4 +1,4 @@
-import { defineCollection } from "astro:content";
+	import { defineCollection } from "astro:content";
 import { z } from "astro/zod";
 import { glob } from "astro/loaders";
 import config from "@/config";
@@ -18,6 +18,9 @@ const posts = defineCollection({
       tags: z.array(z.string()).default(["others"]),
       ogImage: image().or(z.string()).optional(),
       description: z.string(),
+	  featuredImage: image().optional(),
+	  affiliate_products: z.array(z.string()).optional(),
+	  youtube_url: z.string().optional(),
       canonicalURL: z.string().optional(),
       hideEditPost: z.boolean().optional(),
       timezone: z.string().optional(),

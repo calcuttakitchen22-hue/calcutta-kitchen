@@ -14,6 +14,7 @@ import BackButton from "./_components/BackButton.astro";
 import BackToTopButton from "./_components/BackToTopButton.astro";
 import AdjacentPostNav from "./_components/AdjacentPostNav.astro";
 import config from "@/config";
+import { products } from "@/data/products";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
@@ -68,9 +69,32 @@ const {
   timezone,
   tags,
   hideEditPost,
+  affiliate_products = [],
+  youtube_url,
 } = post.data;
 
+console.log("youtube_url:", youtube_url);
+console.log("post.data:", post.data);
+
+const videoId = youtube_url
+  ?.split("youtu.be/")[1]
+  ?.split("?")[0];
+
+const recipeProducts = affiliate_products
+  .map(id => products[id])
+  .filter(Boolean);
+
 const { Content } = await render(post);
+
+const allPosts = await getCollection("posts");
+
+const relatedPosts = allPosts
+  .filter(
+    p =>
+      p.id !== post.id &&
+      p.data.tags?.some(tag => tags.includes(tag))
+  )
+  .slice(0, 3);
 
 let ogImageUrl: string | undefined;
 
@@ -130,7 +154,15 @@ const ogImage = ogImageUrl
       </span>
       <EditPost {hideEditPost} {post} class="max-sm:hidden" />
     </div>
-
+    {
+    post.data.featuredImage && (
+        <img
+          src={post.data.featuredImage.src}
+          alt={title}
+          class="mt-8 mb-8 w-full rounded-xl object-cover"
+        />
+      )
+    }
     <article
       id="article"
       class:list={[
@@ -153,7 +185,97 @@ const ogImage = ogImageUrl
     </ul>
 
     <ShareLinks />
+{
+  videoId && (
+    <section class="my-12">
+      <h2 class="mb-6 text-2xl font-bold">
+        Watch the Recipe
+      </h2>
 
+      <div class="overflow-hidden rounded-xl">
+        <iframe
+          width="100%"
+          height="500"
+          src={`https://www.youtube.com/embed/${videoId}`}
+          title={title}
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </div>
+    </section>
+  )
+}
+{
+  recipeProducts.length > 0 && (
+    <section class="my-12">
+      <h2 class="mb-6 text-2xl font-bold">
+        Recommended Equipment
+      </h2>
+
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {recipeProducts.map(product => (
+          <a
+            href={product.affiliateUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="border-border block rounded-xl border p-4 transition hover:shadow-lg"
+          >
+            {product.imageUrl && (
+              <img
+                src={product.imageUrl}
+                alt={product.name}
+                class="mb-4 h-40 w-full rounded-lg object-cover"
+              />
+            )}
+
+            <h3 class="font-semibold">
+              {product.name}
+            </h3>
+
+            <p class="text-muted-foreground mt-1 text-sm">
+              {product.category}
+            </p>
+
+            <div class="text-accent mt-3 font-medium">
+              View Product →
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )
+}
+{
+  relatedPosts.length > 0 && (
+    <section class="my-12">
+      <h2 class="mb-6 text-2xl font-bold">
+        Related Recipes
+      </h2>
+
+      <div class="grid gap-4 sm:grid-cols-3">
+        {relatedPosts.map(recipe => (
+          <a
+            href={getPostUrl(
+              recipe.id,
+              recipe.filePath,
+              locale
+            )}
+            class="border-border rounded-xl border p-4 hover:shadow-lg"
+          >
+            <h3 class="font-semibold">
+              {recipe.data.title}
+            </h3>
+
+            <p class="text-muted-foreground mt-2 text-sm">
+              {recipe.data.description}
+            </p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )
+}
     <hr class="my-8 border-dashed" />
 
     <AdjacentPostNav {prevPost} {nextPost} />
@@ -262,4 +384,72 @@ const ogImage = ogImageUrl
   document.addEventListener("astro:after-swap", () =>
     window.scrollTo({ left: 0, top: 0, behavior: "instant" })
   );
+  function createIngredientChecklist() {
+  const article = document.getElementById("article");
+  if (!article) return;
+
+  const headings = Array.from(article.querySelectorAll("h2"));
+
+  const ingredientsHeading = document.querySelector("#ingredients");
+
+  if (!ingredientsHeading) return;
+
+  let current = ingredientsHeading.nextElementSibling;
+
+  while (current && current.tagName !== "H2") {
+    if (current.tagName === "UL") {
+      const items = Array.from(current.querySelectorAll("li"));
+
+      items.forEach((item, index) => {
+        const text = item.textContent?.trim() || "";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.style.accentColor = "#F24E07";
+        checkbox.style.marginRight = "10px";
+
+        const recipeSlug = window.location.pathname;
+        const storageKey = `${recipeSlug}-ingredient-${index}`;
+
+        const saved = localStorage.getItem(storageKey);
+
+        if (saved === "true") {
+          checkbox.checked = true;
+          item.style.textDecoration = "line-through";
+          item.style.opacity = "0.7";
+          item.style.color = "#F24E07";
+        }
+
+        checkbox.addEventListener("change", () => {
+          localStorage.setItem(storageKey, checkbox.checked);
+
+          item.style.textDecoration = checkbox.checked
+            ? "line-through"
+            : "none";
+
+          item.style.opacity = checkbox.checked
+            ? "0.7"
+            : "1";
+
+          item.style.color = checkbox.checked
+            ? "#F24E07"
+            : "";
+        });
+
+        item.prepend(checkbox);
+      });
+
+      break;
+    }
+
+    current = current.nextElementSibling;
+  }
+}
+
+createIngredientChecklist();
+
+document.addEventListener(
+  "astro:after-swap",
+  createIngredientChecklist
+);
 </script>

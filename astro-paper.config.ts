@@ -24,7 +24,7 @@ site: {
     showArchives: true,
     showBackButton: true,
     editPost: {
-      enabled: false,
+      enabled: false,	
     },
     search: "pagefind",
   },
