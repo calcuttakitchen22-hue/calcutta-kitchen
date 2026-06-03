@@ -369,9 +369,4 @@ pdf.save(
 
 }
 
-if (typeof window !== "undefined") {
-  (window as any).downloadRecipePdf =
-    downloadRecipePdf;
-}
-
 export {};

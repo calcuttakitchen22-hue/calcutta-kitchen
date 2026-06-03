@@ -15,7 +15,6 @@ import BackToTopButton from "./_components/BackToTopButton.astro";
 import AdjacentPostNav from "./_components/AdjacentPostNav.astro";
 import config from "@/config";
 import { products } from "@/data/products";
-import RecipePdfLoader from "@/components/RecipePdfLoader.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
@@ -325,7 +324,11 @@ const ogImage = ogImageUrl
   </main>
   <Footer />
 </PostLayout>
-<RecipePdfLoader />
+
+<script type="module">
+  import "../scripts/downloadRecipeClient";
+</script>
+
 <script is:inline data-astro-rerun>
   function createProgressBar() {
     const progressContainer = document.createElement("div");
@@ -565,20 +568,7 @@ document.addEventListener(
 );
 
 function downloadRecipe() {
-
-  if (
-    typeof window.downloadRecipePdf ===
-    "function"
-  ) {
-
-    window.downloadRecipePdf();
-
-  } else {
-
-    console.error(
-      "downloadRecipePdf not loaded"
-    );
-  }
+  window.downloadRecipe();
 }
 
 function toBanglaNumber(num) {
