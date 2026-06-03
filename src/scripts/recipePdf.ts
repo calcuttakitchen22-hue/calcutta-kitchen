@@ -1,7 +1,7 @@
 import { jsPDF } from "jspdf";
 import logo from "@/assets/images/Hori logo o-w.png";
 import watermark from "@/assets/images/pdf-watermark.png";
-
+console.log("RECIPE PDF LOADED");
 function drawFooter(pdf: jsPDF) {
 
   pdf.setFontSize(10);
@@ -54,8 +54,7 @@ async function waitForImage(
   });
 }
 
-(window as any).downloadRecipePdf =
-async () => {
+export async function downloadRecipePdf() {
   
 
 const title =
@@ -368,4 +367,11 @@ pdf.save(
   ) + ".pdf"
 );
 
-};
+}
+
+if (typeof window !== "undefined") {
+  (window as any).downloadRecipePdf =
+    downloadRecipePdf;
+}
+
+export {};
