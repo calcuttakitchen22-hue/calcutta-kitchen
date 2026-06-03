@@ -61,6 +61,7 @@ const locale = Astro.currentLocale ?? config.site.lang;
 
 const {
   title,
+  title_bn,
   description,
   ogImage: initOgImage,
   canonicalURL,
@@ -71,10 +72,9 @@ const {
   hideEditPost,
   affiliate_products = [],
   youtube_url,
+  ingredients_bn,
+  method_bn,
 } = post.data;
-
-console.log("youtube_url:", youtube_url);
-console.log("post.data:", post.data);
 
 const videoId = youtube_url
   ?.split("youtu.be/")[1]
@@ -131,29 +131,34 @@ const ogImage = ogImageUrl
 
   <main
     id="main-content"
-    class:list={["app-layout", { "mt-8": !config.features.showBackButton }]}
-    data-pagefind-body
+    style={{ fontFamily: "Futura" }}
+    class:list={[
+      "app-layout",
+      { "mt-8": !config.features.showBackButton }
+    ]}
   >
     <h1
-      style={{ viewTransitionName: slugifyStr(title.replaceAll(".", "-")) }}
+      style={{
+        viewTransitionName: slugifyStr(title.replaceAll(".", "-")),
+        fontFamily: "Futura"
+      }}
       class="text-accent inline-block text-2xl font-bold sm:text-3xl"
     >
       {title}
+
+      {title_bn && (
+        <span
+          class="ml-2 font-bold"
+          style={{
+            fontFamily: "Noto Serif Bengali",
+            color: "#700D1D"
+          }}
+        >
+          ({title_bn})
+        </span>
+      )}
     </h1>
 
-    <div class="my-2 flex items-center gap-2">
-      <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
-      <span
-        aria-hidden="true"
-        class:list={[
-          "text-muted-foreground max-sm:hidden",
-          { hidden: !config.features.editPost?.enabled || hideEditPost },
-        ]}
-      >
-        |
-      </span>
-      <EditPost {hideEditPost} {post} class="max-sm:hidden" />
-    </div>
     {
     post.data.featuredImage && (
         <img
@@ -165,14 +170,51 @@ const ogImage = ogImageUrl
     }
     <article
       id="article"
+      style={{ fontFamily: "Futura" }}
       class:list={[
         "mt-8 w-full",
         "app-prose max-w-app",
         "prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)",
       ]}
     >
-      <Content />
-    </article>
+
+    <div
+      id="recipe-actions"
+      class="mb-8 flex flex-wrap justify-center gap-3"
+    >
+	
+	<div
+  id="recipe-bn-data"
+  data-title={title_bn || ""}
+  data-ingredients={JSON.stringify(ingredients_bn || [])}
+  data-method={JSON.stringify(method_bn || [])}
+  hidden
+></div>
+
+    <button
+      id="clear-checklist"
+      class="rounded-lg border border-[#F24E07] px-4 py-2 text-sm text-[#F24E07]"
+    >
+      Clear Ingredients
+    </button>
+
+    <button
+      id="download-pdf"
+      class="rounded-lg bg-[#F24E07] px-4 py-2 text-sm text-white"
+    >
+      Download PDF
+    </button>
+
+    <button
+      id="translate-bn"
+      class="rounded-lg border border-[#F24E07] px-4 py-2 text-sm text-[#F24E07]"
+    >
+      বাংলা
+    </button>
+  </div>
+
+  <Content />
+</article>
 
     <hr class="my-8 border-dashed" />
 
@@ -283,6 +325,8 @@ const ogImage = ogImageUrl
   <Footer />
 </PostLayout>
 
+<script type="module" src="/src/scripts/recipePdf.ts"></script>
+
 <script is:inline data-astro-rerun>
   function createProgressBar() {
     const progressContainer = document.createElement("div");
@@ -316,10 +360,14 @@ const ogImage = ogImageUrl
   }
   updateScrollProgress();
 
+const headings = Array.from(
+  document.querySelectorAll(
+    "article h2"
+  )
+);
+
   function addHeadingLinks() {
-    const headings = Array.from(
-      document.querySelectorAll("h2, h3, h4, h5, h6")
-    );
+
     for (const heading of headings) {
       heading.classList.add("group");
       const link = document.createElement("a");
@@ -388,8 +436,6 @@ const ogImage = ogImageUrl
   const article = document.getElementById("article");
   if (!article) return;
 
-  const headings = Array.from(article.querySelectorAll("h2"));
-
   const ingredientsHeading = document.querySelector("#ingredients");
 
   if (!ingredientsHeading) return;
@@ -404,7 +450,7 @@ const ogImage = ogImageUrl
         if (item.querySelector('input[type="checkbox"]')) {
           return;
         }
-        
+
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.style.accentColor = "#F24E07";
@@ -447,11 +493,223 @@ const ogImage = ogImageUrl
     current = current.nextElementSibling;
   }
 }
+function clearIngredientChecklist() {
 
-createIngredientChecklist();
+  const recipeSlug = window.location.pathname;
+
+  document
+    .querySelectorAll('#article ul li input[type="checkbox"]')
+    .forEach((checkbox, index) => {
+
+      checkbox.checked = false;
+
+      localStorage.removeItem(
+        `${recipeSlug}-ingredient-${index}`
+      );
+
+      const li = checkbox.closest("li");
+
+      if (li) {
+        li.style.textDecoration = "";
+        li.style.opacity = "";
+        li.style.color = "";
+      }
+    });
+}
+
+function initializeRecipePage() {
+
+  createIngredientChecklist();
+
+  document
+    .getElementById("clear-checklist")
+    ?.removeEventListener("click", clearIngredientChecklist);
+
+  document
+    .getElementById("clear-checklist")
+    ?.addEventListener("click", clearIngredientChecklist);
+
+document
+  .getElementById("download-pdf")
+  ?.removeEventListener(
+    "click",
+    downloadRecipe
+  );
+
+document
+  .getElementById("download-pdf")
+  ?.addEventListener(
+    "click",
+    downloadRecipe
+  );
+  
+  document
+  .getElementById("translate-bn")
+  ?.removeEventListener(
+    "click",
+    toggleBanglaRecipe
+  );
+
+document
+  .getElementById("translate-bn")
+  ?.addEventListener(
+    "click",
+    toggleBanglaRecipe
+  );
+}
+
+initializeRecipePage();
 
 document.addEventListener(
   "astro:after-swap",
-  createIngredientChecklist
+  initializeRecipePage
 );
+
+function downloadRecipe() {
+
+  window.downloadRecipePdf();
+}
+
+function toBanglaNumber(num) {
+  return String(num).replace(
+    /\d/g,
+    d => "০১২৩৪৫৬৭৮৯"[Number(d)]
+  );
+}
+
+let isBangla = false;
+
+function toggleBanglaRecipe() {
+
+  const data =
+    document.getElementById(
+      "recipe-bn-data"
+    );
+
+  if (!data) return;
+
+  const titleBn =
+    data.dataset.title;
+
+  const ingredientsBn =
+    JSON.parse(
+      data.dataset.ingredients || "[]"
+    );
+
+  const methodBn =
+    JSON.parse(
+      data.dataset.method || "[]"
+    );
+
+  const title =
+    document.querySelector("h1");
+
+  if (!title) return;
+
+  if (!isBangla) {
+
+    if (titleBn) {
+      const textNode =
+  Array.from(title.childNodes)
+    .find(
+      node => node.nodeType === Node.TEXT_NODE
+    );
+
+if (textNode) {
+  textNode.textContent = titleBn;
+}
+
+title.style.fontFamily =
+  "Noto Serif Bengali";
+ 
+ const bnLabel =
+  title.querySelector("span");
+
+if (bnLabel) {
+  bnLabel.remove();
+}
+    }
+
+    const ingredientItems =
+      document.querySelectorAll(
+        "#ingredients + ul li"
+      );
+
+    ingredientItems.forEach(
+      (item, index) => {
+        if (ingredientsBn[index]) {
+
+          const checkbox =
+            item.querySelector(
+              'input[type="checkbox"]'
+            );
+
+          item.childNodes.forEach(node => {
+            if (
+              node.nodeType === 3
+            ) {
+              node.remove();
+            }
+          });
+
+          item.append(
+            document.createTextNode(
+              ingredientsBn[index]
+            )
+          );
+		  
+		  item.style.fontFamily =
+  "Noto Serif Bengali";
+
+          if (checkbox) {
+            item.prepend(
+              checkbox
+            );
+          }
+        }
+      }
+    );
+
+    const methodItems =
+      document.querySelectorAll(
+        "#method + ol li"
+      );
+const methodList =
+  document.querySelector(
+    "#method + ol"
+  );
+
+if (methodList) {
+  methodList.style.listStyle = "none";
+  methodList.style.paddingLeft = "1rem";
+}
+    methodItems.forEach(
+  (item, index) => {
+
+    if (methodBn[index]) {
+
+      item.style.fontFamily =
+        "Noto Serif Bengali";
+
+      item.innerHTML = `
+        <span style="color:#F24E07;font-weight:700;">
+          ${toBanglaNumber(index + 1)}.
+        </span>
+        ${methodBn[index]}
+      `;
+    }
+  }
+);
+
+    document.getElementById(
+      "translate-bn"
+    ).textContent = "English";
+
+    isBangla = true;
+
+  } else {
+
+    location.reload();
+  }
+}
 </script>
