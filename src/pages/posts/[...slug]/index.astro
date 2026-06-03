@@ -325,7 +325,9 @@ const ogImage = ogImageUrl
   <Footer />
 </PostLayout>
 
-<script type="module" src="/src/scripts/recipePdf.ts"></script>
+<script>
+  import("/src/scripts/recipePdf.ts");
+</script>
 
 <script is:inline data-astro-rerun>
   function createProgressBar() {
