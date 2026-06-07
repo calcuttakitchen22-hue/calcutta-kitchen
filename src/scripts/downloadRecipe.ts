@@ -1,18 +1,13 @@
 import { downloadRecipePdf } from "./recipePdf";
-
-console.log("DOWNLOAD RECIPE TS EXECUTED");
+console.log("xxxx");
 declare global {
   interface Window {
-    downloadRecipe: () => Promise<void>;
+    generateRecipePdf: () => Promise<void>;
   }
 }
 
 if (typeof window !== "undefined") {
-  window.downloadRecipe = async () => {
-    await downloadRecipePdf();
-  };
-
-  console.log("DOWNLOAD CLIENT LOADED");
+  window.generateRecipePdf = downloadRecipePdf;
 }
 
 export {};
