@@ -327,6 +327,7 @@ const ogImage = ogImageUrl
 </PostLayout>
 
 <script is:inline data-astro-rerun>
+console.log("SCRIPT START");
   function createProgressBar() {
     const progressContainer = document.createElement("div");
     progressContainer.className =
@@ -518,6 +519,8 @@ function clearIngredientChecklist() {
 
 function initializeRecipePage() {
 
+  console.log("INIT RUNNING");
+
   createIngredientChecklist();
 
   document
@@ -557,6 +560,7 @@ document
   );
 }
 
+console.log("BEFORE INIT");
 initializeRecipePage();
 
 document.addEventListener(
@@ -565,8 +569,6 @@ document.addEventListener(
 );
 
 async function downloadRecipe() {
-  alert("TEMP TEST");
-}
 
   await mod.downloadRecipePdf();
 }

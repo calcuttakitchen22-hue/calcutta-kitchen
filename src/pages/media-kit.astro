@@ -1,0 +1,414 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const services = [
+  {
+    title: "Sponsored Reels",
+    desc: "Authentic product integration within engaging recipe content."
+  },
+  {
+    title: "YouTube Integrations",
+    desc: "Brand placements inside long-form cooking videos."
+  },
+  {
+    title: "Food Photography",
+    desc: "Professional food images for websites, social media and ads."
+  },
+  {
+    title: "Recipe Development",
+    desc: "Custom recipes designed around your products."
+  },
+  {
+    title: "UGC Content",
+    desc: "Platform-native videos created for your own channels."
+  },
+  {
+    title: "Brand Campaigns",
+    desc: "End-to-end creative campaigns from concept to publishing."
+  }
+];
+---
+
+<Layout title="Work With Us | Calcutta Kitchen">
+
+  <section class="hero">
+    <div class="hero-content">
+      <span class="badge">Brand Partnerships</span>
+
+      <h1>
+        Authentic Bengali Food Stories
+        That Audiences Actually Watch
+      </h1>
+
+      <p>
+        Calcutta Kitchen creates recipe videos, food photography,
+        and creator-led campaigns that help food brands build
+        trust and connect with highly engaged audiences.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#contact" class="btn-primary">
+          Work With Us
+        </a>
+
+        <a href="#portfolio" class="btn-secondary">
+          View Portfolio
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat">
+      <h2>XX+</h2>
+      <p>Videos Created</p>
+    </div>
+
+    <div class="stat">
+      <h2>XXK+</h2>
+      <p>Total Views</p>
+    </div>
+
+    <div class="stat">
+      <h2>XX+</h2>
+      <p>Recipes Published</p>
+    </div>
+
+    <div class="stat">
+      <h2>XX+</h2>
+      <p>Brand Collaborations</p>
+    </div>
+  </section>
+
+  <section class="about">
+    <h2>About Calcutta Kitchen</h2>
+
+    <p>
+      Calcutta Kitchen is dedicated to preserving and sharing
+      Bengali food culture through modern digital storytelling.
+      Every recipe is researched, tested, filmed and presented
+      with a focus on authenticity and audience engagement.
+    </p>
+
+    <p>
+      We partner with food brands, restaurants, ingredient
+      manufacturers and kitchenware companies to create content
+      that audiences genuinely enjoy watching.
+    </p>
+  </section>
+
+  <section class="why-us">
+    <h2>Why Brands Choose Us</h2>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Authenticity</h3>
+        <p>
+          Traditional recipes and genuine food storytelling that
+          audiences trust.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>High Retention Content</h3>
+        <p>
+          Videos optimized for Instagram Reels, YouTube Shorts
+          and long-form viewing.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Professional Production</h3>
+        <p>
+          High quality filming, editing, food styling and photography.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Niche Food Audience</h3>
+        <p>
+          Reach highly engaged viewers interested in recipes,
+          cooking and food culture.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="services">
+    <h2>Services</h2>
+
+    <div class="grid">
+      {
+        services.map(service => (
+          <div class="card">
+            <h3>{service.title}</h3>
+            <p>{service.desc}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section id="portfolio" class="portfolio">
+    <h2>Featured Work</h2>
+
+    <div class="portfolio-grid">
+
+      <div class="project">
+        <img src="/images/aloo-posto.jpg" alt="Aloo Posto" />
+        <h3>Aloo Posto</h3>
+        <p>XXK Views</p>
+      </div>
+
+      <div class="project">
+        <img src="/images/egg-roll.jpg" alt="Egg Roll" />
+        <h3>Kolkata Egg Roll</h3>
+        <p>XXK Views</p>
+      </div>
+
+      <div class="project">
+        <img src="/images/chicken-kosha.jpg" alt="Chicken Kosha" />
+        <h3>Chicken Kosha</h3>
+        <p>XXK Views</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="results">
+    <h2>Performance Metrics</h2>
+
+    <div class="analytics-grid">
+      <img src="/analytics/youtube-watchtime.png" alt="Watch Time" />
+      <img src="/analytics/youtube-reach.png" alt="Reach" />
+      <img src="/analytics/instagram-engagement.png" alt="Engagement" />
+    </div>
+  </section>
+
+  <section class="brands">
+    <h2>Brands We've Worked With</h2>
+
+    <div class="brand-grid">
+      <img src="/brands/brand1.png" alt="Brand" />
+      <img src="/brands/brand2.png" alt="Brand" />
+      <img src="/brands/brand3.png" alt="Brand" />
+      <img src="/brands/brand4.png" alt="Brand" />
+    </div>
+  </section>
+
+  <section class="pricing">
+    <h2>Starting Investment</h2>
+
+    <table>
+      <tr>
+        <th>Service</th>
+        <th>Starting From</th>
+      </tr>
+
+      <tr>
+        <td>Sponsored Reel</td>
+        <td>₹5,000</td>
+      </tr>
+
+      <tr>
+        <td>Dedicated Reel</td>
+        <td>₹8,000</td>
+      </tr>
+
+      <tr>
+        <td>YouTube Integration</td>
+        <td>₹7,500</td>
+      </tr>
+
+      <tr>
+        <td>UGC Content</td>
+        <td>₹4,000</td>
+      </tr>
+    </table>
+
+    <p class="pricing-note">
+      Final pricing depends on campaign requirements,
+      usage rights, deliverables and timelines.
+    </p>
+  </section>
+
+  <section class="process">
+    <h2>How We Work</h2>
+
+    <div class="grid">
+      <div class="card">1. Discovery Call</div>
+      <div class="card">2. Campaign Planning</div>
+      <div class="card">3. Content Production</div>
+      <div class="card">4. Review</div>
+      <div class="card">5. Publishing</div>
+      <div class="card">6. Reporting</div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Let's Create Something Memorable</h2>
+
+    <p>
+      Looking for authentic food content, recipe development,
+      or creator-led campaigns?
+    </p>
+
+    <a
+      href="mailto:calcuttakitchen22@gmail.com"
+      class="btn-primary"
+    >
+      Contact Us
+    </a>
+
+    <div class="contact-details">
+      <p>calcuttakitchen22@gmail.com</p>
+      <p>calcuttakitchen.in</p>
+      <p>West Bengal, India</p>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+:root {
+  --orange: #F24E07;
+  --maroon: #700D1D;
+  --cream: #F8F5E6;
+}
+
+.hero {
+  position: relative;
+  padding: 7rem 1.5rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  right: -200px;
+  top: -120px;
+
+  background-image: url("/assets/images/Hori logo o-w.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  opacity: 0.04;
+}
+
+.hero-content {
+  max-width: 900px;
+  margin: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.badge {
+  color: var(--orange);
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 4rem;
+  line-height: 1.1;
+}
+
+.hero-buttons {
+  margin-top: 2rem;
+}
+
+.btn-primary {
+  background: var(--orange);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  text-decoration: none;
+  margin-right: 1rem;
+}
+
+.btn-secondary {
+  border: 1px solid var(--orange);
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  text-decoration: none;
+}
+
+section {
+  max-width: 1200px;
+  margin: auto;
+  padding: 5rem 1.5rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+}
+
+.card {
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,.08);
+  transition: .3s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  text-align: center;
+}
+
+.portfolio-grid,
+.brand-grid,
+.analytics-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+}
+
+.project img,
+.brand-grid img,
+.analytics-grid img {
+  width: 100%;
+  border-radius: 16px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: var(--orange);
+  color: white;
+}
+
+th,
+td {
+  padding: 1rem;
+  border: 1px solid #ddd;
+}
+
+.contact {
+  text-align: center;
+}
+
+@media (max-width:768px) {
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2,1fr);
+    gap: 2rem;
+  }
+
+}
+</style>
