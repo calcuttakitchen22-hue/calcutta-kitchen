@@ -15,7 +15,6 @@ import BackToTopButton from "./_components/BackToTopButton.astro";
 import AdjacentPostNav from "./_components/AdjacentPostNav.astro";
 import config from "@/config";
 import { products } from "@/data/products";
-import "@/scripts/downloadRecipe";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
@@ -535,16 +534,16 @@ document
   .getElementById("download-pdf")
   ?.removeEventListener(
     "click",
-    downloadRecipe
+    handleDownloadRecipe
   );
 
 document
   .getElementById("download-pdf")
   ?.addEventListener(
     "click",
-    downloadRecipe
+    handleDownloadRecipe
   );
-  
+
   document
   .getElementById("translate-bn")
   ?.removeEventListener(
@@ -568,9 +567,14 @@ document.addEventListener(
   initializeRecipePage
 );
 
-async function downloadRecipe() {
+async function handleDownloadRecipe() {
+
+  const mod = await import(
+    "/src/scripts/recipePdf.ts"
+  );
 
   await mod.downloadRecipePdf();
+
 }
 
 function toBanglaNumber(num) {
