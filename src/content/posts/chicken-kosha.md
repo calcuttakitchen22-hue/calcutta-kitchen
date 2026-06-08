@@ -54,7 +54,7 @@ affiliate_products:
   - atomberg-mixer-grinder
   - heavy-kadai-prabha
   - measuring-cups-inkulture
-youtube_url: https://youtu.be/JMMQqMnwD1Y?si=q9p836z1WFiW5CQ1 
+youtube_url: https://youtu.be/MED566cdMhM 
 ---
 
 ## A Bengali Comfort Classic
