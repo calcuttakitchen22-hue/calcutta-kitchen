@@ -12,6 +12,7 @@ import LinkButton from "@/components/LinkButton.astro";
 import { getSortedPosts } from "@/utils/getSortedPosts";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
+import { Icon } from "astro-icon/components";
 
 const { socials, posts: postsConfig } = config;
 
@@ -49,18 +50,21 @@ const homePath = getRelativeLocaleUrl(locale, "");
 
 		<div class="flex flex-wrap gap-4">
 		  <a
-			href="https://www.youtube.com/@calcutta.kitchen"
-			target="_blank"
-			class="rounded-lg bg-accent px-6 py-3 font-medium text-white transition hover:opacity-90"
-		  >
-			Watch on YouTube
-		  </a>
+        href="https://www.youtube.com/@calcutta.kitchen"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 rounded-lg bg-red-600 px-6 py-3 font-medium text-white transition hover:bg-red-700"
+      >
+        <Icon name="mdi:youtube" class="h-5 w-5" />
+        Watch on YouTube
+      </a>
 
 		  <a
 			href="https://www.instagram.com/calcuttakitchen.in/"
 			target="_blank"
-			class="border-border rounded-lg border px-6 py-3 font-medium transition hover:bg-accent hover:text-white"
+			class="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 px-6 py-3 font-medium text-white transition hover:opacity-90"
 		  >
+      <Icon name="mdi:instagram" class="h-5 w-5"/>
 			Follow on Instagram
 		  </a>
 		</div>
