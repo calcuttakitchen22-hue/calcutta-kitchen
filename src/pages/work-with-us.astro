@@ -302,8 +302,6 @@ section {
   max-width: 1200px;
   margin: auto;
   padding: 3rem 1.5rem;
-  padding-top: 0;
-  margin-top: -1rem;
 }
 
 .hero {
@@ -393,52 +391,6 @@ section {
   height: 50px;
   max-width: 140px;
   object-fit: contain;
-}
-
-@media (max-width: 900px) {
-
-  .creator-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: .75rem;
-  }
-
-  .service-card {
-    min-width: auto;
-    width: 100%;
-    flex: unset;
-    padding: 1rem;
-  }
-
-  .brand-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: .75rem;
-  }
-
-  .brand-card {
-    width: 100%;
-    min-width: auto;
-    height: 80px;
-  }
-
-  .brand-card img {
-    max-width: 90px;
-    height: auto;
-  }
-
-  .hero h1 {
-    font-size: 2rem;
-  }
-
 }
 
 .hero {
@@ -531,9 +483,8 @@ section {
 }
 
 .creator-image {
-  max-width: 320px;
-  margin: 0 auto;
-  display: block;
+  width: 100%;
+  border-radius: 20px;
 }
 
 .service-card {
@@ -566,5 +517,53 @@ section {
 
 .contact-details p {
   margin: .5rem 0;
+}
+
+@media (max-width: 900px) {
+
+  .creator-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: .75rem;
+  }
+
+  .service-card {
+    min-width: auto;
+    width: 100%;
+    flex: unset;
+    padding: 1rem;
+  }
+
+  .brand-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+    gap: .75rem;
+  }
+  .brand-card {
+    width: 100%;
+    height: 80px;
+    min-width: 0;
+  }
+
+  .brand-card img {
+    max-width: 100%;
+    max-height: 40px;
+    width: auto;
+    height: auto;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
 }
 </style>
