@@ -397,9 +397,46 @@ section {
 
 @media (max-width: 900px) {
 
-  .creator-grid,
-  .info-section {
+  .creator-grid {
     grid-template-columns: 1fr;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: .75rem;
+  }
+
+  .service-card {
+    min-width: auto;
+    width: 100%;
+    flex: unset;
+    padding: 1rem;
+  }
+
+  .brand-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .75rem;
+  }
+
+  .brand-card {
+    width: 100%;
+    min-width: auto;
+    height: 80px;
+  }
+
+  .brand-card img {
+    max-width: 90px;
+    height: auto;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
   }
 
 }
@@ -494,8 +531,9 @@ section {
 }
 
 .creator-image {
-  width: 100%;
-  border-radius: 20px;
+  max-width: 320px;
+  margin: 0 auto;
+  display: block;
 }
 
 .service-card {
