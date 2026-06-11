@@ -3,9 +3,9 @@ import type { UIStrings } from "../types";
 export default {
   nav: {
     home: "Home",
-    posts: "Posts",
+    posts: "Recipes",
     tags: "Tags",
-    about: "About",
+    about: "Work With Us",
     archives: "Archives",
     search: "Search",
   },
@@ -34,7 +34,7 @@ export default {
     allPosts: "All Posts",
   },
   footer: {
-    copyright: "Copyright",
+    copyright: "Calcutta Kitchen",
     allRightsReserved: "All rights reserved.",
   },
   pages: {
@@ -44,7 +44,7 @@ export default {
     tagsTitle: "Tags",
     tagsDesc: "All the tags used in posts.",
 
-    postsTitle: "Posts",
+    postsTitle: "Recipes",
     postsDesc: "All the articles I've posted.",
 
     archivesTitle: "Archives",
