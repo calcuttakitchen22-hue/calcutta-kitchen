@@ -1,0 +1,532 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const services = [
+  {
+    title: "Sponsored Reels",
+    desc: "Authentic brand integrations within recipe-driven content."
+  },
+  {
+    title: "Dedicated Recipe Videos",
+    desc: "Custom recipes developed around your product."
+  },
+  {
+    title: "YouTube Integrations",
+    desc: "Native placements within long-form cooking content."
+  },
+  {
+    title: "UGC Content",
+    desc: "Creator-style content for brand-owned channels."
+  },
+  {
+    title: "Recipe Development",
+    desc: "Original recipes designed around campaigns and product launches."
+  },
+  {
+    title: "Food Photography",
+    desc: "Commercial-quality food photography for social and digital."
+  },
+  {
+    title: "Product Reviews",
+    desc: "Creator-led product demonstrations and reviews."
+  }
+];
+
+const brands = [
+  {
+    name: "Doctor's Choice",
+    logo: "doctors-choice.jfif",
+    link: "https://www.instagram.com/reel/DY4cEKMIjKt/"
+  },
+  {
+    name: "Atomberg",
+    logo: "atomberg.png",
+    link: "https://www.instagram.com/reel/DXWpWPWDwtE/"
+  },
+  {
+    name: "Bagicha",
+    logo: "bagicha.jfif",
+    link: "https://www.instagram.com/reel/DXHK5Brj9T7/"
+  },
+  {
+    name: "AGARO",
+    logo: "agaro.webp",
+    link: "https://www.instagram.com/reel/DWoa6sECLo7/"
+  },
+  {
+    name: "Everest",
+    logo: "everest.png",
+    link: "https://www.instagram.com/reel/DWOoxl7iB0d/"
+  },
+  {
+    name: "Country Delight",
+    logo: "country-delight.png",
+    link: "https://www.instagram.com/reel/DVLltHTE60D/"
+  },
+  {
+    name: "Blacksmith",
+    logo: "blacksmith.png",
+    link: "https://www.instagram.com/reel/DUae2YiiBVF/"
+  },
+  {
+    name: "Licious",
+    logo: "licious.png",
+    link: "https://www.instagram.com/reel/DSc3HiZklgp/"
+  },
+  {
+    name: "Jolkhabar",
+    logo: "jolkhabar.jpg",
+    link: "https://www.instagram.com/reel/DSKtbnxCH_Z/"
+  }
+];
+---
+<Layout title="Work With Us | Calcutta Kitchen">
+
+  <section class="hero">
+
+  <div class="hero-content">
+
+    <h1>
+      Traditional Bengali Food,
+      Global Cuisine & Fusion Stories
+      That Audiences Remember
+    </h1>
+
+    <p>
+      Since 2022, Calcutta Kitchen has built a community of nearly
+      <strong>400,000</strong> food lovers through authentic storytelling,
+      engaging recipes, and creator-led brand collaborations.
+    </p>
+
+    <div class="hero-buttons">
+
+      <a href="#contact" class="btn-primary">
+        Work With Calcutta Kitchen
+      </a>
+
+      <a href="#brands" class="btn-secondary">
+        View Brand Campaigns
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="creator">
+
+  <div class="creator-grid">
+
+    <img
+      src="/media-kit/creator-pic.JPG"
+      alt="Calcutta Kitchen"
+      class="creator-image"
+    />
+
+    <div>
+
+      <h2>About Calcutta Kitchen</h2>
+
+      <p>
+        Calcutta Kitchen was founded in 2022 with a simple mission:
+        make cooking easy, approachable and exciting for a new generation.
+      </p>
+
+      <p>
+        Through a distinctive narration style and food-first storytelling,
+        Calcutta Kitchen has become one of Bengal's recognizable food creator brands.
+      </p>
+
+      <p>
+        Today we create content spanning traditional Bengali recipes,
+        global cuisine and innovative fusion dishes while helping brands
+        connect authentically with highly engaged food audiences.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="stats">
+
+  <div class="stat">
+    <h2>395K+</h2>
+    <p>Combined Audience</p>
+  </div>
+
+  <div class="stat">
+    <h2>95K+</h2>
+    <p>Instagram</p>
+  </div>
+
+  <div class="stat">
+    <h2>50K+</h2>
+    <p>YouTube</p>
+  </div>
+
+  <div class="stat">
+    <h2>250K+</h2>
+    <p>Facebook</p>
+  </div>
+
+  <div class="stat">
+    <h2>20+</h2>
+    <p>Brand Collaborations</p>
+  </div>
+
+</section>
+<section id="brands">
+
+  <h2>Brands We've Worked With</h2>
+
+  <div class="brand-grid">
+
+    {
+      brands.map((brand) => (
+
+        <a
+          href={brand.link}
+          target="_blank"
+          class="brand-card"
+        >
+          <img
+            src={`/media-kit/${brand.logo}`}
+            alt={brand.name}
+          />
+        </a>
+
+      ))
+    }
+
+  </div>
+
+</section>
+<section class="info-section">
+
+  <div>
+
+    <h2>Services</h2>
+
+    <div class="grid">
+      {
+        services.map(service => (
+          <div class="service-card">
+            <h3>{service.title}</h3>
+          </div>
+        ))
+      }
+    </div>
+
+  </div>
+
+</section>
+<section id="contact" class="contact">
+
+  <h2>Let's Create Something Delicious Together</h2>
+
+  <p>
+    Looking for recipe content, product integrations,
+    food photography or creator-led campaigns?
+  </p>
+
+  <div class="hero-buttons">
+
+    <a
+      href="https://wa.me/917063640680"
+      target="_blank"
+      class="btn-primary"
+    >
+      Chat On WhatsApp
+    </a>
+
+    <a
+      href="mailto:calcuttakitchen22@gmail.com"
+      class="btn-secondary"
+    >
+      Email Us
+    </a>
+
+  </div>
+
+  <div class="contact-details">
+
+    <p><strong>Email:</strong> calcuttakitchen22@gmail.com</p>
+
+    <p><strong>Phone:</strong> +91 7063640680</p>
+
+    <p><strong>Website:</strong> calcuttakitchen.in</p>
+
+    <p><strong>Instagram:</strong> @calcuttakitchen.in</p>
+
+  </div>
+
+</section>
+</Layout>
+
+<style>
+
+:root {
+  --orange: #F24E07;
+  --maroon: #700D1D;
+  --cream: #F8F5E6;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("/media-kit/watermark.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 900px;
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: -1;
+}
+.hero {
+  padding-top: 5rem;
+  padding-bottom: 1rem;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  line-height: 1.2;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+section {
+  max-width: 1200px;
+  margin: auto;
+  padding: 3rem 1.5rem;
+  padding-top: 0;
+  margin-top: -1rem;
+}
+
+.hero {
+  padding-bottom: 1rem;
+}
+
+.creator {
+  padding-top: 2rem;
+  padding-bottom: 0;
+}
+.stats {
+  margin-top: 0;
+  padding-top: 1.5rem;
+  padding-bottom: 0;
+}
+
+.creator-grid {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+  grid-template-columns: 400px 1fr;
+}
+
+#brands {
+  padding-top: 1.5rem;
+  margin-top: 0;
+}
+.creator h2,
+.info-section h2,
+#brands h2,
+#contact h2 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--maroon);
+  margin-bottom: 1.5rem;
+}
+
+.info-section {
+  display: block;
+  padding-top: 0;
+}
+
+.stats {
+  padding-bottom: 0;
+}
+
+.info-section h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+.brand-card {
+  width: 180px;
+  height: 90px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 16px;
+  background: white;
+  border: 1px solid rgba(0,0,0,.08);
+  transition: .25s ease;
+}
+
+.brand-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.brand-grid::-webkit-scrollbar {
+  height: 6px;
+}
+
+.brand-grid::-webkit-scrollbar-thumb {
+  background: var(--orange);
+  border-radius: 20px;
+}
+.brand-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0,0,0,.08);
+}
+
+.brand-card img {
+  width: auto;
+  height: 50px;
+  max-width: 140px;
+  object-fit: contain;
+}
+
+@media (max-width: 900px) {
+
+  .creator-grid,
+  .info-section {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+.hero {
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hero p {
+  max-width: 700px;
+  margin: 1rem auto;
+  font-size: 1.1rem;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.btn-primary {
+  background: var(--orange);
+  color: white;
+  text-decoration: none;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.btn-secondary {
+  border: 1px solid var(--orange);
+  color: var(--orange);
+  text-decoration: none;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.stats {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.stat {
+  text-align: center;
+  padding: 2rem 1rem;
+  border-radius: 20px;
+  background: rgba(248,245,230,.85);
+}
+
+.stat h2 {
+  color: var(--orange);
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: .5rem;
+  line-height: 1;
+}
+
+.stat p {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.grid::-webkit-scrollbar {
+  height: 6px;
+}
+
+.grid::-webkit-scrollbar-thumb {
+  background: var(--orange);
+  border-radius: 20px;
+}
+
+.card {
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,.08);
+  background: white;
+}
+
+.creator-image {
+  width: 100%;
+  border-radius: 20px;
+}
+
+.service-card {
+  background: var(--maroon);
+  color: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: .25s ease;
+  min-width: 220px;
+  flex: 1 1 220px;
+}
+
+.service-card:hover {
+  background: var(--orange);
+  transform: translateY(-4px);
+}
+
+.service-card h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+.contact {
+  text-align: center;
+}
+
+.contact-details {
+  margin-top: 2rem;
+}
+
+.contact-details p {
+  margin: .5rem 0;
+}
+</style>
