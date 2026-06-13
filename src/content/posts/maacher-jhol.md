@@ -40,7 +40,7 @@ tags:
   - Bengali Lunch
   - Bengali Home Cooking
 description: Traditional Bengali patla macher jhol made with Rui fish, potatoes, green chillies, and a light spiced broth. Learn how to make the comforting everyday Bengali fish curry that's perfect with steamed rice and captures the essence of a Bengali lunch.
-featuredImage: "../../assets/recipes/maacher-jhol.jpg"
+featuredImage: "../../assets/recipes/maacher-jhol.JPG"
 affiliate_products:
   - heavy-kadai-prabha
   - metal-khunti
