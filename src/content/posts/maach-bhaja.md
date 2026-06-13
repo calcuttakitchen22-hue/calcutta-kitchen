@@ -35,10 +35,10 @@ tags:
   - Bengali Cooking
   - Fish Frying Tips
 description: Traditional Bengali maach bhaja made with Rui or Katla fish, mustard oil, and a few simple techniques that ensure the fish doesn't stick, break, or splatter. Learn the nuances of heat control, moisture management, and proper frying for perfectly golden fish every time.
-featuredImage: "../../assets/recipes/aloo-posto.jpeg"
+featuredImage: "../../assets/recipes/maach-vaja.jpeg"
 affiliate_products:
   - heavy-kadai-prabha|metal-khunti|mustard-oil
-youtube_url: ""
+youtube_url: "https://youtu.be/JcpFrY5Rj1Y"
 instagram_url: 
 ---
 
