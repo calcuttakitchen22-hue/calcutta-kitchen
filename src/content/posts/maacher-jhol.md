@@ -45,7 +45,7 @@ affiliate_products:
   - heavy-kadai-prabha
   - metal-khunti
   - mustard-oil
-youtube_url: ""
+youtube_url: "https://youtu.be/SK3j0DqI780"
 instagram_url: 
 ---
 
