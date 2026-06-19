@@ -13,7 +13,7 @@ tags:
   - Biryani
   - Non-Vegetarian
 description: Authentic Kolkata Chicken Biryani with aromatic basmati rice, chicken yakhni, potatoes, biryani masala, saffron milk and traditional dum cooking.
-featuredImage: "../../assets/recipes/kolkata-chicken-biryani.jpg"
+featuredImage: "../../assets/recipes/kolkata-chicken-biryani.JPG"
 affiliate_products:
   - atomberg-mixer-grinder
   - triply-biryani-handi
