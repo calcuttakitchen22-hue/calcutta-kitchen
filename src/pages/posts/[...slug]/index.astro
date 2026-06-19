@@ -59,6 +59,18 @@ type Props = {
 };
 
 const { post, prevPost, nextPost } = Astro.props;
+
+console.log(
+  "RAW ING",
+  post.data.ingredients_bn_raw
+);
+
+console.log(
+  "RAW METHOD",
+  post.data.method_bn_raw
+);
+
+
 const locale = Astro.currentLocale ?? config.site.lang;
 
 const {
@@ -76,6 +88,8 @@ const {
   youtube_url,
   ingredients_bn,
   method_bn,
+  ingredients_bn_raw,
+  method_bn_raw,
 } = post.data;
 
 const videoId = youtube_url
@@ -185,11 +199,11 @@ const ogImage = ogImageUrl
       class="mb-8 flex flex-wrap justify-center gap-3"
     >
 	
-	<div
+<div
   id="recipe-bn-data"
   data-title={title_bn || ""}
-  data-ingredients={JSON.stringify(ingredients_bn || [])}
-  data-method={JSON.stringify(method_bn || [])}
+  data-ingredients={JSON.stringify(ingredients_bn_raw || [])}
+  data-method={JSON.stringify(method_bn_raw || [])}
   hidden
 ></div>
 
@@ -446,50 +460,74 @@ const headings = Array.from(
 
   while (current && current.tagName !== "H2") {
     if (current.tagName === "UL") {
-      const items = Array.from(current.querySelectorAll("li"));
+
+      const items = Array.from(
+        current.querySelectorAll("li")
+      );
 
       items.forEach((item, index) => {
-        if (item.querySelector('input[type="checkbox"]')) {
+
+        if (
+          item.querySelector(
+            'input[type="checkbox"]'
+          )
+        ) {
           return;
         }
 
-        const checkbox = document.createElement("input");
+        const checkbox =
+          document.createElement("input");
+
         checkbox.type = "checkbox";
-        checkbox.style.accentColor = "#F24E07";
-        checkbox.style.marginRight = "10px";
+        checkbox.style.accentColor =
+          "#F24E07";
+        checkbox.style.marginRight =
+          "10px";
 
-        const recipeSlug = window.location.pathname;
-        const storageKey = `${recipeSlug}-ingredient-${index}`;
+        const recipeSlug =
+          window.location.pathname;
 
-        const saved = localStorage.getItem(storageKey);
+        const storageKey =
+          `${recipeSlug}-${item.textContent}`;
+
+        const saved =
+          localStorage.getItem(storageKey);
 
         if (saved === "true") {
           checkbox.checked = true;
-          item.style.textDecoration = "line-through";
+          item.style.textDecoration =
+            "line-through";
           item.style.opacity = "0.7";
           item.style.color = "#F24E07";
         }
 
-        checkbox.addEventListener("change", () => {
-          localStorage.setItem(storageKey, checkbox.checked);
+        checkbox.addEventListener(
+          "change",
+          () => {
+            localStorage.setItem(
+              storageKey,
+              checkbox.checked
+            );
 
-          item.style.textDecoration = checkbox.checked
-            ? "line-through"
-            : "none";
+            item.style.textDecoration =
+              checkbox.checked
+                ? "line-through"
+                : "none";
 
-          item.style.opacity = checkbox.checked
-            ? "0.7"
-            : "1";
+            item.style.opacity =
+              checkbox.checked
+                ? "0.7"
+                : "1";
 
-          item.style.color = checkbox.checked
-            ? "#F24E07"
-            : "";
-        });
+            item.style.color =
+              checkbox.checked
+                ? "#F24E07"
+                : "";
+          }
+        );
 
         item.prepend(checkbox);
       });
-
-      break;
     }
 
     current = current.nextElementSibling;
@@ -639,78 +677,208 @@ if (bnLabel) {
   bnLabel.remove();
 }
     }
+console.log("ingredientsBn length:", ingredientsBn.length);
+console.log("first 10:", ingredientsBn.slice(0, 10));
 
-    const ingredientItems =
-      document.querySelectorAll(
-        "#ingredients + ul li"
-      );
+    const ingredientItems = [];
 
-    ingredientItems.forEach(
-      (item, index) => {
-        if (ingredientsBn[index]) {
+    let current =
+      document.querySelector("#ingredients")
+        ?.nextElementSibling;
 
-          const checkbox =
-            item.querySelector(
-              'input[type="checkbox"]'
-            );
+    while (
+      current &&
+      current.tagName !== "H2"
+    ) {
 
-          item.childNodes.forEach(node => {
-            if (
-              node.nodeType === 3
-            ) {
-              node.remove();
-            }
-          });
+      if (current.tagName === "UL") {
 
-          item.append(
-            document.createTextNode(
-              ingredientsBn[index]
-            )
-          );
-		  
-		  item.style.fontFamily =
-  "Noto Serif Bengali";
+        ingredientItems.push(
+          ...current.querySelectorAll("li")
+        );
 
-          if (checkbox) {
-            item.prepend(
-              checkbox
-            );
-          }
-        }
       }
+
+      current =
+        current.nextElementSibling;
+    }
+console.log("ingredientItems length:", ingredientItems.length);
+let bnIndex = 0;
+
+ingredientItems.forEach(item => {
+
+  while (
+    ingredientsBn[bnIndex] &&
+    ingredientsBn[bnIndex].startsWith("HEADING:")
+  ) {
+    bnIndex++;
+  }
+  if (!ingredientsBn[bnIndex]) return;
+
+  const checkbox =
+    item.querySelector(
+      'input[type="checkbox"]'
     );
 
-    const methodItems =
-      document.querySelectorAll(
-        "#method + ol li"
-      );
-const methodList =
-  document.querySelector(
-    "#method + ol"
+  item.childNodes.forEach(node => {
+    if (
+      node.nodeType === 3
+    ) {
+      node.remove();
+    }
+  });
+
+  item.append(
+    document.createTextNode(
+      ingredientsBn[bnIndex]
+    )
   );
 
-if (methodList) {
-  methodList.style.listStyle = "none";
-  methodList.style.paddingLeft = "1rem";
-}
-    methodItems.forEach(
-  (item, index) => {
+  item.style.fontFamily =
+    "Noto Serif Bengali";
 
-    if (methodBn[index]) {
-
-      item.style.fontFamily =
-        "Noto Serif Bengali";
-
-      item.innerHTML = `
-        <span style="color:#F24E07;font-weight:700;">
-          ${toBanglaNumber(index + 1)}.
-        </span>
-        ${methodBn[index]}
-      `;
-    }
+  if (checkbox) {
+    item.prepend(checkbox);
   }
+
+  bnIndex++;
+});
+
+const ingredientHeadings = [];
+
+let headingCurrent =
+  document.querySelector("#ingredients")
+    ?.nextElementSibling;
+
+while (
+  headingCurrent &&
+  headingCurrent.tagName !== "H2"
+) {
+
+  if (
+    headingCurrent.tagName === "H3"
+  ) {
+    ingredientHeadings.push(
+      headingCurrent
+    );
+  }
+
+  headingCurrent =
+    headingCurrent.nextElementSibling;
+}
+
+let headingIndex = 0;
+
+ingredientHeadings.forEach(heading => {
+
+while (
+  ingredientsBn[headingIndex] &&
+  !ingredientsBn[headingIndex]
+    .startsWith("HEADING:")
+) {
+  headingIndex++;
+}
+
+if (
+  ingredientsBn[headingIndex]
+) {
+
+  heading.textContent =
+    ingredientsBn[headingIndex]
+      .replace("HEADING:", "");
+
+  heading.style.fontFamily =
+    "Noto Serif Bengali";
+
+  headingIndex++;
+}
+});
+
+const methodItems = Array.from(
+  document.querySelectorAll("#article ol li")
 );
 
+console.log(
+  "methodItems length:",
+  methodItems.length
+);
+
+document
+  .querySelectorAll("#article ol")
+  .forEach(list => {
+    list.style.listStyle = "none";
+    list.style.paddingLeft = "1rem";
+  });
+
+let methodIndex = 0;
+let displayNumber = 1;
+
+methodItems.forEach(item => {
+
+  while (
+    methodBn[methodIndex] &&
+    methodBn[methodIndex].startsWith("HEADING:")
+  ) {
+    methodIndex++;
+  }
+
+  if (!methodBn[methodIndex]) return;
+
+  item.style.fontFamily =
+    "Noto Serif Bengali";
+
+item.innerHTML =
+  `<span style="color:#F24E07;font-weight:700;">${toBanglaNumber(displayNumber)}.</span> ${methodBn[methodIndex]}`;
+
+  displayNumber++;
+  methodIndex++;
+});
+
+let phaseIndex = 0;
+
+const methodHeadings =
+  Array.from(
+    document.querySelectorAll("#article h2")
+  ).slice(3, 6);
+  
+methodHeadings.forEach(heading => {
+
+  while (
+    methodBn[phaseIndex] &&
+    !methodBn[phaseIndex]
+      .startsWith("HEADING:")
+  ) {
+    phaseIndex++;
+  }
+
+  if (
+    methodBn[phaseIndex]
+  ) {
+
+    heading.childNodes.forEach(node => {
+
+      if (
+        node.nodeType === 3
+      ) {
+
+        node.textContent =
+          methodBn[phaseIndex]
+            .replace(
+              "HEADING:",
+              ""
+            );
+
+      }
+
+    });
+
+    heading.style.fontFamily =
+      "Noto Serif Bengali";
+
+    phaseIndex++;
+  }
+
+});
     document.getElementById(
       "translate-bn"
     ).textContent = "English";
