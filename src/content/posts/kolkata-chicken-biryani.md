@@ -19,7 +19,7 @@ affiliate_products:
   - triply-biryani-handi
   - heavy-kadai-prabha
   - measuring-cups-inkulture
-youtube_url: ""
+youtube_url: "https://youtu.be/H2lJPYYDSl0"
 instagram_url: 
 ---
 
