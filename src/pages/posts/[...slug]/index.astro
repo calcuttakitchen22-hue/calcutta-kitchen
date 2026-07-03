@@ -836,48 +836,43 @@ item.innerHTML =
 
 let phaseIndex = 0;
 
-const methodHeadings =
-  Array.from(
-    document.querySelectorAll("#article h2")
-  ).slice(3, 6);
+const methodHeadings = [];
+
+let currentHeading =
+  document.querySelector("#method")
+    ?.nextElementSibling;
+
+while (
+  currentHeading &&
+  currentHeading.id !== "chef-s-tips"
+) {
+
+  if (currentHeading.tagName === "H2") {
+    methodHeadings.push(currentHeading);
+  }
+
+  currentHeading =
+    currentHeading.nextElementSibling;
+}
   
 methodHeadings.forEach(heading => {
 
   while (
     methodBn[phaseIndex] &&
-    !methodBn[phaseIndex]
-      .startsWith("HEADING:")
+    !methodBn[phaseIndex].startsWith("HEADING:")
   ) {
     phaseIndex++;
   }
 
-  if (
-    methodBn[phaseIndex]
-  ) {
+  if (!methodBn[phaseIndex]) return;
 
-    heading.childNodes.forEach(node => {
+  heading.textContent =
+    methodBn[phaseIndex].replace("HEADING:", "");
 
-      if (
-        node.nodeType === 3
-      ) {
+  heading.style.fontFamily =
+    "Noto Serif Bengali";
 
-        node.textContent =
-          methodBn[phaseIndex]
-            .replace(
-              "HEADING:",
-              ""
-            );
-
-      }
-
-    });
-
-    heading.style.fontFamily =
-      "Noto Serif Bengali";
-
-    phaseIndex++;
-  }
-
+  phaseIndex++;
 });
     document.getElementById(
       "translate-bn"
