@@ -15,7 +15,7 @@ tags:
   - Kolkata
   - Non-Vegetarian
 description: Authentic Kolkata Chicken Roll with flaky laccha paratha, juicy chicken filling and two classic techniques—Tawa Chicken and Kathi Chicken. Learn how the same marinade creates two completely different flavour profiles through different cooking methods.
-featuredImage: "../../assets/recipes/kolkata-chicken-roll.jpg"
+featuredImage: "../../assets/recipes/kolkata-chicken-roll.JPG"
 affiliate_products:
   - heavy-kadai-prabha|metal-skewers|metal-spatula|rolling-pin|mixing-bowl
 youtube_url: "https://youtu.be/yw2g6D5uVVE"
