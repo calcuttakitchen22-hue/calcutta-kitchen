@@ -1,0 +1,119 @@
+---
+title: Kolkata Street Style Ghugni
+title_bn: কলকাতা স্টাইল ঘুগনি
+ingredients_bn_raw: ["HEADING:সেদ্ধ করার জন্য","৩০০ গ্রাম শুকনো সাদা মটর","২টি মাঝারি আলু, মাঝারি টুকরো করে কাটা","১½ চা চামচ নুন","প্রয়োজনমতো জল","HEADING:মশলার জন্য","৩ টেবিল চামচ সরষের তেল","১২–১৫ কোয়া রসুন, থেঁতো করা","২টি মাঝারি পেঁয়াজ, ছোট কিউব করে কাটা","১টি মাঝারি টমেটো, কুচোনো","২–৩টি কাঁচা লঙ্কা, চেরা বা কুচোনো","১ টেবিল চামচ আদা বাটা","HEADING:গুঁড়ো মশলা","১ চা চামচ হলুদ গুঁড়ো","১ চা চামচ লাল লঙ্কার গুঁড়ো","১ চা চামচ কাশ্মীরি লঙ্কার গুঁড়ো","HEADING:সিজনিং","১ চা চামচ চিনি","স্বাদমতো নুন","HEADING:শেষে","১–২ টেবিল চামচ ঘন তেঁতুলের ক্বাথ","১½ চা চামচ ভেজে গুঁড়ো করা জিরে","HEADING:ঐচ্ছিক সাজানোর জন্য","কুচোনো পেঁয়াজ","ধনেপাতা","কাঁচা লঙ্কা","ভুজিয়া","লেবু"]
+method_bn_raw: ["HEADING:পর্ব ১ — প্রস্তুতি","সাদা মটর ভালোভাবে ধুয়ে ১০–১২ ঘণ্টা ভিজিয়ে রাখুন। তারপর জল ঝরিয়ে নিন","আলু মাঝারি টুকরো করে কেটে নিন","রসুন থেঁতো করুন, পেঁয়াজ কিউব করে কাটুন, টমেটো কুচিয়ে নিন এবং কাঁচা লঙ্কা চিরে নিন","HEADING:পর্ব ২ — সেদ্ধ","মটর ও আলু প্রেসার কুকারে নিন","নুন ও পর্যাপ্ত জল দিয়ে সেদ্ধ করুন","মটর নরম এবং আলু সেদ্ধ হলে কিছু সেদ্ধর জল আলাদা করে রাখুন","HEADING:পর্ব ৩ — মশলা ও ফিনিশিং","সরষের তেল ধোঁয়া ওঠা পর্যন্ত গরম করে আঁচ কমিয়ে দিন","থেঁতো করা রসুন হালকা সোনালি ও সুগন্ধ হওয়া পর্যন্ত ভাজুন","কাঁচা লঙ্কা দিয়ে ৩০ সেকেন্ড ভেজে পেঁয়াজ দিয়ে নরম হওয়া পর্যন্ত রান্না করুন","টমেটো, নুন ও চিনি দিয়ে টমেটো পুরো গলে যাওয়া পর্যন্ত কষুন","আদা বাটা দিয়ে কাঁচা গন্ধ চলে যাওয়া পর্যন্ত রান্না করুন","হলুদ, লাল লঙ্কা ও কাশ্মীরি লঙ্কার গুঁড়ো সামান্য সেদ্ধর জল দিয়ে কষুন","সেদ্ধ মটর ও আলু প্রয়োজনমতো সেদ্ধর জলসহ দিয়ে ভালোভাবে মিশিয়ে নিন","সঙ্গে সঙ্গে ঢেকে ৫–৬ মিনিট রান্না করুন","নুন ও মিষ্টি পরীক্ষা করে প্রয়োজনে ঠিক করুন","শেষে তেঁতুলের ক্বাথ ও ভাজা জিরের গুঁড়ো মিশিয়ে ১ মিনিট ফুটিয়ে গরম গরম পরিবেশন করুন"]
+author: Calcutta Kitchen
+pubDatetime: 2026-07-05T11:21:58.706Z
+featured: true
+draft: false
+tags:
+  - Bengali
+  - Street Food
+  - Vegetarian
+  - Snacks
+  - Ghugni
+description: Authentic Kolkata Street Style Ghugni made with white peas, potatoes, mustard oil, garlic, tamarind and roasted cumin for the perfect balance of flavour.
+featuredImage: "../../assets/recipes/ghugni.JPG"
+affiliate_products:
+  - atomberg-mixer-grinder
+  - heavy-kadai-prabha
+  - measuring-cups-inkulture
+youtube_url: “https://youtu.be/o84rECAePbQ”
+instagram_url: 
+---
+
+## A Bengali Comfort Classic
+
+Kolkata Street Style Ghugni is one of Bengal's most iconic street foods. Unlike heavily spiced versions, this recipe focuses on balanced flavours, where garlic, mustard oil, tamarind and roasted cumin work together to recreate the unmistakable taste of Kolkata's roadside ghugni.
+
+
+* Prep Time: 12 hrs
+* Cook Time: 35 mins
+* Serves: 4–5
+
+## Ingredients
+
+
+### For Boiling
+
+- 300 g dried white peas (Motor)
+- 2 medium potatoes, peeled and cut into medium cubes
+- 1½ tsp salt
+- Water as required
+
+### For the Masala
+
+- 3 tbsp mustard oil
+- 12–15 cloves garlic, crushed
+- 2 medium onions, finely diced
+- 1 medium tomato, finely chopped
+- 2–3 green chillies, slit or finely chopped
+- 1 tbsp ginger paste
+
+### Powder Spices
+
+- 1 tsp turmeric powder
+- 1 tsp red chilli powder
+- 1 tsp Kashmiri red chilli powder
+
+### Seasoning
+
+- 1 tsp sugar
+- Salt to taste
+
+### To Finish
+
+- 1–2 tbsp thick tamarind pulp
+- 1½ tsp freshly roasted and crushed cumin powder
+
+### Optional Garnish
+
+- Finely chopped onion
+- Coriander leaves
+- Green chilli
+- Bhujia
+- Lime wedges
+
+## Method
+
+
+## Phase 1 — Preparation
+
+1. Wash the white peas thoroughly and soak them for 10–12 hours. Drain before cooking
+2. Peel the potatoes and cut them into medium cubes
+3. Crush the garlic, dice the onions, chop the tomato and slit the green chillies
+
+## Phase 2 — Boiling
+
+4. Transfer the soaked peas and potatoes to a pressure cooker
+5. Add salt and enough water to cover everything by about 2 inches
+6. Pressure cook until both the peas and potatoes are perfectly cooked
+7. Reserve some of the cooking liquid
+
+## Phase 3 — Masala & Finishing
+
+8. Heat mustard oil until smoking and reduce to medium heat
+9. Add the crushed garlic and fry until lightly golden and fragrant. Do not over-fry
+10. Add the green chillies followed by the onions and cook until soft and lightly golden
+11. Add the chopped tomato along with salt and sugar. Cook until the tomato completely melts
+12. Add the ginger paste and cook until the raw smell disappears
+13. Add turmeric powder, red chilli powder and Kashmiri red chilli powder. Add a little reserved cooking liquid and cook until the raw smell disappears
+14. Add the boiled peas and potatoes with enough reserved cooking liquid to achieve a thick, spoon-coating consistency
+15. Immediately cover the pan and cook for 5–6 minutes
+16. Check the salt and sweetness and adjust if required
+17. Finish with tamarind pulp and freshly roasted cumin powder. Simmer for 1 minute and serve hot
+
+## Chef's Tips
+
+- Fry the garlic only until fragrant to prevent bitterness
+- Do not use excess ginger as it can overpower the flavour
+- Cover immediately after adding the peas to trap the aroma
+- Add tamarind and roasted cumin only at the end for the freshest flavour
+
+## Frequently Asked Questions
+
+- Why is garlic used generously? Garlic gives Kolkata street-style ghugni its signature flavour
+- Can I use yellow peas instead? Yes, although white peas are traditionally used
+- Why add tamarind at the end? It preserves the fresh tanginess of the dish
+- Can I prepare it in advance? Yes, ghugni tastes even better after resting for a few hours
