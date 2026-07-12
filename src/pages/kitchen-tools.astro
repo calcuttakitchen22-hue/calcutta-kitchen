@@ -1,0 +1,163 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ProductCard from "@/components/ProductCard.astro";
+import { products } from "@/data/products";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+
+const categoryIcons = {
+  "Pots & Pans": "🍳",
+  "Kitchen Gadgets": "⚡",
+  "Knives & Cutting": "🔪",
+  "Mixing & Prep Bowls": "🥣",
+  "Measuring & Prep": "⚖️",
+  "Stir, Flip & Whisk": "🥄",
+};
+
+const grouped = {};
+
+products
+  .sort((a, b) => a.displayOrder - b.displayOrder)
+  .forEach(product => {
+    if (!grouped[product.category]) {
+      grouped[product.category] = [];
+    }
+
+    grouped[product.category].push(product);
+  });
+
+const categories = Object.keys(grouped);
+---
+
+<Layout
+  title="Kitchen Tools We Trust | Calcutta Kitchen"
+  description="Explore the cookware, utensils, knives and kitchen gadgets that we personally use and recommend."
+>
+
+<Header />
+
+<main id="main-content">
+
+<section class="max-w-7xl mx-auto px-6 py-12">
+
+  <div class="max-w-4xl">
+
+    <h1 class="text-5xl font-bold leading-tight">
+      Kitchen Tools We Trust
+    </h1>
+
+    <p class="mt-6 text-lg text-gray-600 leading-8">
+      Every recipe on Calcutta Kitchen is tested in our own home kitchen.
+      Over the years we've found ourselves reaching for the same trusted cookware,
+      utensils and appliances again and again.
+    </p>
+
+    <p class="mt-4 text-lg text-gray-600 leading-8">
+      If you're building your kitchen or simply looking to upgrade a few essentials,
+      these are the products we genuinely recommend.
+    </p>
+
+    <div class="flex flex-wrap gap-8 mt-10">
+
+      <div>
+        <p class="text-3xl font-bold">{products.length}</p>
+        <p class="text-sm text-gray-500">Products</p>
+      </div>
+
+      <div>
+        <p class="text-3xl font-bold">{categories.length}</p>
+        <p class="text-sm text-gray-500">Categories</p>
+      </div>
+
+      <div>
+        <p class="text-3xl font-bold">100%</p>
+        <p class="text-sm text-gray-500">Personally Curated</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Category Navigation -->
+
+  <div class="sticky top-0 z-10 bg-white py-6 mt-12 border-y">
+
+    <div class="flex flex-wrap justify-center gap-3">
+
+      {
+        categories.map(category => (
+
+          <a
+            href={`#${category.replace(/\s+/g,"-").toLowerCase()}`}
+            class="rounded-full border px-4 py-2 text-sm hover:bg-orange-500 hover:text-white transition"
+          >
+
+            {categoryIcons[category]} {category}
+
+          </a>
+
+        ))
+      }
+
+    </div>
+
+  </div>
+
+  <!-- Categories -->
+
+  {
+    Object.entries(grouped).map(([category, items]) => (
+
+      <section
+        id={category.replace(/\s+/g,"-").toLowerCase()}
+        class="py-16 scroll-mt-32"
+      >
+
+        <h2 class="text-3xl font-bold mb-10">
+
+          {categoryIcons[category]} {category}
+
+        </h2>
+
+        <div class="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+
+          {
+            items.map(product => (
+
+              <ProductCard product={product} />
+
+            ))
+          }
+
+        </div>
+
+      </section>
+
+    ))
+  }
+
+  <!-- Footer -->
+
+  <div class="mt-20 rounded-xl bg-gray-100 p-8">
+
+    <h3 class="text-xl font-semibold mb-3">
+      Affiliate Disclosure
+    </h3>
+
+    <p class="text-gray-600 leading-7">
+      Some links on this page are affiliate links. If you purchase through them,
+      we may earn a small commission at no extra cost to you. It helps support
+      Calcutta Kitchen and allows us to continue creating free recipes.
+      We only recommend products that we personally use or genuinely believe
+      offer excellent value.
+    </p>
+
+  </div>
+
+</section>
+
+</main>
+
+<Footer />
+
+</Layout>

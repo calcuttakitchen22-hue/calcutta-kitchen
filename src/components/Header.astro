@@ -87,6 +87,16 @@ const isActive = (path: string) => {
             {t.nav.posts}
           </a>
         </li>
+
+        <li class="col-span-2">
+          <a
+            href="/kitchen-tools"
+            class:list={{ "active-nav": isActive("/kitchen-tools") }}
+          >
+            Kitchen Tools
+          </a>
+        </li>
+
         <li class="col-span-2">
           <a
             href={getRelativeLocaleUrl(locale, "tags")}

@@ -13,6 +13,10 @@ import { getSortedPosts } from "@/utils/getSortedPosts";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
 import { Icon } from "astro-icon/components";
+import { products } from "@/data/products";
+import ProductCardSmall from "@/components/ProductCardSmall.astro";
+
+const featuredProducts = products.filter(product => product.featured);
 
 const { socials, posts: postsConfig } = config;
 
@@ -78,27 +82,69 @@ const homePath = getRelativeLocaleUrl(locale, "");
 		</div>
 	  </div>
 	</section>
+</main>
 
-    {
-      featuredPosts.length > 0 && (
-        <section
-          id="featured"
-          class:list={[
-            "pt-12 pb-6",
-            { "border-border border-b": recentPosts.length > 0 },
-          ]}
-        >
-          <h2 class="text-2xl font-semibold tracking-wide">
-            Featured Recipes
-          </h2>
-          <ul>
-            {featuredPosts.map(data => (
-              <Card variant="h3" {...data} />
-            ))}
-          </ul>
-        </section>
-      )
-    }
+  <section class="border-border border-b py-14 -mx-8">
+
+  <div class="mx-auto max-w-screen-2xl px-8">
+
+    <h2 class="text-2xl font-semibold tracking-wide">
+      Kitchen Essentials We Use
+    </h2>
+
+    <p class="mt-3 max-w-2xl text-gray-600">
+      These are the cookware, utensils and gadgets you'll see us using across our recipes. They're products we've trusted in our own kitchen and genuinely recommend.
+    </p>
+
+    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+
+      {
+        featuredProducts.map(product => (
+
+          <ProductCardSmall product={product} />
+
+        ))
+      }
+
+    </div>
+
+    <div class="mt-10 text-center">
+
+      <LinkButton href="/kitchen-tools">
+
+        View All Kitchen Tools
+        <IconArrowRight class="inline-block rtl:-rotate-180" />
+
+      </LinkButton>
+
+    </div>
+
+  </div>
+
+</section>
+<main class="app-layout">
+{
+  featuredPosts.length > 0 && (
+    <section
+      id="featured"
+      class:list={[
+        "pt-12 pb-6",
+        { "border-border border-b": recentPosts.length > 0 },
+      ]}
+    >
+      <h2 class="text-2xl font-semibold tracking-wide">
+        Featured Recipes
+      </h2>
+
+      <ul>
+        {featuredPosts.map(data => (
+          <Card variant="h3" {...data} />
+        ))}
+      </ul>
+
+    </section>
+  )
+}
 
     {
       recentPosts.length > 0 && (
