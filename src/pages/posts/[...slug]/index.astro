@@ -17,6 +17,9 @@ import config from "@/config";
 import { products } from "@/data/products";
 import { downloadRecipePdf } from "@/scripts/recipePdf";
 
+const productsById = Object.fromEntries(
+  products.map(product => [product.id, product])
+);
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
@@ -97,7 +100,7 @@ const videoId = youtube_url
   ?.split("?")[0];
 
 const recipeProducts = affiliate_products
-  .map(id => products[id as keyof typeof products])
+  .map(id => productsById[id])
   .filter(Boolean);
 
 const { Content } = await render(post);

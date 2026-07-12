@@ -5,7 +5,9 @@ import { products } from "@/data/products";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 
-const categoryIcons = {
+type Product = (typeof products)[number];
+
+const categoryIcons: Record<string, string> = {
   "Pots & Pans": "🍳",
   "Kitchen Gadgets": "⚡",
   "Knives & Cutting": "🔪",
@@ -14,11 +16,11 @@ const categoryIcons = {
   "Stir, Flip & Whisk": "🥄",
 };
 
-const grouped = {};
+const grouped: Record<string, Product[]> = {};
 
 products
   .sort((a, b) => a.displayOrder - b.displayOrder)
-  .forEach(product => {
+  .forEach((product: Product) => {
     if (!grouped[product.category]) {
       grouped[product.category] = [];
     }
@@ -106,7 +108,8 @@ const categories = Object.keys(grouped);
   <!-- Categories -->
 
   {
-    Object.entries(grouped).map(([category, items]) => (
+    Object.entries(grouped).map(
+    ([category, items]: [string, Product[]]) => (
 
       <section
         id={category.replace(/\s+/g,"-").toLowerCase()}
@@ -122,7 +125,7 @@ const categories = Object.keys(grouped);
         <div class="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
 
           {
-            items.map(product => (
+            items.map((product: Product) => (
 
               <ProductCard product={product} />
 
