@@ -14,7 +14,7 @@ tags:
   - Vegetarian
   - Pulao
 description: Traditional Bengali Basanti Pulao made with Gobindobhog rice, ghee, whole spices, cashews and raisins. This festive pulao is aromatic, lightly sweet and perfectly fluffy with separate grains.
-featuredImage: "../../assets/recipes/Basanti-Pulao.JPG"
+featuredImage: "../../assets/recipes/basanti-pulao.JPG"
 affiliate_products:
   - heavy-kadai-prabha
   - measuring-cups-inkulture
