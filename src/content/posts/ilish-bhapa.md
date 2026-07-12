@@ -19,7 +19,7 @@ affiliate_products:
   - atomberg-mixer-grinder
   - heavy-kadai-prabha
   - measuring-cups-inkulture
-youtube_url: ""
+youtube_url: "https://youtu.be/D9YH7A0GeSo"
 instagram_url: 
 ---
 
