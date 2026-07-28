@@ -1,0 +1,62 @@
+---
+import Container from "@/components/common/Container.astro";
+import type { FooterNavigationGroup, NavigationItem, SocialLink } from "@/types/site";
+
+type Props = {
+  brand: NavigationItem;
+  groups?: FooterNavigationGroup[];
+  socialLinks?: SocialLink[];
+  copyright?: string;
+  class?: string;
+};
+
+const {
+  brand,
+  groups = [],
+  socialLinks = [],
+  copyright = `© ${new Date().getFullYear()} ${brand.label}`,
+  class: className,
+} = Astro.props;
+---
+
+<footer class:list={["bg-foreground text-background", className]}>
+  <Container size="wide">
+    <div class="grid gap-10 py-12 tablet:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
+      <div>
+        <a href={brand.href} class="font-display text-3xl font-semibold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus">
+          {brand.label}
+        </a>
+        {socialLinks.length > 0 && (
+          <ul class="mt-5 flex flex-wrap gap-4">
+            {socialLinks.map(link => (
+              <li>
+                <a href={link.href} class="text-sm font-semibold underline decoration-transparent underline-offset-4 hover:decoration-current focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus">
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+      {groups.length > 0 && (
+        <div class="grid gap-8 sm:grid-cols-2">
+          {groups.map(group => (
+            <section aria-label={group.label}>
+              <h2 class="font-display text-lg font-semibold">{group.label}</h2>
+              <ul class="mt-4 space-y-3">
+                {group.items.map(item => (
+                  <li>
+                    <a href={item.href} class="text-sm underline decoration-transparent underline-offset-4 hover:decoration-current focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus">
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
+      )}
+    </div>
+    <div class="border-t border-background/25 py-5 text-sm text-background/80">{copyright}</div>
+  </Container>
+</footer>

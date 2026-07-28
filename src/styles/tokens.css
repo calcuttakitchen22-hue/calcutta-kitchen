@@ -1,0 +1,40 @@
+/* Tailwind v4 bindings for the shared Calcutta Kitchen design tokens. */
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--ck-color-surface);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-focus: var(--ck-color-focus);
+
+  --font-app: "Futura", sans-serif;
+  --font-display: "Playfair Display", "Noto Serif Bengali", Georgia, serif;
+  --font-body: "DM Sans", "Futura", system-ui, sans-serif;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-pill: 9999px;
+
+  --shadow-card: var(--ck-shadow-card);
+
+  --container-content: 80rem;
+  --container-wide: 90rem;
+
+  --breakpoint-tablet: 40rem;
+  --breakpoint-desktop: 64rem;
+  --breakpoint-wide: 80rem;
+}
+
+:root {
+  --ck-space-1: 0.5rem;
+  --ck-space-2: 1rem;
+  --ck-space-3: 1.5rem;
+  --ck-space-4: 2rem;
+  --ck-space-6: 3rem;
+  --ck-space-8: 4rem;
+  --ck-space-12: 6rem;
+}

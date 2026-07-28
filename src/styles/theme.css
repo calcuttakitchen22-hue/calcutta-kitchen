@@ -1,37 +1,45 @@
-/* Register design tokens for Tailwind v4 */
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-border: var(--border);
-  --font-app: "Futura", sans-serif;
-}
-
 /* Light theme values */
 :root,
 [data-theme="light"] {
-  --background: #F8F5E6;
-  --foreground: #700D1D;
+  --ck-color-background: #f8f5e6;
+  --ck-color-surface: #fff8ec;
+  --ck-color-foreground: #700d1d;
+  --ck-color-accent: #f24e07;
+  --ck-color-accent-foreground: #ffffff;
+  --ck-color-muted: #fff8ec;
+  --ck-color-muted-foreground: #6b625c;
+  --ck-color-border: #e8dfc9;
+  --ck-color-focus: #f24e07;
+  --ck-shadow-card: 0 8px 24px rgb(112 13 29 / 8%);
 
-  --accent: #F24E07;
-  --accent-foreground: #ffffff;
-
-  --muted: #FFF8EC;
-  --muted-foreground: #700D1D;
-
-  --border: #E8DFC9;
+  /* Legacy aliases remain during the AstroPaper transition. */
+  --background: var(--ck-color-background);
+  --foreground: var(--ck-color-foreground);
+  --accent: var(--ck-color-accent);
+  --accent-foreground: var(--ck-color-accent-foreground);
+  --muted: var(--ck-color-muted);
+  --muted-foreground: var(--ck-color-muted-foreground);
+  --border: var(--ck-color-border);
 }
 
 /* Dark theme values */
 [data-theme="dark"] {
-  --background: #700D1D;
-  --foreground: #F8F5E6;
-  --accent: #ff6b01;
-  --accent-foreground: #ffffff;
-  --muted: #700D1D;
-  --muted-foreground: #F8F5E6;
-  --border: #ab4b08;
+  --ck-color-background: #700d1d;
+  --ck-color-surface: #811a2b;
+  --ck-color-foreground: #f8f5e6;
+  --ck-color-accent: #ff6b01;
+  --ck-color-accent-foreground: #ffffff;
+  --ck-color-muted: #811a2b;
+  --ck-color-muted-foreground: #f8f5e6;
+  --ck-color-border: #ab4b08;
+  --ck-color-focus: #ff6b01;
+  --ck-shadow-card: 0 8px 24px rgb(0 0 0 / 16%);
+
+  --background: var(--ck-color-background);
+  --foreground: var(--ck-color-foreground);
+  --accent: var(--ck-color-accent);
+  --accent-foreground: var(--ck-color-accent-foreground);
+  --muted: var(--ck-color-muted);
+  --muted-foreground: var(--ck-color-muted-foreground);
+  --border: var(--ck-color-border);
 }

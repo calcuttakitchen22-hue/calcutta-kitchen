@@ -1,0 +1,37 @@
+---
+import Container from "./Container.astro";
+
+type Props = {
+  id?: string;
+  width?: "content" | "wide" | "full";
+  tone?: "default" | "surface" | "maroon";
+  spacing?: "sm" | "md" | "lg";
+  class?: string;
+};
+
+const {
+  id,
+  width = "content",
+  tone = "default",
+  spacing = "md",
+  class: className,
+} = Astro.props;
+
+const toneClasses = {
+  default: "bg-background",
+  surface: "bg-surface",
+  maroon: "bg-foreground text-background",
+};
+
+const spacingClasses = {
+  sm: "py-8",
+  md: "py-12 tablet:py-16",
+  lg: "py-16 tablet:py-24",
+};
+---
+
+<section id={id} class:list={[toneClasses[tone], spacingClasses[spacing], className]}>
+  <Container size={width}>
+    <slot />
+  </Container>
+</section>

@@ -1,0 +1,18 @@
+---
+type Props = {
+  size?: "content" | "wide" | "full";
+  class?: string;
+};
+
+const { size = "content", class: className } = Astro.props;
+
+const sizeClasses = {
+  content: "max-w-content",
+  wide: "max-w-wide",
+  full: "max-w-none",
+};
+---
+
+<div class:list={["mx-auto w-full px-4 tablet:px-6 desktop:px-8", sizeClasses[size], className]}>
+  <slot />
+</div>
