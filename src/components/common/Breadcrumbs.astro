@@ -1,0 +1,27 @@
+---
+import type { BreadcrumbItem } from "@/types/recipe";
+
+type Props = {
+  items: BreadcrumbItem[];
+  class?: string;
+};
+
+const { items, class: className } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb" class={className}>
+  <ol class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
+    {items.map((item, index) => (
+      <li class="flex items-center gap-2">
+        {index > 0 && <span aria-hidden="true">/</span>}
+        {item.href ? (
+          <a href={item.href} class="font-semibold underline decoration-transparent underline-offset-4 hover:decoration-current focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
+            {item.label}
+          </a>
+        ) : (
+          <span aria-current="page">{item.label}</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>

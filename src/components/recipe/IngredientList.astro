@@ -1,0 +1,24 @@
+---
+import type { RecipeIngredient } from "@/types/recipe";
+
+type Props = {
+  ingredients: RecipeIngredient[];
+  class?: string;
+};
+
+const { ingredients, class: className } = Astro.props;
+---
+
+<section id="ingredients" aria-labelledby="ingredients-heading" class={className}>
+  <h2 id="ingredients-heading" class="font-display text-4xl font-semibold tracking-tight text-foreground">Ingredients</h2>
+  <ul class="mt-6 divide-y divide-border rounded-md border border-border bg-surface px-5">
+    {ingredients.map(ingredient => (
+      <li class="py-4 text-base leading-relaxed text-foreground">
+        <span class="font-semibold">
+          {[ingredient.quantity, ingredient.unit, ingredient.name].filter(Boolean).join(" ")}
+        </span>
+        {ingredient.notes && <span class="text-muted-foreground"> — {ingredient.notes}</span>}
+      </li>
+    ))}
+  </ul>
+</section>

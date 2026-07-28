@@ -1,0 +1,103 @@
+---
+import Breadcrumbs from "@/components/common/Breadcrumbs.astro";
+import Section from "@/components/common/Section.astro";
+import EquipmentList from "@/components/recipe/EquipmentList.astro";
+import FAQSection from "@/components/recipe/FAQSection.astro";
+import IngredientList from "@/components/recipe/IngredientList.astro";
+import RecipeFacts from "@/components/recipe/RecipeFacts.astro";
+import RecipeHero from "@/components/recipe/RecipeHero.astro";
+import RelatedRecipes from "@/components/recipe/RelatedRecipes.astro";
+import StepList from "@/components/recipe/StepList.astro";
+import TipsCard from "@/components/recipe/TipsCard.astro";
+import VideoSection from "@/components/recipe/VideoSection.astro";
+import Footer from "@/components/navigation/Footer.astro";
+import Navbar from "@/components/navigation/Navbar.astro";
+import { siteConfig } from "@/config/site";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import type { RecipeLayoutData } from "@/types/recipe";
+import { getTotalRecipeTime, getYouTubeThumbnailUrl } from "@/utils/recipe";
+import {
+  createBreadcrumbJsonLd,
+  createFaqJsonLd,
+  createRecipeJsonLd,
+  serializeJsonLd,
+} from "@/utils/seo";
+
+type Props = {
+  recipe: RecipeLayoutData;
+  slug: string;
+};
+
+const { recipe, slug } = Astro.props;
+const canonicalPath = `/recipes/${slug}/`;
+const canonicalUrl = new URL(canonicalPath, siteConfig.url).href;
+const imageUrl = new URL(recipe.coverImage.src, siteConfig.url).href;
+const totalTime = getTotalRecipeTime(recipe);
+const videoThumbnail = recipe.video && (recipe.video.thumbnail ?? getYouTubeThumbnailUrl(recipe.video.url));
+const metadata = {
+  title: recipe.seoTitle ?? recipe.title,
+  description: recipe.seoDescription ?? recipe.description,
+  canonicalPath,
+  image: imageUrl,
+};
+const breadcrumbItems = [
+  { label: "Home", href: "/" },
+  { label: "Recipes", href: "/recipes" },
+  { label: recipe.title },
+];
+const recipeJsonLd = createRecipeJsonLd({
+  title: recipe.title,
+  description: recipe.description,
+  canonicalUrl,
+  imageUrl,
+  publishDate: recipe.publishDate,
+  updatedDate: recipe.updatedDate,
+  prepTime: recipe.prepTime,
+  cookTime: recipe.cookTime,
+  totalTime,
+  servings: recipe.servings,
+  ingredients: recipe.ingredients.map(ingredient =>
+    [ingredient.quantity, ingredient.unit, ingredient.name].filter(Boolean).join(" ")
+  ),
+  steps: recipe.steps.map(step => step.instruction),
+  author: "Calcutta Kitchen",
+});
+const faqJsonLd = createFaqJsonLd(recipe.faq);
+const breadcrumbJsonLd = createBreadcrumbJsonLd([
+  { name: "Home", url: new URL("/", siteConfig.url).href },
+  { name: "Recipes", url: new URL("/recipes", siteConfig.url).href },
+  { name: recipe.title, url: canonicalUrl },
+]);
+---
+
+<BaseLayout {metadata}>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={serializeJsonLd(recipeJsonLd)}></script>
+    <script is:inline type="application/ld+json" set:html={serializeJsonLd(breadcrumbJsonLd)}></script>
+    {faqJsonLd && <script is:inline type="application/ld+json" set:html={serializeJsonLd(faqJsonLd)}></script>}
+  </Fragment>
+  <Navbar brand={{ label: siteConfig.name, href: "/" }} items={siteConfig.navigation} />
+  <main id="main-content">
+    <Section width="wide" spacing="sm">
+      <Breadcrumbs items={breadcrumbItems} />
+    </Section>
+    <Section width="wide" spacing="md">
+      <RecipeHero title={recipe.title} description={recipe.description} image={recipe.coverImage} imageAlt={recipe.coverImageAlt} />
+      <RecipeFacts class="mt-10" prepTime={recipe.prepTime} cookTime={recipe.cookTime} {totalTime} servings={recipe.servings} difficulty={recipe.difficulty} />
+      <section aria-labelledby="overview-heading" class="mt-12 max-w-prose">
+        <h2 id="overview-heading" class="font-display text-4xl font-semibold tracking-tight text-foreground">About this recipe</h2>
+        <div class="mt-5 leading-relaxed text-muted-foreground"><slot name="overview" /></div>
+      </section>
+    </Section>
+    <Section width="content" spacing="md">
+      <IngredientList ingredients={recipe.ingredients} />
+      {recipe.equipment.length > 0 && <EquipmentList equipment={recipe.equipment} class="mt-12" />}
+      <StepList steps={recipe.steps} class="mt-12" />
+      {recipe.tips.length > 0 && <TipsCard tips={recipe.tips} class="mt-12" />}
+      {recipe.faq.length > 0 && <FAQSection items={recipe.faq} class="mt-12" />}
+      {recipe.video && videoThumbnail && <VideoSection class="mt-12" url={recipe.video.url} title={recipe.video.title ?? recipe.title} description={recipe.video.description} thumbnail={videoThumbnail} />}
+      <RelatedRecipes class="mt-12" />
+    </Section>
+  </main>
+  <Footer brand={{ label: siteConfig.name, href: "/" }} groups={siteConfig.footerNavigation} socialLinks={siteConfig.socialLinks} />
+</BaseLayout>

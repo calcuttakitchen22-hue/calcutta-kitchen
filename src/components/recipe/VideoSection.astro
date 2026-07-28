@@ -1,0 +1,27 @@
+---
+type Props = {
+  url: string;
+  title: string;
+  description?: string;
+  thumbnail: string;
+  class?: string;
+};
+
+const { url, title, description, thumbnail, class: className } = Astro.props;
+---
+
+<section id="video" aria-labelledby="video-heading" class={className}>
+  <h2 id="video-heading" class="font-display text-4xl font-semibold tracking-tight text-foreground">Watch the recipe</h2>
+  <a href={url} target="_blank" rel="noopener noreferrer" class="group mt-6 block overflow-hidden rounded-lg border border-border bg-surface focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus">
+    <div class="relative">
+      <img src={thumbnail} alt={`Video preview: ${title}`} width="1280" height="720" loading="lazy" class="aspect-video w-full object-cover transition duration-200 group-hover:scale-[1.02]" />
+      <span class="absolute inset-0 grid place-items-center bg-foreground/20">
+        <span class="rounded-pill bg-accent px-5 py-3 text-sm font-bold text-accent-foreground shadow-card">Watch on YouTube</span>
+      </span>
+    </div>
+    <div class="p-5">
+      <h3 class="font-display text-2xl font-semibold text-foreground">{title}</h3>
+      {description && <p class="mt-2 leading-relaxed text-muted-foreground">{description}</p>}
+    </div>
+  </a>
+</section>

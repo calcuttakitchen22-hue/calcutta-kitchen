@@ -1,0 +1,26 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import RecipeLayout from "@/layouts/RecipeLayout.astro";
+import { getRecipeSlug } from "@/utils/recipe";
+
+export async function getStaticPaths() {
+  const recipes = await getCollection("recipes", ({ data }) => !data.draft);
+
+  return recipes.map(recipe => ({
+    params: { slug: getRecipeSlug(recipe.id) },
+    props: { recipe },
+  }));
+}
+
+type Props = {
+  recipe: CollectionEntry<"recipes">;
+};
+
+const { recipe } = Astro.props;
+const { Content } = await render(recipe);
+const slug = getRecipeSlug(recipe.id);
+---
+
+<RecipeLayout recipe={recipe.data} {slug}>
+  <Content slot="overview" />
+</RecipeLayout>

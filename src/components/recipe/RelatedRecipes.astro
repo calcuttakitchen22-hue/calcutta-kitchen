@@ -1,0 +1,12 @@
+---
+type Props = {
+  class?: string;
+};
+
+const { class: className } = Astro.props;
+---
+
+<section aria-labelledby="related-recipes-heading" class:list={["rounded-lg border border-border bg-surface p-6 tablet:p-8", className]}>
+  <h2 id="related-recipes-heading" class="font-display text-4xl font-semibold tracking-tight text-foreground">Related recipes</h2>
+  <p class="mt-3 leading-relaxed text-muted-foreground">More recipes to explore will appear here as the recipe recommendation system is introduced.</p>
+</section>

@@ -1,0 +1,32 @@
+---
+type Props = {
+  prepTime: number;
+  cookTime: number;
+  totalTime: number;
+  servings: string;
+  difficulty: string;
+  class?: string;
+};
+
+const { prepTime, cookTime, totalTime, servings, difficulty, class: className } = Astro.props;
+
+const facts = [
+  { label: "Prep time", value: `${prepTime} min` },
+  { label: "Cook time", value: `${cookTime} min` },
+  { label: "Total time", value: `${totalTime} min` },
+  { label: "Servings", value: servings },
+  { label: "Difficulty", value: difficulty },
+];
+---
+
+<section aria-labelledby="recipe-facts-heading" class={className}>
+  <h2 id="recipe-facts-heading" class="sr-only">Recipe information</h2>
+  <dl class="grid gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-2 desktop:grid-cols-5">
+    {facts.map(fact => (
+      <div class="bg-surface p-4">
+        <dt class="text-sm font-semibold text-muted-foreground">{fact.label}</dt>
+        <dd class="mt-1 font-display text-xl font-semibold capitalize text-foreground">{fact.value}</dd>
+      </div>
+    ))}
+  </dl>
+</section>
