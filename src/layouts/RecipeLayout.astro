@@ -76,7 +76,7 @@ const breadcrumbJsonLd = createBreadcrumbJsonLd([
     <script is:inline type="application/ld+json" set:html={serializeJsonLd(breadcrumbJsonLd)}></script>
     {faqJsonLd && <script is:inline type="application/ld+json" set:html={serializeJsonLd(faqJsonLd)}></script>}
   </Fragment>
-  <Navbar brand={{ label: siteConfig.name, href: "/" }} items={siteConfig.navigation} />
+  <Navbar brand={{ label: siteConfig.name, href: "/" }} logo={siteConfig.logo} items={siteConfig.navigation} />
   <main id="main-content">
     <Section width="wide" spacing="sm">
       <Breadcrumbs items={breadcrumbItems} />

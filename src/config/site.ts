@@ -1,10 +1,17 @@
 import type { SiteConfiguration } from "@/types/site";
+import logo from "@/assets/images/calcutta-kitchen-logo.svg";
 
 export const siteConfig: SiteConfiguration = {
   name: "Calcutta Kitchen",
   url: "https://calcuttakitchen.in",
   description:
     "Authentic Bengali recipes, modern comfort food, desserts and kitchen stories.",
+  logo: {
+    src: logo,
+    alt: "Calcutta Kitchen",
+    width: 148,
+    height: 60,
+  },
   navigation: [
     { label: "Home", href: "/" },
     { label: "Recipes", href: "/recipes" },

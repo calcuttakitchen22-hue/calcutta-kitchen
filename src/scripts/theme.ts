@@ -1,6 +1,11 @@
 const THEME_KEY = "theme";
 const LIGHT = "light";
 const DARK = "dark";
+const THEME_TOGGLE_SELECTOR = "[data-theme-toggle], #theme-btn";
+
+function getThemeToggleButtons(): HTMLButtonElement[] {
+  return Array.from(document.querySelectorAll<HTMLButtonElement>(THEME_TOGGLE_SELECTOR));
+}
 
 function getPreferredTheme(): string {
   const stored = localStorage.getItem(THEME_KEY);
@@ -22,7 +27,12 @@ function persist(): void {
 
 function reflect(): void {
   document.firstElementChild?.setAttribute("data-theme", themeValue);
-  document.querySelector("#theme-btn")?.setAttribute("aria-label", themeValue);
+  const nextThemeLabel = themeValue === LIGHT ? "Switch to dark mode" : "Switch to light mode";
+
+  getThemeToggleButtons().forEach(button => {
+    button.setAttribute("aria-label", nextThemeLabel);
+    button.setAttribute("title", nextThemeLabel);
+  });
 
   // Fill <meta name="theme-color"> with the computed background colour so
   // Android's browser chrome matches the page background.
@@ -34,9 +44,14 @@ function reflect(): void {
 
 function setup(): void {
   reflect();
-  document.querySelector("#theme-btn")?.addEventListener("click", () => {
-    themeValue = themeValue === LIGHT ? DARK : LIGHT;
-    persist();
+  getThemeToggleButtons().forEach(button => {
+    if (button.dataset.themeToggleBound === "true") return;
+
+    button.dataset.themeToggleBound = "true";
+    button.addEventListener("click", () => {
+      themeValue = themeValue === LIGHT ? DARK : LIGHT;
+      persist();
+    });
   });
 }
 

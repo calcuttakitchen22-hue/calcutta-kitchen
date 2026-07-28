@@ -13,13 +13,13 @@ type Props = {
 const { image, imageAlt, class: className } = Astro.props;
 ---
 
-<section class:list={["relative isolate overflow-hidden bg-foreground py-16 text-background tablet:py-24", className]}>
+<section class:list={["relative isolate overflow-hidden bg-foreground py-12 text-background tablet:py-24", className]}>
   {image && imageAlt && <Image src={image} alt={imageAlt} widths={[640, 960, 1440, 1920]} sizes="100vw" loading="eager" class="absolute inset-0 -z-20 size-full object-cover" />}
   {image && <div aria-hidden="true" class="absolute inset-0 -z-10 bg-foreground/75"></div>}
   <div class="mx-auto w-full max-w-content px-4 tablet:px-6 desktop:px-8">
     <div class="max-w-3xl">
       <p class="text-sm font-bold tracking-[0.12em] text-accent uppercase">Calcutta Kitchen</p>
-      <h1 class="mt-4 font-display text-5xl font-semibold leading-[1.08] tracking-tight tablet:text-6xl">Traditional Bengali Cooking.<br />Modern Comfort Food.</h1>
+      <h1 lang="bn" class="mt-4 font-display text-5xl font-semibold leading-[1.08] tracking-tight tablet:text-6xl">রেসিপি নয়, রান্না শেখাই</h1>
       <p class="mt-6 max-w-2xl text-lg leading-relaxed text-background/90">Explore authentic Bengali recipes, practical kitchen techniques, and everyday comfort food made simple.</p>
       <form action="/search" method="get" class="mt-8 max-w-2xl">
         <SearchInput id="homepage-search" class="text-foreground" />

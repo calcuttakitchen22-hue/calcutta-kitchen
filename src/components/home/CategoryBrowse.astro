@@ -5,17 +5,19 @@ type Category = {
 };
 
 type Props = {
+  heading: string;
+  headingLanguage?: "bn";
   categories: Category[];
 };
 
-const { categories } = Astro.props;
+const { heading, headingLanguage, categories } = Astro.props;
 ---
 
 <section aria-labelledby="browse-categories-heading">
-  <h2 id="browse-categories-heading" class="font-display text-4xl font-semibold tracking-tight text-foreground">Browse recipes</h2>
-  <div class="mt-6 grid gap-4 tablet:grid-cols-2 desktop:grid-cols-4">
+  <h2 id="browse-categories-heading" lang={headingLanguage} class="font-display text-3xl font-semibold tracking-tight text-foreground tablet:text-4xl">{heading}</h2>
+  <div class="mt-6 -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden tablet:mx-0 tablet:grid tablet:overflow-visible tablet:px-0 tablet:pb-0 tablet:grid-cols-2 desktop:grid-cols-4">
     {categories.map(category => (
-      <article class="rounded-md border border-border bg-surface p-5">
+      <article class="w-[78vw] shrink-0 snap-start rounded-md border border-border bg-surface p-5 tablet:w-auto">
         <h3 class="font-display text-2xl font-semibold text-foreground">{category.title}</h3>
         <p class="mt-2 leading-relaxed text-muted-foreground">{category.description}</p>
       </article>

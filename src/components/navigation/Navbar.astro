@@ -1,22 +1,29 @@
 ---
 import Container from "@/components/common/Container.astro";
-import type { NavigationItem } from "@/types/site";
+import MobileNavigation from "./MobileNavigation.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+import type { NavigationItem, SiteLogo } from "@/types/site";
 
 type Props = {
   brand: NavigationItem;
+  logo?: SiteLogo;
   items: NavigationItem[];
   searchHref?: string;
   class?: string;
 };
 
-const { brand, items, searchHref = "/search", class: className } = Astro.props;
+const { brand, logo, items, searchHref = "/search", class: className } = Astro.props;
 ---
 
 <header class:list={["sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur", className]}>
   <Container size="wide">
     <div class="flex min-h-[72px] items-center justify-between gap-6">
-      <a href={brand.href} class="font-display text-2xl font-semibold text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus">
-        {brand.label}
+      <a href={brand.href} aria-label={brand.label} class="flex max-w-[148px] items-center font-display text-2xl font-semibold text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus">
+        {logo ? (
+          <img src={logo.src.src} alt={logo.alt} width={logo.width} height={logo.height} class="h-10 w-auto object-contain" />
+        ) : (
+          brand.label
+        )}
       </a>
       <nav aria-label="Primary navigation" class="hidden desktop:block">
         <ul class="flex items-center gap-6">
@@ -29,10 +36,14 @@ const { brand, items, searchHref = "/search", class: className } = Astro.props;
           ))}
         </ul>
       </nav>
-      <a href={searchHref} class="grid size-11 place-items-center rounded-pill text-foreground transition hover:bg-surface hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
+      <div class="flex items-center gap-1">
+        <ThemeToggle class="hidden desktop:grid" />
+        <a href={searchHref} class="grid size-11 place-items-center rounded-pill text-foreground transition hover:bg-surface hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
         <span aria-hidden="true">⌕</span>
         <span class="sr-only">Search</span>
-      </a>
+        </a>
+        <MobileNavigation brand={brand} {items} {searchHref} />
+      </div>
     </div>
   </Container>
 </header>

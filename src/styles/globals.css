@@ -1,6 +1,12 @@
 @plugin "@tailwindcss/typography";
 
 @layer base {
+  :lang(bn) {
+    font-family: var(--ck-font-bengali);
+    letter-spacing: normal;
+    line-height: 1.5;
+  }
+
   .app-prose {
     @apply prose;
 

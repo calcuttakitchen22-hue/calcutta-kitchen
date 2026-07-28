@@ -1,3 +1,5 @@
+import type { ImageMetadata } from "astro";
+
 export type NavigationItem = {
   label: string;
   href: string;
@@ -13,6 +15,13 @@ export type SocialLink = {
   href: string;
 };
 
+export type SiteLogo = {
+  src: ImageMetadata;
+  alt: string;
+  width: number;
+  height: number;
+};
+
 export type PageMetadata = {
   title?: string;
   description?: string;
@@ -25,6 +34,7 @@ export type SiteConfiguration = {
   name: string;
   url: string;
   description: string;
+  logo?: SiteLogo;
   navigation: NavigationItem[];
   footerNavigation: FooterNavigationGroup[];
   socialLinks: SocialLink[];

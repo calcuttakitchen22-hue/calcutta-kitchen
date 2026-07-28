@@ -1,5 +1,6 @@
 ---
 import type { NavigationItem } from "@/types/site";
+import ThemeToggle from "./ThemeToggle.astro";
 
 type Props = {
   brand: NavigationItem;
@@ -29,6 +30,9 @@ const { brand, items, searchHref = "/search", class: className } = Astro.props;
         <a href={searchHref} class="block min-h-11 rounded-sm px-3 py-2 font-semibold text-foreground transition hover:bg-surface hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
           Search
         </a>
+      </li>
+      <li class="mt-2 border-t border-border pt-2">
+        <ThemeToggle class="w-full justify-start px-3" />
       </li>
     </ul>
   </nav>
