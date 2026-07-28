@@ -1,0 +1,27 @@
+---
+type Video = {
+  title: string;
+  url: string;
+  thumbnail: string;
+};
+
+type Props = {
+  videos: Video[];
+};
+
+const { videos } = Astro.props;
+---
+
+<section aria-labelledby="videos-heading">
+  <h2 id="videos-heading" class="font-display text-4xl font-semibold tracking-tight text-foreground">Latest YouTube videos</h2>
+  <div class="mt-6 grid gap-6 tablet:grid-cols-2 desktop:grid-cols-3">
+    {videos.map(video => (
+      <article class="overflow-hidden rounded-md border border-border bg-surface shadow-card">
+        <a href={video.url} target="_blank" rel="noopener noreferrer" class="block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus">
+          <img src={video.thumbnail} alt={`Video preview: ${video.title}`} width="1280" height="720" loading="lazy" class="aspect-video w-full object-cover" />
+          <h3 class="p-5 font-display text-2xl font-semibold text-foreground">{video.title}</h3>
+        </a>
+      </article>
+    ))}
+  </div>
+</section>

@@ -1,24 +1,26 @@
 ---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import Badge from "@/components/common/Badge.astro";
 import Heading from "@/components/common/Heading.astro";
-import type { CardImage } from "@/types/site";
 
 type Props = {
   href: string;
   title: string;
   description?: string;
-  image?: CardImage;
+  image?: ImageMetadata;
+  imageAlt?: string;
   eyebrow?: string;
   metadata?: string[];
   class?: string;
 };
 
-const { href, title, description, image, eyebrow, metadata = [], class: className } = Astro.props;
+const { href, title, description, image, imageAlt, eyebrow, metadata = [], class: className } = Astro.props;
 ---
 
 <article class:list={["overflow-hidden rounded-md border border-border bg-surface shadow-card transition duration-200 hover:-translate-y-1", className]}>
   <a href={href} class="block focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
-    {image && <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" class="aspect-[4/3] w-full object-cover" />}
+    {image && imageAlt && <Image src={image} alt={imageAlt} widths={[400, 640, 960]} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" loading="lazy" class="aspect-[4/3] w-full object-cover" />}
     <div class="p-5">
       {eyebrow && <Badge tone="accent">{eyebrow}</Badge>}
       <Heading level={3} class:list={[eyebrow && "mt-3"]}>{title}</Heading>

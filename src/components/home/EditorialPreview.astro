@@ -1,0 +1,23 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+type Props = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  image: ImageMetadata;
+  imageAlt: string;
+};
+
+const { eyebrow, title, description, image, imageAlt } = Astro.props;
+---
+
+<article class="grid overflow-hidden rounded-lg border border-border bg-surface shadow-card desktop:grid-cols-2">
+  <Image src={image} alt={imageAlt} widths={[640, 960, 1280]} sizes="(min-width: 1024px) 50vw, 100vw" loading="lazy" class="aspect-[4/3] size-full object-cover" />
+  <div class="flex flex-col justify-center p-6 tablet:p-8">
+    <p class="text-sm font-bold tracking-[0.12em] text-accent uppercase">{eyebrow}</p>
+    <h2 class="mt-3 font-display text-4xl font-semibold tracking-tight text-foreground">{title}</h2>
+    <p class="mt-4 leading-relaxed text-muted-foreground">{description}</p>
+  </div>
+</article>

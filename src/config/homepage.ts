@@ -19,11 +19,11 @@ const homepageCurationSchema = z.object({
 const homepageCurationInput = {
   featuredRecipes: [
     "chicken-kosha",
-    "basanti-pulao",
     "aloo-posto",
     "mango-bhapa-doi",
     "maacher-jhol",
     "ghugni",
+    "sorshe-ilish",
   ],
   featuredCollections: ["weeknight-dinners"],
   featuredSeries: ["cook-like-a-lyadhkhor"],

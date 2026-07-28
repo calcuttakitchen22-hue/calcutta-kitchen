@@ -13,13 +13,6 @@ export type SocialLink = {
   href: string;
 };
 
-export type CardImage = {
-  src: string;
-  alt: string;
-  width: number;
-  height: number;
-};
-
 export type PageMetadata = {
   title?: string;
   description?: string;

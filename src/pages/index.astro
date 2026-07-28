@@ -1,183 +1,189 @@
 ---
 import { getCollection } from "astro:content";
-import { getRelativeLocaleUrl } from "astro:i18n";
-import IconRss from "@/assets/icons/IconRss.svg";
-import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
-import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
-import Socials from "@/components/Socials.astro";
-import Card from "@/components/Card.astro";
-import LinkButton from "@/components/LinkButton.astro";
-import { getSortedPosts } from "@/utils/getSortedPosts";
-import { useTranslations } from "@/i18n";
-import config from "@/config";
-import { Icon } from "astro-icon/components";
-import { products } from "@/data/products";
-import ProductCardSmall from "@/components/ProductCardSmall.astro";
+import RecipeCard from "@/components/cards/RecipeCard.astro";
+import ToolCard from "@/components/cards/ToolCard.astro";
+import CategoryBrowse from "@/components/home/CategoryBrowse.astro";
+import EditorialPreview from "@/components/home/EditorialPreview.astro";
+import HomeHero from "@/components/home/HomeHero.astro";
+import NewsletterCta from "@/components/home/NewsletterCta.astro";
+import VideoGrid from "@/components/home/VideoGrid.astro";
+import Section from "@/components/common/Section.astro";
+import Footer from "@/components/navigation/Footer.astro";
+import Navbar from "@/components/navigation/Navbar.astro";
+import { homepageCuration } from "@/config/homepage";
+import { siteConfig } from "@/config/site";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getRecipeSlug, getYouTubeThumbnailUrl } from "@/utils/recipe";
 
-const featuredProducts = products.filter(product => product.featured);
+const [recipes, collections, series, tools] = await Promise.all([
+  getCollection("recipes", ({ data }) => !data.draft),
+  getCollection("collections"),
+  getCollection("series"),
+  getCollection("tools"),
+]);
 
-const { socials, posts: postsConfig } = config;
+const recipesBySlug = new Map(recipes.map(recipe => [getRecipeSlug(recipe.id), recipe]));
+const collectionsBySlug = new Map(collections.map(collection => [collection.data.slug, collection]));
+const seriesBySlug = new Map<string, (typeof series)[number]>(series.map(entry => [entry.data.slug, entry]));
+const toolsBySlug = new Map(tools.map(tool => [tool.data.slug, tool]));
 
-const locale = Astro.currentLocale ?? config.site.lang;
-const t = useTranslations(locale);
+const featuredRecipes = homepageCuration.featuredRecipes.flatMap(slug => {
+  const recipe = recipesBySlug.get(slug);
+  return recipe ? [recipe] : [];
+});
+const featuredCollections = homepageCuration.featuredCollections.flatMap(slug => {
+  const collection = collectionsBySlug.get(slug);
+  return collection ? [collection] : [];
+});
+const featuredSeries = homepageCuration.featuredSeries.flatMap(slug => {
+  const entry = seriesBySlug.get(slug);
+  return entry ? [entry] : [];
+});
+const featuredTools = homepageCuration.featuredTools.flatMap(slug => {
+  const tool = toolsBySlug.get(slug);
+  return tool ? [tool] : [];
+});
+const featuredVideos = homepageCuration.featuredVideos.flatMap(video => {
+  const thumbnail = getYouTubeThumbnailUrl(video.url);
+  return thumbnail ? [{ ...video, thumbnail }] : [];
+});
+const featuredRecipeSlugs = new Set(featuredRecipes.map(recipe => getRecipeSlug(recipe.id)));
+const latestRecipes = recipes
+  .filter(recipe => !featuredRecipeSlugs.has(getRecipeSlug(recipe.id)))
+  .sort((left, right) => right.data.publishDate.getTime() - left.data.publishDate.getTime())
+  .slice(0, 6);
 
-const posts = await getCollection("posts");
-const sortedPosts = getSortedPosts(posts);
-const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
-const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
-const homePath = getRelativeLocaleUrl(locale, "");
+const categoryDefinitions = [
+  { title: "By Protein", description: "Find recipes by your main ingredient.", isRepresented: recipes.some(recipe => recipe.data.protein.length > 0) },
+  { title: "By Meal", description: "Browse ideas for lunch, dinner, snacks, and desserts.", isRepresented: recipes.some(recipe => recipe.data.meal.length > 0) },
+  { title: "By Cuisine", description: "Explore Bengali cooking and more comfort-food traditions.", isRepresented: recipes.some(recipe => Boolean(recipe.data.cuisine)) },
+  { title: "By Type", description: "Discover curries, sweets, rice dishes, and more.", isRepresented: recipes.some(recipe => recipe.data.type.length > 0) },
+];
+const categories = categoryDefinitions.filter(category => category.isRepresented);
+
+const existingInternalRoutes = new Set(["/", "/about", "/work-with-us", "/search"]);
+const navigationItems = siteConfig.navigation.filter(item => existingInternalRoutes.has(item.href));
+const footerGroups = siteConfig.footerNavigation
+  .map(group => ({ ...group, items: group.items.filter(item => existingInternalRoutes.has(item.href)) }))
+  .filter(group => group.items.length > 0);
 ---
 
-<Layout>
-  <Header />
-  <main
-    id="main-content"
-    data-layout="index"
-    data-home-path={homePath}
-    class="app-layout"
-  >
-	<section id="hero" class="border-border border-b pt-16 pb-16">
-	  <div class="max-w-3xl">
-		<h1
-		  class="mb-6 text-4xl font-bold sm:text-5xl"
-		  style="font-family: 'Noto Serif Bengali', serif;"
-		>
-		  রেসিপি না, রান্না শেখাই
-		</h1>
+<BaseLayout metadata={{ description: siteConfig.description, canonicalPath: "/" }}>
+  <Navbar brand={{ label: siteConfig.name, href: "/" }} items={navigationItems} />
+  <main id="main-content">
+    <HomeHero image={featuredRecipes[0]?.data.coverImage} imageAlt={featuredRecipes[0]?.data.coverImageAlt} />
 
-		<p class="mb-8 text-lg leading-relaxed">
-		  From Bengali classics to modern comfort food, learn the techniques,
-		  logic, and skills behind great home cooking.
-		</p>
+    {featuredRecipes.length > 0 && (
+      <Section id="featured-recipes" width="wide" spacing="lg">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p class="text-sm font-bold tracking-[0.12em] text-accent uppercase">Start here</p>
+            <h2 class="mt-2 font-display text-4xl font-semibold tracking-tight text-foreground">Featured recipes</h2>
+          </div>
+          <p class="max-w-xl leading-relaxed text-muted-foreground">Six Calcutta Kitchen favourites chosen for dependable home cooking.</p>
+        </div>
+        <div class="mt-8 grid gap-6 tablet:grid-cols-2 desktop:grid-cols-3">
+          {featuredRecipes.map(recipe => (
+            <RecipeCard
+              href={`/recipes/${getRecipeSlug(recipe.id)}/`}
+              title={recipe.data.title}
+              description={recipe.data.description}
+              image={recipe.data.coverImage}
+              imageAlt={recipe.data.coverImageAlt}
+              eyebrow={recipe.data.cuisine}
+              metadata={[`${recipe.data.cookTime} min cook`, recipe.data.difficulty]}
+            />
+          ))}
+        </div>
+      </Section>
+    )}
 
-		<div class="flex flex-wrap gap-4">
-		  <a
-        href="https://www.youtube.com/@calcutta.kitchen"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 rounded-lg bg-red-600 px-6 py-3 font-medium text-white transition hover:bg-red-700"
-      >
-        <Icon name="mdi:youtube" class="h-5 w-5" />
-        Watch on YouTube
-      </a>
+    {categories.length > 0 && (
+      <Section width="wide" tone="surface" spacing="lg">
+        <CategoryBrowse {categories} />
+      </Section>
+    )}
 
-		  <a
-			href="https://www.instagram.com/calcuttakitchen.in/"
-			target="_blank"
-			class="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 px-6 py-3 font-medium text-white transition hover:opacity-90"
-		  >
-      <Icon name="mdi:instagram" class="h-5 w-5"/>
-			Follow on Instagram
-		  </a>
+    {featuredCollections.length > 0 && (
+      <Section width="wide" spacing="lg">
+        <div class="space-y-6">
+          <p class="text-sm font-bold tracking-[0.12em] text-accent uppercase">Curated for you</p>
+          {featuredCollections.map(collection => (
+            <EditorialPreview
+              eyebrow="Featured collection"
+              title={collection.data.title}
+              description={collection.data.description}
+              image={collection.data.coverImage}
+              imageAlt={collection.data.coverImageAlt}
+            />
+          ))}
+        </div>
+      </Section>
+    )}
 
-      <a
-        href="/work-with-us"
-        class="inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 font-medium text-white transition-colors duration-200 hover:bg-[var(--foreground)]"
-      >
-        <Icon name="mdi:bullhorn" class="h-5 w-5" />
-        Work with Us
-      </a>
-		</div>
-	  </div>
-	</section>
-</main>
+    {featuredSeries.length > 0 && (
+      <Section width="wide" tone="surface" spacing="lg">
+        <div class="space-y-6">
+          <p class="text-sm font-bold tracking-[0.12em] text-accent uppercase">Signature series</p>
+          {featuredSeries.map(entry => (
+            <EditorialPreview
+              eyebrow="Cook Like a Lyadhkhor"
+              title={entry.data.title}
+              description={entry.data.description}
+              image={entry.data.coverImage}
+              imageAlt={entry.data.coverImageAlt}
+            />
+          ))}
+        </div>
+      </Section>
+    )}
 
-  <section class="border-border border-b py-14 -mx-8">
+    {featuredTools.length > 0 && (
+      <Section width="wide" spacing="lg">
+        <h2 class="font-display text-4xl font-semibold tracking-tight text-foreground">Tools we use</h2>
+        <div class="mt-8 grid gap-6 tablet:grid-cols-2 desktop:grid-cols-3">
+          {featuredTools.map(tool => (
+            <ToolCard
+              href={tool.data.affiliateLink ?? "/kitchen-tools/"}
+              title={tool.data.title}
+              description={tool.data.description}
+              image={tool.data.image}
+              imageAlt={tool.data.imageAlt}
+              external={Boolean(tool.data.affiliateLink)}
+            />
+          ))}
+        </div>
+      </Section>
+    )}
 
-  <div class="mx-auto max-w-screen-2xl px-8">
+    {latestRecipes.length > 0 && (
+      <Section width="wide" spacing="lg">
+        <h2 class="font-display text-4xl font-semibold tracking-tight text-foreground">Latest recipes</h2>
+        <div class="mt-8 grid gap-6 tablet:grid-cols-2 desktop:grid-cols-3">
+          {latestRecipes.map(recipe => (
+            <RecipeCard
+              href={`/recipes/${getRecipeSlug(recipe.id)}/`}
+              title={recipe.data.title}
+              description={recipe.data.description}
+              image={recipe.data.coverImage}
+              imageAlt={recipe.data.coverImageAlt}
+              eyebrow={recipe.data.cuisine}
+              metadata={[`${recipe.data.cookTime} min cook`, recipe.data.difficulty]}
+            />
+          ))}
+        </div>
+      </Section>
+    )}
 
-    <h2 class="text-2xl font-semibold tracking-wide">
-      Kitchen Essentials We Use
-    </h2>
+    {featuredVideos.length > 0 && (
+      <Section width="wide" tone="surface" spacing="lg">
+        <VideoGrid videos={featuredVideos} />
+      </Section>
+    )}
 
-    <p class="mt-3 max-w-2xl text-gray-600">
-      These are the cookware, utensils and gadgets you'll see us using across our recipes. They're products we've trusted in our own kitchen and genuinely recommend.
-    </p>
-
-    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-
-      {
-        featuredProducts.map(product => (
-
-          <ProductCardSmall product={product} />
-
-        ))
-      }
-
-    </div>
-
-    <div class="mt-10 text-center">
-
-      <LinkButton href="/kitchen-tools">
-
-        View All Kitchen Tools
-        <IconArrowRight class="inline-block rtl:-rotate-180" />
-
-      </LinkButton>
-
-    </div>
-
-  </div>
-
-</section>
-<main class="app-layout">
-{
-  featuredPosts.length > 0 && (
-    <section
-      id="featured"
-      class:list={[
-        "pt-12 pb-6",
-        { "border-border border-b": recentPosts.length > 0 },
-      ]}
-    >
-      <h2 class="text-2xl font-semibold tracking-wide">
-        Featured Recipes
-      </h2>
-
-      <ul>
-        {featuredPosts.map(data => (
-          <Card variant="h3" {...data} />
-        ))}
-      </ul>
-
-    </section>
-  )
-}
-
-    {
-      recentPosts.length > 0 && (
-        <section id="recent-posts" class="pt-12 pb-6">
-          <h2 class="text-2xl font-semibold tracking-wide">
-            Latest Recipes
-          </h2>
-          <ul>
-            {recentPosts.slice(0, postsConfig.perIndex).map(data => (
-              <Card variant="h3" {...data} />
-            ))}
-          </ul>
-        </section>
-      )
-    }
-
-    <div class="my-8 text-center">
-      <LinkButton href={getRelativeLocaleUrl(locale, "posts")}>
-        View All Recipes
-        <IconArrowRight class="inline-block rtl:-rotate-180" />
-      </LinkButton>
-    </div>
+    <Section width="wide" spacing="lg">
+      <NewsletterCta />
+    </Section>
   </main>
-  <Footer />
-</Layout>
-
-<script>
-  document.addEventListener("astro:page-load", () => {
-    const indexLayout = (document.querySelector("#main-content") as HTMLElement)
-      ?.dataset;
-    const baseRoot = import.meta.env.BASE_URL.replace(/\/?$/, "/");
-    if (indexLayout?.layout) {
-      sessionStorage.setItem("backUrl", indexLayout.homePath ?? baseRoot);
-    }
-  });
-</script>
+  <Footer brand={{ label: siteConfig.name, href: "/" }} groups={footerGroups} socialLinks={siteConfig.socialLinks} />
+</BaseLayout>
