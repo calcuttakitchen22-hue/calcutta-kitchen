@@ -1,19 +1,18 @@
 ---
-import type { RecipeEquipment } from "@/types/recipe";
+import ProductCardSmall from "@/components/ProductCardSmall.astro";
+import type { products as productEntries } from "@/data/products";
 
 type Props = {
-  equipment: RecipeEquipment[];
+  products: (typeof productEntries)[number][];
   class?: string;
 };
 
-const { equipment, class: className } = Astro.props;
+const { products, class: className } = Astro.props;
 ---
 
-<section id="equipment" aria-labelledby="equipment-heading" class={className}>
-  <h2 id="equipment-heading" class="font-display text-4xl font-semibold tracking-tight text-foreground">Equipment</h2>
-  <ul class="mt-6 grid gap-3 sm:grid-cols-2">
-    {equipment.map(item => (
-      <li class="rounded-md border border-border bg-surface px-4 py-3 font-semibold text-foreground">{item.name}</li>
-    ))}
-  </ul>
+<section id="equipment" aria-labelledby="equipment-heading" class={className} data-print-exclude>
+  <h2 id="equipment-heading" class="font-display text-4xl font-normal tracking-tight text-foreground">Equipment</h2>
+  <div class="mt-6 grid gap-4 tablet:grid-cols-2 desktop:grid-cols-3">
+    {products.map(product => <ProductCardSmall {product} />)}
+  </div>
 </section>

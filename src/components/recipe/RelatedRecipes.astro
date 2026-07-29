@@ -1,12 +1,26 @@
 ---
+import RecipeCard from "@/components/cards/RecipeCard.astro";
+import type { ImageMetadata } from "astro";
+
 type Props = {
+  recipes: {
+    href: string;
+    title: string;
+    description: string;
+    image: ImageMetadata;
+    imageAlt: string;
+    eyebrow: string;
+    metadata: string[];
+  }[];
   class?: string;
 };
 
-const { class: className } = Astro.props;
+const { recipes, class: className } = Astro.props;
 ---
 
-<section aria-labelledby="related-recipes-heading" class:list={["rounded-lg border border-border bg-surface p-6 tablet:p-8", className]}>
+<section aria-labelledby="related-recipes-heading" class={className} data-print-exclude>
   <h2 id="related-recipes-heading" class="font-display text-4xl font-semibold tracking-tight text-foreground">Related recipes</h2>
-  <p class="mt-3 leading-relaxed text-muted-foreground">More recipes to explore will appear here as the recipe recommendation system is introduced.</p>
+  <div class="mt-6 grid gap-5 tablet:grid-cols-2 desktop:grid-cols-3">
+    {recipes.map(recipe => <RecipeCard {...recipe} />)}
+  </div>
 </section>

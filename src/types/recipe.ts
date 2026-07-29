@@ -41,7 +41,9 @@ export type RecipeVideo = {
 
 export type RecipeLayoutData = {
   title: string;
+  titleBn?: string;
   description: string;
+  about: string[];
   coverImage: ImageMetadata;
   coverImageAlt: string;
   publishDate: Date;
@@ -53,6 +55,9 @@ export type RecipeLayoutData = {
   difficulty: "easy" | "medium" | "hard";
   cuisine: string;
   meal: string[];
+  affiliateProducts: string[];
+  ingredientsBn: string[];
+  stepsBn: string[];
   ingredients: RecipeIngredient[];
   equipment: RecipeEquipment[];
   steps: RecipeStep[];

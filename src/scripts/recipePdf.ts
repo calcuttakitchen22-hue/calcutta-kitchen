@@ -1,372 +1,72 @@
-import { jsPDF } from "jspdf";
-import logo from "@/assets/images/Hori logo o-w.png";
 import watermark from "@/assets/images/pdf-watermark.png";
-console.log("RECIPE PDF LOADED");
-function drawFooter(pdf: jsPDF) {
+import html2canvas from "html2canvas";
+import { jsPDF } from "jspdf";
 
-  pdf.setFontSize(10);
+const BRAND_MAROON = [112, 13, 29] as const;
+const CONTENT_LEFT = 12;
+const CONTENT_TOP = 28;
+const CONTENT_WIDTH = 186;
+const CONTENT_HEIGHT = 248;
 
-  pdf.setTextColor(100);
-
-pdf.text(
-  "calcuttakitchen.in",
-  105,
-  285,
-  { align: "center" }
-);
-}
-
-function drawPageBackground(
-  pdf: jsPDF,
-  watermarkImg: HTMLImageElement
-) {
-
-  pdf.setFillColor(248, 245, 230);
-
-  pdf.rect(
-    0,
-    0,
-    210,
-    297,
-    "F"
-  );
-
-pdf.addImage(
-  watermarkImg,
-  "PNG",
-  0,
-  -20,
-  320,
-  320
-);
-}
-async function waitForImage(
-  img: HTMLImageElement
-) {
-
-  if (img.complete) {
-    return;
-  }
-
-  await new Promise(resolve => {
-    img.onload = () => resolve(true);
-    img.onerror = () => resolve(true);
+function loadImage(source: string): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = reject;
+    image.src = source;
   });
 }
 
-export async function downloadRecipePdf() {
-  
+function addFooter(pdf: jsPDF, pageNumber: number): void {
+  const pageHeight = pdf.internal.pageSize.getHeight();
+  pdf.setDrawColor(...BRAND_MAROON);
+  pdf.setLineWidth(0.35);
+  pdf.line(CONTENT_LEFT, pageHeight - 13, CONTENT_LEFT + CONTENT_WIDTH, pageHeight - 13);
+  pdf.setTextColor(...BRAND_MAROON);
+  pdf.setFontSize(8);
+  pdf.text("Calcutta Kitchen · calcuttakitchen.in", CONTENT_LEFT, pageHeight - 7);
+  pdf.text(String(pageNumber), CONTENT_LEFT + CONTENT_WIDTH, pageHeight - 7, { align: "right" });
+}
 
-const title =
-  document.querySelector("h1")
-    ?.childNodes[0]
-    ?.textContent
-    ?.trim() || "Recipe";
+export async function downloadRecipePdf(recipeElement: HTMLElement, documentTitle: string): Promise<void> {
+  recipeElement.setAttribute("aria-hidden", "false");
+  const sourceCanvas = await html2canvas(recipeElement, { scale: 2, useCORS: true, backgroundColor: "#F8F5E6" });
+  recipeElement.setAttribute("aria-hidden", "true");
 
-const ingredients = Array.from(
-  document.querySelectorAll(
-    "#ingredients + ul li"
-  )
-).map(
-  li =>
-    li.textContent?.trim() || ""
-);
+  const pdf = new jsPDF("p", "mm", "a4");
+  const watermarkImage = await loadImage(watermark.src);
+  const pixelsPerMillimetre = sourceCanvas.width / CONTENT_WIDTH;
+  const sliceHeight = Math.floor(CONTENT_HEIGHT * pixelsPerMillimetre);
+  let sourceOffset = 0;
+  let pageNumber = 1;
 
-const methodHeading =
-  document.getElementById(
-    "method"
-  );
+  while (sourceOffset < sourceCanvas.height) {
+    const currentHeight = Math.min(sliceHeight, sourceCanvas.height - sourceOffset);
+    const pageCanvas = document.createElement("canvas");
+    pageCanvas.width = sourceCanvas.width;
+    pageCanvas.height = currentHeight;
+    const context = pageCanvas.getContext("2d");
+    if (!context) break;
 
-let method: string[] = [];
+    context.fillStyle = "#F8F5E6";
+    context.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
+    context.save();
+    context.globalAlpha = 0.055;
+    const watermarkSize = Math.min(pageCanvas.width, pageCanvas.height) * 0.78;
+    context.drawImage(watermarkImage, (pageCanvas.width - watermarkSize) / 2, (pageCanvas.height - watermarkSize) / 2, watermarkSize, watermarkSize);
+    context.restore();
+    context.drawImage(sourceCanvas, 0, sourceOffset, sourceCanvas.width, currentHeight, 0, 0, pageCanvas.width, currentHeight);
 
-if (methodHeading) {
+    if (pageNumber > 1) pdf.addPage();
+    pdf.setTextColor(...BRAND_MAROON);
+    pdf.setFontSize(12);
+    pdf.text("Calcutta Kitchen", CONTENT_LEFT, 14);
+    pdf.addImage(pageCanvas.toDataURL("image/png"), "PNG", CONTENT_LEFT, CONTENT_TOP, CONTENT_WIDTH, currentHeight / pixelsPerMillimetre);
+    addFooter(pdf, pageNumber);
 
-  const methodList =
-    methodHeading.nextElementSibling;
-
-  if (
-    methodList?.tagName === "OL"
-  ) {
-
-    method = Array.from(
-      methodList.querySelectorAll(
-        "li"
-      )
-    ).map(
-      li =>
-        li.textContent?.trim() ||
-        ""
-    );
+    sourceOffset += currentHeight;
+    pageNumber += 1;
   }
+
+  pdf.save(`${documentTitle.replace(/[^\w\s-]/g, "").replace(/\s+/g, "-").toLowerCase() || "recipe"}.pdf`);
 }
-
-  const pdf = new jsPDF();
-
-  	const logoImg = new Image();
-
-	logoImg.src = logo.src;
-	
-	const watermarkImg = new Image();
-
-	watermarkImg.src = watermark.src;
-
-
-pdf.setTextColor(0);
-
-await waitForImage(
-  watermarkImg
-);
-
-
-drawPageBackground(
-  pdf,
-  watermarkImg
-);
-
-drawFooter(pdf);
-	await waitForImage(
-  logoImg
-);
-
-
-pdf.addImage(
-  logoImg,
-  "PNG",
-  20,
-  10,
-  61,
-  25
-);
-
-const heroImgElement =
-  document.querySelector("main img") as HTMLImageElement;
-  
-  if (
-  heroImgElement &&
-  !heroImgElement.complete
-) {
-
-  await waitForImage(
-    heroImgElement
-  );
-}
-  
-  if (heroImgElement) {
-
-  const canvas = document.createElement("canvas");
-
-  const maxWidth = 1200;
-
-const scale =
-  maxWidth /
-  heroImgElement.naturalWidth;
-
-canvas.width = maxWidth;
-
-canvas.height =
-  heroImgElement.naturalHeight *
-  scale;
-
-  const ctx = canvas.getContext("2d");
-
-  if (ctx) {
-
-    ctx.drawImage(
-  heroImgElement,
-  0,
-  0,
-  canvas.width,
-  canvas.height
-);
-
-    const heroData =
-  canvas.toDataURL(
-    "image/jpeg",
-    0.7
-  );
-
-    pdf.addImage(
-      heroData,
-      "JPEG",
-      20,
-      60,
-      170,
-      95
-    );
-  }
-}	
-
-  pdf.setTextColor(112, 13, 29);
-
-pdf.setFont(
-  "helvetica",
-  "bold"
-);
-
-pdf.setFontSize(34);
-
-const titleLines =
-  pdf.splitTextToSize(
-    title,
-    160
-  );
-
-pdf.text(
-  titleLines,
-  105,
-  50,
-  {
-    align: "center"
-  }
-);
-
-pdf.setFont(
-  "helvetica",
-  "normal"
-);
-
-  let y = 185;
-
-  pdf.setTextColor(112, 13, 29);
-
-	pdf.setFontSize(16);
-
-	pdf.text(
-	  "INGREDIENTS",
-	  20,
-	  y
-	);
-
-  y += 10;
-  
-  pdf.setTextColor(0);
-pdf.setFontSize(12);
-
-  ingredients.forEach(item => {
-
-  if (y > 270) {
-
-  pdf.addPage();
-
-  drawPageBackground(
-    pdf,
-    watermarkImg
-  );
-
-  drawFooter(pdf);
-
-  y = 20;
-
-  pdf.setTextColor(0);
-
-  pdf.setFontSize(12);
-  
-  pdf.setFont(
-  "helvetica",
-  "normal"
-);
-
-}
-  
-  pdf.text(
-    "• " + item,
-    25,
-    y
-  );
-
-  y += 8;
-});
-
-  y += 10;
-
-  pdf.setTextColor(112, 13, 29);
-
-pdf.setFontSize(16);
-
-if (y > 240) {
-
-  pdf.addPage();
-
-  drawPageBackground(
-    pdf,
-    watermarkImg
-  );
-
-  drawFooter(pdf);
-
-  y = 20;
-}
-
-pdf.setTextColor(112, 13, 29);
-
-pdf.setFontSize(16);
-
-pdf.text(
-  "METHOD",
-  20,
-  y
-);
-
-y += 10;
-
-pdf.setTextColor(0);
-
-pdf.setFontSize(12);
-
-  method.forEach((step, index) => {
-
-if (y > 270) {
-
-  pdf.addPage();
-
-  drawPageBackground(
-    pdf,
-    watermarkImg
-  );
-
-  drawFooter(pdf);
-
-  y = 20;
-
-  pdf.setTextColor(112, 13, 29);
-
-  pdf.setFontSize(16);
-
-  pdf.text(
-    "METHOD",
-    20,
-    y
-  );
-
-  y += 10;
-
-  pdf.setTextColor(0);
-
-  pdf.setFontSize(12);
-  
-  pdf.setFont(
-  "helvetica",
-  "normal"
-);
-
-}
-
-  pdf.text(
-    `${index + 1}. ${step}`,
-    25,
-    y
-  );
-
-  y += 8;
-});
-  
-pdf.save(
-  title.replace(
-    /[^\w\s-]/g,
-    ""
-  ) + ".pdf"
-);
-
-}
-
-export {};

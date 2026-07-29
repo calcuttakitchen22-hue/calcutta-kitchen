@@ -10,7 +10,7 @@ const { items, class: className } = Astro.props;
 ---
 
 <section id="faq" aria-labelledby="faq-heading" class={className}>
-  <h2 id="faq-heading" class="font-display text-4xl font-semibold tracking-tight text-foreground">Frequently asked questions</h2>
+  <h2 id="faq-heading" class="font-display text-4xl font-normal tracking-tight text-foreground">Frequently asked questions</h2>
   <div class="mt-6 divide-y divide-border rounded-md border border-border bg-surface">
     {items.map(item => (
       <details class="group px-5 py-4">

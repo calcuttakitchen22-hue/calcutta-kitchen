@@ -1,16 +1,22 @@
 ---
+import type { products as productEntries } from "@/data/products";
+
+type Props = {
+  product: (typeof productEntries)[number];
+};
+
 const { product } = Astro.props;
 ---
 
-<div class="group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+<article class="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-surface shadow-card transition duration-200 hover:-translate-y-1">
 
   <a
     href={product.affiliateUrl}
     target="_blank"
-    rel="noopener sponsored"
+    rel="sponsored noopener noreferrer"
     class="block"
   >
-    <div class="bg-gray-50 p-6">
+    <div class="bg-background p-6">
       <img
         src={product.imageUrl}
         alt={product.name}
@@ -21,23 +27,23 @@ const { product } = Astro.props;
 
   <div class="flex flex-1 flex-col p-5">
 
-    <h3 class="min-h-[3rem] text-lg font-semibold leading-6">
+    <h3 class="min-h-[3rem] text-lg font-medium leading-6 text-foreground">
       {product.name}
     </h3>
 
-    <p class="mt-3 min-h-[3rem] text-sm leading-6 text-gray-600 line-clamp-2">
+    <p class="mt-3 min-h-[3rem] text-sm leading-6 text-muted-foreground">
       {product.description}
     </p>
 
     <a
       href={product.affiliateUrl}
       target="_blank"
-      rel="noopener sponsored"
-      class="mt-auto inline-flex w-full items-center justify-center rounded-xl bg-[#F24E07] px-4 py-3 font-medium text-white transition duration-300 hover:bg-[#d94506]"
+      rel="sponsored noopener noreferrer"
+      class="mt-auto inline-flex min-h-11 w-full items-center justify-center rounded-pill bg-accent px-4 py-3 font-medium text-accent-foreground transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
     >
       🛒 View on Amazon
     </a>
 
   </div>
 
-</div>
+</article>

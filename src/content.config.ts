@@ -94,7 +94,9 @@ const recipes = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string().min(1),
+      titleBn: z.string().min(1).optional(),
       description: z.string().min(1).max(160),
+      about: z.array(z.string().min(1)).min(1),
       coverImage: image(),
       coverImageAlt: z.string().min(1),
       publishDate: z.date(),
@@ -111,6 +113,9 @@ const recipes = defineCollection({
       type: z.array(z.enum(taxonomySlugs.type)).min(1),
       series: z.enum(taxonomySlugs.series).optional(),
       tags: z.array(z.string().min(1)).min(1),
+      affiliateProducts: z.array(slugSchema).default([]),
+      ingredientsBn: z.array(z.string().min(1)).default([]),
+      stepsBn: z.array(z.string().min(1)).default([]),
       ingredients: z.array(ingredientSchema).min(1),
       equipment: z.array(equipmentSchema).default([]),
       steps: z.array(stepSchema).min(1),

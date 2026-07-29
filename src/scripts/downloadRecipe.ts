@@ -1,5 +1,4 @@
 import { downloadRecipePdf } from "./recipePdf";
-console.log("xxxx");
 declare global {
   interface Window {
     generateRecipePdf: () => Promise<void>;
@@ -7,7 +6,10 @@ declare global {
 }
 
 if (typeof window !== "undefined") {
-  window.generateRecipePdf = downloadRecipePdf;
+  window.generateRecipePdf = async () => {
+    const recipeElement = document.querySelector<HTMLElement>("#recipe-pdf");
+    if (recipeElement) await downloadRecipePdf(recipeElement, document.title);
+  };
 }
 
 export {};

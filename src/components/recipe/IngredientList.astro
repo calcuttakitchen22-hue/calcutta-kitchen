@@ -3,22 +3,43 @@ import type { RecipeIngredient } from "@/types/recipe";
 
 type Props = {
   ingredients: RecipeIngredient[];
+  ingredientsBn?: string[];
   class?: string;
 };
 
-const { ingredients, class: className } = Astro.props;
+const { ingredients, ingredientsBn = [], class: className } = Astro.props;
 ---
 
 <section id="ingredients" aria-labelledby="ingredients-heading" class={className}>
-  <h2 id="ingredients-heading" class="font-display text-4xl font-semibold tracking-tight text-foreground">Ingredients</h2>
-  <ul class="mt-6 divide-y divide-border rounded-md border border-border bg-surface px-5">
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <h2 id="ingredients-heading" class="font-display text-4xl font-normal tracking-tight text-foreground">Ingredients</h2>
+    <div class="flex gap-2">
+      <button type="button" data-check-all class="min-h-11 rounded-pill border border-border px-4 text-sm font-semibold text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Check all</button>
+      <button type="button" data-clear-all class="min-h-11 rounded-pill border border-border px-4 text-sm font-semibold text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Clear all</button>
+    </div>
+  </div>
+  <ul data-language-section="ingredients" data-recipe-language="en" class="mt-6 divide-y divide-border rounded-md border border-border bg-surface px-5">
     {ingredients.map(ingredient => (
-      <li class="py-4 text-base leading-relaxed text-foreground">
-        <span class="font-semibold">
+      <li class="flex gap-3 py-4 text-base leading-relaxed text-foreground">
+        <input type="checkbox" class="mt-1 size-5 shrink-0 accent-accent" />
+        <span>
           {[ingredient.quantity, ingredient.unit, ingredient.name].filter(Boolean).join(" ")}
         </span>
         {ingredient.notes && <span class="text-muted-foreground"> — {ingredient.notes}</span>}
       </li>
     ))}
   </ul>
+  {ingredientsBn.length > 0 && <ul data-language-section="ingredients" data-recipe-language="bn" hidden lang="bn" class="mt-6 divide-y divide-border rounded-md border border-border bg-surface px-5">{ingredientsBn.map(ingredient => <li class="flex gap-3 py-4 text-base leading-relaxed text-foreground"><input type="checkbox" class="mt-1 size-5 shrink-0 accent-accent" /><span>{ingredient.replace(/^HEADING:/, "")}</span></li>)}</ul>}
 </section>
+
+<script>
+  const ingredientSection = document.querySelector<HTMLElement>("#ingredients");
+  const checklistKey = `calcutta-kitchen:${window.location.pathname}:ingredients`;
+  const updateItem = (input: HTMLInputElement) => input.closest("li")?.classList.toggle("line-through", input.checked);
+  const inputs = () => Array.from(ingredientSection?.querySelectorAll<HTMLInputElement>('input[type="checkbox"]') ?? []);
+  const saved = sessionStorage.getItem(checklistKey);
+  if (saved) inputs().forEach((input, index) => { input.checked = JSON.parse(saved).includes(index); updateItem(input); });
+  ingredientSection?.addEventListener("change", event => { if (!(event.target instanceof HTMLInputElement)) return; updateItem(event.target); sessionStorage.setItem(checklistKey, JSON.stringify(inputs().flatMap((input, index) => input.checked ? [index] : []))); });
+  ingredientSection?.querySelector<HTMLElement>("[data-check-all]")?.addEventListener("click", () => { inputs().forEach(input => { input.checked = true; updateItem(input); }); sessionStorage.setItem(checklistKey, JSON.stringify(inputs().map((_, index) => index))); });
+  ingredientSection?.querySelector<HTMLElement>("[data-clear-all]")?.addEventListener("click", () => { inputs().forEach(input => { input.checked = false; updateItem(input); }); sessionStorage.removeItem(checklistKey); });
+</script>

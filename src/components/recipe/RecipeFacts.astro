@@ -21,11 +21,11 @@ const facts = [
 
 <section aria-labelledby="recipe-facts-heading" class={className}>
   <h2 id="recipe-facts-heading" class="sr-only">Recipe information</h2>
-  <dl class="grid gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-2 desktop:grid-cols-5">
+  <dl class="grid grid-cols-3 gap-2 desktop:grid-cols-5">
     {facts.map(fact => (
-      <div class="bg-surface p-4">
-        <dt class="text-sm font-semibold text-muted-foreground">{fact.label}</dt>
-        <dd class="mt-1 font-display text-xl font-semibold capitalize text-foreground">{fact.value}</dd>
+      <div class="rounded-sm border border-border bg-surface px-3 py-2">
+        <dt class="text-xs font-medium text-muted-foreground">{fact.label}</dt>
+        <dd class="mt-0.5 font-display text-base font-medium capitalize text-foreground">{fact.value}</dd>
       </div>
     ))}
   </dl>

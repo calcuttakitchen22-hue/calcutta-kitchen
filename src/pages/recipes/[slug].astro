@@ -1,7 +1,8 @@
 ---
-import { getCollection, render, type CollectionEntry } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
+import { products } from "@/data/products";
 import RecipeLayout from "@/layouts/RecipeLayout.astro";
-import { getRecipeSlug } from "@/utils/recipe";
+import { getRecipeSlug, getRelatedRecipes } from "@/utils/recipe";
 
 export async function getStaticPaths() {
   const recipes = await getCollection("recipes", ({ data }) => !data.draft);
@@ -17,10 +18,22 @@ type Props = {
 };
 
 const { recipe } = Astro.props;
-const { Content } = await render(recipe);
 const slug = getRecipeSlug(recipe.id);
+const recipes = await getCollection("recipes", ({ data }) => !data.draft);
+const productsById = new Map(products.map(product => [product.id, product]));
+const recipeProducts = recipe.data.affiliateProducts.flatMap(id => {
+  const product = productsById.get(id);
+  return product ? [product] : [];
+});
+const relatedRecipes = getRelatedRecipes(recipe, recipes).map(entry => ({
+  href: `/recipes/${getRecipeSlug(entry.id)}/`,
+  title: entry.data.title,
+  description: entry.data.description,
+  image: entry.data.coverImage,
+  imageAlt: entry.data.coverImageAlt,
+  eyebrow: entry.data.cuisine,
+  metadata: [`${entry.data.cookTime} min cook`, entry.data.difficulty],
+}));
 ---
 
-<RecipeLayout recipe={recipe.data} {slug}>
-  <Content slot="overview" />
-</RecipeLayout>
+<RecipeLayout recipe={recipe.data} {slug} products={recipeProducts} {relatedRecipes} />
