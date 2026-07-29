@@ -40,10 +40,6 @@ const { brand, logo, items, socialLinks = [], searchHref = "/search", class: cla
       </nav>
       <div class="flex items-center gap-1">
         <ThemeToggle class="hidden desktop:grid" />
-        <a href={searchHref} class="grid size-11 place-items-center rounded-pill text-foreground transition hover:bg-surface hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
-        <span aria-hidden="true">⌕</span>
-        <span class="sr-only">Search</span>
-        </a>
         <MobileNavigationTrigger />
       </div>
     </div>

@@ -1,0 +1,71 @@
+---
+import { getCollection } from "astro:content";
+import RecipeCard from "@/components/cards/RecipeCard.astro";
+import Section from "@/components/common/Section.astro";
+import Footer from "@/components/navigation/Footer.astro";
+import Navbar from "@/components/navigation/Navbar.astro";
+import { categories } from "@/config/categories";
+import { taxonomyRegistry } from "@/config/taxonomy";
+import { siteConfig } from "@/config/site";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getRecipeSlug } from "@/utils/recipe";
+
+export function getStaticPaths() {
+  return categories.map(category => ({
+    params: { slug: category.slug },
+    props: { category },
+  }));
+}
+
+type Props = {
+  category: (typeof categories)[number];
+};
+
+const { category } = Astro.props;
+const recipes = await getCollection("recipes", ({ data }) => !data.draft);
+const taxonomyValue = taxonomyRegistry[category.dimension].find(value => value.slug === category.slug);
+const description = taxonomyValue?.intro ?? `Recipes for ${category.label.toLowerCase()} from Calcutta Kitchen.`;
+const matchingRecipes = recipes.filter(recipe => {
+  switch (category.dimension) {
+    case "protein":
+      return recipe.data.protein.some(value => value === category.slug);
+    case "meal":
+      return recipe.data.meal.some(value => value === category.slug);
+    case "cuisine":
+      return recipe.data.cuisine === category.slug;
+    case "type":
+      return recipe.data.type.some(value => value === category.slug);
+    case "series":
+      return recipe.data.series === category.slug;
+  }
+});
+---
+
+<BaseLayout metadata={{ title: category.label, description, canonicalPath: `/categories/${category.slug}/` }}>
+  <Navbar brand={{ label: siteConfig.name, href: "/" }} logo={siteConfig.logo} items={siteConfig.navigation} socialLinks={siteConfig.socialLinks} />
+  <main id="main-content">
+    <Section width="wide" spacing="md">
+      <p class="text-sm font-bold tracking-[0.12em] text-accent uppercase">Recipe category</p>
+      <h1 class="mt-2 font-display text-5xl font-semibold tracking-tight text-foreground tablet:text-6xl">{category.label}</h1>
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">{description}</p>
+      {matchingRecipes.length > 0 ? (
+        <div class="mt-10 grid gap-6 tablet:grid-cols-2 desktop:grid-cols-3">
+          {matchingRecipes.map(recipe => (
+            <RecipeCard
+              href={`/recipes/${getRecipeSlug(recipe.id)}/`}
+              title={recipe.data.title}
+              description={recipe.data.description}
+              image={recipe.data.coverImage}
+              imageAlt={recipe.data.coverImageAlt}
+              eyebrow={recipe.data.cuisine}
+              metadata={[`${recipe.data.cookTime} min cook`, recipe.data.difficulty]}
+            />
+          ))}
+        </div>
+      ) : (
+        <p class="mt-10 text-lg text-muted-foreground">Recipes in this category are coming soon.</p>
+      )}
+    </Section>
+  </main>
+  <Footer brand={{ label: siteConfig.name, href: "/" }} logo={siteConfig.logo} groups={siteConfig.footerNavigation} socialLinks={siteConfig.socialLinks} />
+</BaseLayout>

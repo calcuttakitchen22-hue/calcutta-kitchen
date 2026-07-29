@@ -58,6 +58,8 @@ const latestRecipes = recipes
 
 const discoveryItems = homepageDiscoveryCategories.map(category => ({
   label: category.label,
+  href: `/categories/${category.slug}/`,
+  icon: category.icon,
 }));
 const youtubeHref = siteConfig.socialLinks.find(link => link.platform === "youtube")?.href;
 const instagramHref = siteConfig.socialLinks.find(link => link.platform === "instagram")?.href;
@@ -71,9 +73,9 @@ const instagramHref = siteConfig.socialLinks.find(link => link.platform === "ins
     <KitchenToolsPromo href="/kitchen-tools/" />
 
     {featuredRecipes.length > 0 && (
-      <Section id="featured-recipes" width="wide" spacing="md" class="py-10 tablet:py-16">
+      <Section id="featured-recipes" width="wide" spacing="sm">
         <div class="flex flex-wrap items-end justify-between gap-4">
-          <h2 class="font-display text-3xl font-semibold tracking-tight text-foreground tablet:text-4xl">Featured recipes</h2>
+          <h2 class="font-display text-3xl font-medium tracking-tight text-foreground tablet:text-4xl">Featured recipes</h2>
         </div>
         <div class="mt-6 -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden tablet:mx-0 tablet:grid tablet:gap-6 tablet:overflow-visible tablet:px-0 tablet:pb-0 tablet:grid-cols-2 desktop:grid-cols-3">
           {featuredRecipes.map(recipe => (
@@ -93,7 +95,7 @@ const instagramHref = siteConfig.socialLinks.find(link => link.platform === "ins
     )}
 
     {(featuredCollections.length > 0 || featuredSeries.length > 0) && (
-      <Section width="wide" spacing="md" class="py-10 tablet:py-16">
+      <Section width="wide" spacing="sm">
         <section aria-labelledby="explore-calcutta-kitchen-heading">
           <p class="text-sm font-bold tracking-[0.12em] text-accent uppercase">Curated for you</p>
           <h2 id="explore-calcutta-kitchen-heading" class="mt-2 font-display text-3xl font-semibold tracking-tight text-foreground tablet:text-4xl">Explore Calcutta Kitchen</h2>
@@ -172,7 +174,7 @@ const instagramHref = siteConfig.socialLinks.find(link => link.platform === "ins
       </Section>
     )}
 
-    <Section width="wide" spacing="md" class="py-10 tablet:py-16">
+    <Section width="wide" spacing="sm" class="!pt-0">
       <NewsletterCta />
     </Section>
   </main>

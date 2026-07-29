@@ -3,6 +3,7 @@ type Props = {
   level?: 1 | 2 | 3 | 4 | 5 | 6;
   eyebrow?: string;
   align?: "start" | "center";
+  weight?: "normal" | "medium" | "semibold";
   id?: string;
   class?: string;
 };
@@ -11,6 +12,7 @@ const {
   level = 2,
   eyebrow,
   align = "start",
+  weight = "semibold",
   id,
   class: className,
 } = Astro.props;
@@ -24,11 +26,17 @@ const levelClasses = {
   5: "text-lg leading-snug",
   6: "text-base leading-snug",
 };
+
+const weightClasses = {
+  normal: "font-normal",
+  medium: "font-medium",
+  semibold: "font-semibold",
+};
 ---
 
 <div class:list={[align === "center" && "text-center"]}>
   {eyebrow && <p class="mb-2 text-sm font-bold tracking-[0.12em] text-accent uppercase">{eyebrow}</p>}
-  <Tag id={id} class:list={["font-display font-semibold tracking-tight text-foreground", levelClasses[level], className]}>
+  <Tag id={id} class:list={["font-display tracking-tight text-foreground", weightClasses[weight], levelClasses[level], className]}>
     <slot />
   </Tag>
 </div>
