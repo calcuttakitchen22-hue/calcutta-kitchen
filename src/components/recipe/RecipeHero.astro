@@ -18,7 +18,7 @@ const { title, titleBn, description, image, imageAlt, class: className } = Astro
   <div class="min-w-0">
     <p class="text-sm font-normal tracking-[0.12em] text-accent uppercase">Recipe</p>
     <h1 class="mt-2 font-display text-5xl font-normal leading-[1.08] tracking-tight text-foreground tablet:mt-3 tablet:text-6xl">
-      <span>{title}</span>{titleBn && <span lang="bn" class="ml-2 font-bold">({titleBn})</span>}
+      <span>{title}</span>{titleBn && <span lang="bn" class="ml-2 font-bold text-accent">({titleBn})</span>}
     </h1>
     <p class="mt-5 max-w-prose text-lg leading-relaxed text-muted-foreground">{description}</p>
   </div>

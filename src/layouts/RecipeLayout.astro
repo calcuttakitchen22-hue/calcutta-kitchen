@@ -104,7 +104,7 @@ const breadcrumbJsonLd = createBreadcrumbJsonLd([
     </Section>
     <Section width="content" spacing="md" class="pt-4 tablet:pt-6">
       {products.length > 0 && <EquipmentList {products} data-print-exclude />}
-      <RecipeActions title={recipe.title} titleBn={recipe.titleBn} about={recipe.about} ingredients={recipe.ingredients} ingredientsBn={recipe.ingredientsBn} steps={recipe.steps} stepsBn={recipe.stepsBn} tips={recipe.tips} metadata={[`Prep ${recipe.prepTime} min`, `Cook ${recipe.cookTime} min`, recipe.servings]} />
+      <RecipeActions title={recipe.title} titleBn={recipe.titleBn} about={recipe.about} ingredients={recipe.ingredients} ingredientsBn={recipe.ingredientsBn} steps={recipe.steps} stepsBn={recipe.stepsBn} tips={recipe.tips} hasVideo={Boolean(recipe.video && videoThumbnail)} metadata={[`Prep ${recipe.prepTime} min`, `Cook ${recipe.cookTime} min`, recipe.servings]} />
       <IngredientList ingredients={recipe.ingredients} ingredientsBn={recipe.ingredientsBn} class="mt-10" />
       <StepList steps={recipe.steps} stepsBn={recipe.stepsBn} class="mt-10" />
       {recipe.tips.length > 0 && <TipsCard tips={recipe.tips} class="mt-10" />}
