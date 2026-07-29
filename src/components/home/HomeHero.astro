@@ -3,14 +3,17 @@ import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
 import Button from "@/components/common/Button.astro";
 import SearchInput from "@/components/common/SearchInput.astro";
+import SocialIcon from "@/components/common/SocialIcon.astro";
 
 type Props = {
   image?: ImageMetadata;
   imageAlt?: string;
+  youtubeHref?: string;
+  instagramHref?: string;
   class?: string;
 };
 
-const { image, imageAlt, class: className } = Astro.props;
+const { image, imageAlt, youtubeHref, instagramHref, class: className } = Astro.props;
 ---
 
 <section class:list={["relative isolate overflow-hidden bg-foreground py-12 text-background tablet:py-24", className]}>
@@ -19,14 +22,14 @@ const { image, imageAlt, class: className } = Astro.props;
   <div class="mx-auto w-full max-w-content px-4 tablet:px-6 desktop:px-8">
     <div class="max-w-3xl">
       <p class="text-sm font-bold tracking-[0.12em] text-accent uppercase">Calcutta Kitchen</p>
-      <h1 lang="bn" class="mt-4 font-display text-5xl font-semibold leading-[1.08] tracking-tight tablet:text-6xl">রেসিপি নয়, রান্না শেখাই</h1>
+      <h1 lang="bn" class="mt-4 font-display text-5xl font-bold leading-[1.08] tracking-tight tablet:text-6xl">রেসিপি নয়,<br class="tablet:hidden" /> রান্না শেখাই</h1>
       <p class="mt-6 max-w-2xl text-lg leading-relaxed text-background/90">Explore authentic Bengali recipes, practical kitchen techniques, and everyday comfort food made simple.</p>
       <form action="/search" method="get" class="mt-8 max-w-2xl">
         <SearchInput id="homepage-search" class="text-foreground" />
       </form>
       <div class="mt-6 flex flex-wrap gap-3">
-        <Button href="#featured-recipes" variant="primary">Browse recipes</Button>
-        <Button href="https://www.youtube.com/@calcutta.kitchen/" variant="secondary" target="_blank" rel="noopener noreferrer">Watch on YouTube</Button>
+        {youtubeHref && <Button href={youtubeHref} variant="secondary" target="_blank" rel="noopener noreferrer"><SocialIcon platform="youtube" />Watch on YouTube</Button>}
+        {instagramHref && <Button href={instagramHref} variant="secondary" target="_blank" rel="noopener noreferrer"><SocialIcon platform="instagram" />Follow on Instagram</Button>}
       </div>
     </div>
   </div>

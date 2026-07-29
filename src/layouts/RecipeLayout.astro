@@ -76,7 +76,7 @@ const breadcrumbJsonLd = createBreadcrumbJsonLd([
     <script is:inline type="application/ld+json" set:html={serializeJsonLd(breadcrumbJsonLd)}></script>
     {faqJsonLd && <script is:inline type="application/ld+json" set:html={serializeJsonLd(faqJsonLd)}></script>}
   </Fragment>
-  <Navbar brand={{ label: siteConfig.name, href: "/" }} logo={siteConfig.logo} items={siteConfig.navigation} />
+  <Navbar brand={{ label: siteConfig.name, href: "/" }} logo={siteConfig.logo} items={siteConfig.navigation} socialLinks={siteConfig.socialLinks} />
   <main id="main-content">
     <Section width="wide" spacing="sm">
       <Breadcrumbs items={breadcrumbItems} />
@@ -99,5 +99,5 @@ const breadcrumbJsonLd = createBreadcrumbJsonLd([
       <RelatedRecipes class="mt-12" />
     </Section>
   </main>
-  <Footer brand={{ label: siteConfig.name, href: "/" }} groups={siteConfig.footerNavigation} socialLinks={siteConfig.socialLinks} />
+  <Footer brand={{ label: siteConfig.name, href: "/" }} logo={siteConfig.logo} groups={siteConfig.footerNavigation} socialLinks={siteConfig.socialLinks} />
 </BaseLayout>

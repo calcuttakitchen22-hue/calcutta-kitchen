@@ -1,0 +1,24 @@
+---
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+import Section from "@/components/common/Section.astro";
+import Footer from "@/components/navigation/Footer.astro";
+import Navbar from "@/components/navigation/Navbar.astro";
+import { siteConfig } from "@/config/site";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const collections = await getCollection("collections");
+---
+
+<BaseLayout metadata={{ title: "Collections", description: "Explore curated Calcutta Kitchen recipe collections.", canonicalPath: "/collections/" }}>
+  <Navbar brand={{ label: siteConfig.name, href: "/" }} logo={siteConfig.logo} items={siteConfig.navigation} socialLinks={siteConfig.socialLinks} />
+  <main id="main-content">
+    <Section width="wide" spacing="md">
+      <p class="text-sm font-bold tracking-[0.12em] text-accent uppercase">Curated cooking</p>
+      <h1 class="mt-2 font-display text-5xl font-semibold tracking-tight text-foreground tablet:text-6xl">Collections</h1>
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">Editorial recipe groupings for the meals and moments you cook most.</p>
+      {collections.length > 0 && <div class="mt-10 grid gap-6 tablet:grid-cols-2 desktop:grid-cols-3">{collections.map(collection => <article class="overflow-hidden rounded-md border border-border bg-surface shadow-card"><Image src={collection.data.coverImage} alt={collection.data.coverImageAlt} widths={[400, 640, 960]} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" loading="lazy" class="aspect-[3/2] w-full object-cover" /><div class="p-5"><h2 class="font-display text-2xl font-semibold text-foreground">{collection.data.title}</h2><p class="mt-3 leading-relaxed text-muted-foreground">{collection.data.description}</p></div></article>)}</div>}
+    </Section>
+  </main>
+  <Footer brand={{ label: siteConfig.name, href: "/" }} logo={siteConfig.logo} groups={siteConfig.footerNavigation} socialLinks={siteConfig.socialLinks} />
+</BaseLayout>

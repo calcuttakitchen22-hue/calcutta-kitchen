@@ -16,7 +16,7 @@ export const siteConfig: SiteConfiguration = {
     { label: "Home", href: "/" },
     { label: "Recipes", href: "/recipes" },
     { label: "Collections", href: "/collections" },
-    { label: "Tools We Use", href: "/tools" },
+    { label: "Kitchen Tools", href: "/kitchen-tools/" },
     { label: "Work With Us", href: "/work-with-us" },
     { label: "About Us", href: "/about" },
   ],
@@ -26,7 +26,7 @@ export const siteConfig: SiteConfiguration = {
       items: [
         { label: "Recipes", href: "/recipes" },
         { label: "Collections", href: "/collections" },
-        { label: "Tools We Use", href: "/tools" },
+        { label: "Kitchen Tools", href: "/kitchen-tools/" },
       ],
     },
     {
@@ -34,14 +34,12 @@ export const siteConfig: SiteConfiguration = {
       items: [
         { label: "About Us", href: "/about" },
         { label: "Work With Us", href: "/work-with-us" },
-        { label: "Privacy Policy", href: "/privacy-policy" },
-        { label: "Terms of Use", href: "/terms-of-use" },
       ],
     },
   ],
   socialLinks: [
-    { label: "YouTube", href: "https://www.youtube.com/@calcutta.kitchen/" },
-    { label: "Instagram", href: "https://www.instagram.com/calcuttakitchen.in/" },
-    { label: "Facebook", href: "https://www.facebook.com/calcuttakitchen22/" },
+    { label: "YouTube", href: "https://www.youtube.com/@calcutta.kitchen/", platform: "youtube" },
+    { label: "Instagram", href: "https://www.instagram.com/calcuttakitchen.in/", platform: "instagram" },
+    { label: "Facebook", href: "https://www.facebook.com/calcuttakitchen22/", platform: "facebook" },
   ],
 };

@@ -3,14 +3,16 @@
 [data-theme="light"] {
   --ck-color-background: #f8f5e6;
   --ck-color-surface: #fff8ec;
-  --ck-color-foreground: #700d1d;
+  --ck-color-kosha-black: #1e0109;
+  --ck-color-meat-red: #700d1d;
+  --ck-color-foreground: var(--ck-color-meat-red);
   --ck-color-accent: #f24e07;
   --ck-color-accent-foreground: #ffffff;
   --ck-color-muted: #fff8ec;
   --ck-color-muted-foreground: #6b625c;
   --ck-color-border: #e8dfc9;
   --ck-color-focus: #f24e07;
-  --ck-shadow-card: 0 8px 24px rgb(112 13 29 / 8%);
+  --ck-shadow-card: 0 8px 24px rgb(30 1 9 / 8%);
 
   /* Legacy aliases remain during the AstroPaper transition. */
   --background: var(--ck-color-background);
@@ -24,15 +26,15 @@
 
 /* Dark theme values */
 [data-theme="dark"] {
-  --ck-color-background: #700d1d;
-  --ck-color-surface: #811a2b;
+  --ck-color-background: #1e0109;
+  --ck-color-surface: #700d1d;
   --ck-color-foreground: #f8f5e6;
-  --ck-color-accent: #ff6b01;
+  --ck-color-accent: #f24e07;
   --ck-color-accent-foreground: #ffffff;
-  --ck-color-muted: #811a2b;
+  --ck-color-muted: #700d1d;
   --ck-color-muted-foreground: #f8f5e6;
-  --ck-color-border: #ab4b08;
-  --ck-color-focus: #ff6b01;
+  --ck-color-border: #700d1d;
+  --ck-color-focus: #f24e07;
   --ck-shadow-card: 0 8px 24px rgb(0 0 0 / 16%);
 
   --background: var(--ck-color-background);

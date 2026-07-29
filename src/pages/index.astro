@@ -2,16 +2,18 @@
 import { getCollection } from "astro:content";
 import RecipeCard from "@/components/cards/RecipeCard.astro";
 import ToolCard from "@/components/cards/ToolCard.astro";
-import CategoryBrowse from "@/components/home/CategoryBrowse.astro";
 import EditorialPreview from "@/components/home/EditorialPreview.astro";
 import HomeHero from "@/components/home/HomeHero.astro";
+import InstagramGrid from "@/components/home/InstagramGrid.astro";
+import KitchenToolsPromo from "@/components/home/KitchenToolsPromo.astro";
 import NewsletterCta from "@/components/home/NewsletterCta.astro";
 import RecipeDiscoveryStrip from "@/components/home/RecipeDiscoveryStrip.astro";
 import VideoGrid from "@/components/home/VideoGrid.astro";
 import Section from "@/components/common/Section.astro";
 import Footer from "@/components/navigation/Footer.astro";
 import Navbar from "@/components/navigation/Navbar.astro";
-import { homepageCategoryConfiguration, homepageCuration } from "@/config/homepage";
+import { homepageDiscoveryCategories } from "@/config/categories";
+import { homepageCuration } from "@/config/homepage";
 import { siteConfig } from "@/config/site";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getRecipeSlug, getYouTubeThumbnailUrl } from "@/utils/recipe";
@@ -54,32 +56,24 @@ const latestRecipes = recipes
   .sort((left, right) => right.data.publishDate.getTime() - left.data.publishDate.getTime())
   .slice(0, 6);
 
-const categories = homepageCategoryConfiguration.browse.categories.filter(category => {
-  if (category.dimension === "cuisine") return recipes.some(recipe => Boolean(recipe.data.cuisine));
-  return recipes.some(recipe => recipe.data[category.dimension].length > 0);
-});
-
-const existingInternalRoutes = new Set(["/", "/about", "/work-with-us", "/search"]);
-const navigationItems = siteConfig.navigation.filter(item => existingInternalRoutes.has(item.href));
-const footerGroups = siteConfig.footerNavigation
-  .map(group => ({ ...group, items: group.items.filter(item => existingInternalRoutes.has(item.href)) }))
-  .filter(group => group.items.length > 0);
+const discoveryItems = homepageDiscoveryCategories.map(category => ({
+  label: category.label,
+}));
+const youtubeHref = siteConfig.socialLinks.find(link => link.platform === "youtube")?.href;
+const instagramHref = siteConfig.socialLinks.find(link => link.platform === "instagram")?.href;
 ---
 
 <BaseLayout metadata={{ description: siteConfig.description, canonicalPath: "/" }}>
-  <Navbar brand={{ label: siteConfig.name, href: "/" }} logo={siteConfig.logo} items={navigationItems} />
+  <Navbar brand={{ label: siteConfig.name, href: "/" }} logo={siteConfig.logo} items={siteConfig.navigation} socialLinks={siteConfig.socialLinks} />
   <main id="main-content">
-    <HomeHero image={featuredRecipes[0]?.data.coverImage} imageAlt={featuredRecipes[0]?.data.coverImageAlt} />
-    <RecipeDiscoveryStrip items={homepageCategoryConfiguration.discoveryItems} />
+    <HomeHero image={featuredRecipes[0]?.data.coverImage} imageAlt={featuredRecipes[0]?.data.coverImageAlt} {youtubeHref} {instagramHref} />
+    <RecipeDiscoveryStrip items={discoveryItems} />
+    <KitchenToolsPromo href="/kitchen-tools/" />
 
     {featuredRecipes.length > 0 && (
       <Section id="featured-recipes" width="wide" spacing="md" class="py-10 tablet:py-16">
         <div class="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p class="text-sm font-bold tracking-[0.12em] text-accent uppercase">Start here</p>
-            <h2 class="mt-2 font-display text-3xl font-semibold tracking-tight text-foreground tablet:text-4xl">Featured recipes</h2>
-          </div>
-          <p class="max-w-xl leading-relaxed text-muted-foreground">Six Calcutta Kitchen favourites chosen for dependable home cooking.</p>
+          <h2 class="font-display text-3xl font-semibold tracking-tight text-foreground tablet:text-4xl">Featured recipes</h2>
         </div>
         <div class="mt-6 -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden tablet:mx-0 tablet:grid tablet:gap-6 tablet:overflow-visible tablet:px-0 tablet:pb-0 tablet:grid-cols-2 desktop:grid-cols-3">
           {featuredRecipes.map(recipe => (
@@ -95,12 +89,6 @@ const footerGroups = siteConfig.footerNavigation
             />
           ))}
         </div>
-      </Section>
-    )}
-
-    {categories.length > 0 && (
-      <Section width="wide" tone="surface" spacing="md" class="py-10 tablet:py-16">
-        <CategoryBrowse heading={homepageCategoryConfiguration.browse.heading} headingLanguage={homepageCategoryConfiguration.browse.language} {categories} />
       </Section>
     )}
 
@@ -178,9 +166,15 @@ const footerGroups = siteConfig.footerNavigation
       </Section>
     )}
 
+    {homepageCuration.featuredInstagram.length > 0 && (
+      <Section width="wide" tone="surface" spacing="md" class="py-10 tablet:py-16">
+        <InstagramGrid posts={homepageCuration.featuredInstagram} />
+      </Section>
+    )}
+
     <Section width="wide" spacing="md" class="py-10 tablet:py-16">
       <NewsletterCta />
     </Section>
   </main>
-  <Footer brand={{ label: siteConfig.name, href: "/" }} groups={footerGroups} socialLinks={siteConfig.socialLinks} />
+  <Footer brand={{ label: siteConfig.name, href: "/" }} logo={siteConfig.logo} groups={siteConfig.footerNavigation} socialLinks={siteConfig.socialLinks} />
 </BaseLayout>

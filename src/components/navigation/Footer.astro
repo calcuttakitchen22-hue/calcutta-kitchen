@@ -1,9 +1,11 @@
 ---
 import Container from "@/components/common/Container.astro";
-import type { FooterNavigationGroup, NavigationItem, SocialLink } from "@/types/site";
+import SocialIcon from "@/components/common/SocialIcon.astro";
+import type { FooterNavigationGroup, NavigationItem, SiteLogo, SocialLink } from "@/types/site";
 
 type Props = {
   brand: NavigationItem;
+  logo?: SiteLogo;
   groups?: FooterNavigationGroup[];
   socialLinks?: SocialLink[];
   copyright?: string;
@@ -11,7 +13,7 @@ type Props = {
 };
 
 const {
-  brand,
+  brand, logo,
   groups = [],
   socialLinks = [],
   copyright = `© ${new Date().getFullYear()} ${brand.label}`,
@@ -23,15 +25,15 @@ const {
   <Container size="wide">
     <div class="grid gap-10 py-12 tablet:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
       <div>
-        <a href={brand.href} class="font-display text-3xl font-semibold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus">
-          {brand.label}
+        <a href={brand.href} aria-label={brand.label} class="flex max-w-[148px] items-center focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus">
+          {logo ? <img src={logo.src.src} alt={logo.alt} width={logo.width} height={logo.height} class="h-10 w-auto object-contain" /> : <span class="font-display text-3xl font-semibold">{brand.label}</span>}
         </a>
         {socialLinks.length > 0 && (
-          <ul class="mt-5 flex flex-wrap gap-4">
+          <ul class="mt-5 flex flex-wrap gap-2">
             {socialLinks.map(link => (
               <li>
-                <a href={link.href} class="text-sm font-semibold underline decoration-transparent underline-offset-4 hover:decoration-current focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus">
-                  {link.label}
+                <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.label} class="grid size-11 place-items-center rounded-pill text-background transition hover:bg-background/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus">
+                  <SocialIcon platform={link.platform} />
                 </a>
               </li>
             ))}

@@ -1,0 +1,17 @@
+---
+type Props = {
+  href: string;
+};
+
+const { href } = Astro.props;
+---
+
+<section aria-labelledby="kitchen-tools-heading" class="border-b border-border bg-background py-5">
+  <div class="mx-auto flex w-full max-w-wide items-center justify-between gap-4 px-4 tablet:px-6 desktop:px-8">
+    <div>
+      <p class="text-sm font-bold tracking-[0.12em] text-accent uppercase">Our kitchen staples</p>
+      <h2 id="kitchen-tools-heading" class="mt-1 font-display text-2xl font-semibold text-foreground">The tools behind our everyday cooking</h2>
+    </div>
+    <a href={href} class="inline-flex min-h-11 shrink-0 items-center rounded-pill bg-accent px-4 text-sm font-semibold text-accent-foreground transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">See our tools</a>
+  </div>
+</section>

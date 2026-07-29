@@ -2,7 +2,6 @@
 type DiscoveryItem = {
   label: string;
   language?: "bn";
-  href?: string;
 };
 
 type Props = {
@@ -13,18 +12,12 @@ const { items } = Astro.props;
 ---
 
 <nav aria-label="Recipe discovery" class="border-b border-border bg-surface py-3">
-  <ul class="mx-auto flex w-full max-w-wide snap-x snap-mandatory gap-3 overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden tablet:px-6 desktop:px-8">
+  <ul class="mx-auto flex w-full max-w-wide snap-x snap-mandatory gap-3 overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden tablet:flex-wrap tablet:overflow-visible tablet:px-6 desktop:px-8">
     {items.map(item => (
       <li class="shrink-0 snap-start">
-        {item.href ? (
-          <a href={item.href} lang={item.language} class="inline-flex min-h-11 items-center rounded-pill border border-border bg-background px-4 text-sm font-semibold text-foreground transition hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
-            {item.label}
-          </a>
-        ) : (
-          <span lang={item.language} class="inline-flex min-h-11 items-center rounded-pill border border-border bg-background px-4 text-sm font-semibold text-foreground">
-            {item.label}
-          </span>
-        )}
+        <span lang={item.language} class="inline-flex min-h-11 items-center rounded-pill border border-border bg-background px-4 text-sm font-semibold text-foreground">
+          {item.label}
+        </span>
       </li>
     ))}
   </ul>

@@ -12,8 +12,8 @@
 
   --font-app: "Futura", "Noto Serif Bengali", sans-serif;
   --font-bengali: var(--ck-font-bengali);
-  --font-display: "Playfair Display", var(--ck-font-bengali), Georgia, serif;
-  --font-body: "DM Sans", "Futura", var(--ck-font-bengali), system-ui, sans-serif;
+  --font-display: "Borax VF", var(--ck-font-bengali), Georgia, serif;
+  --font-body: "Futura", var(--ck-font-bengali), system-ui, sans-serif;
 
   --radius-sm: 0.5rem;
   --radius-md: 1rem;

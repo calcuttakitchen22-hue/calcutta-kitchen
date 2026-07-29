@@ -1,18 +1,20 @@
 ---
 import Container from "@/components/common/Container.astro";
 import MobileNavigation from "./MobileNavigation.astro";
+import MobileNavigationTrigger from "./MobileNavigationTrigger.astro";
 import ThemeToggle from "./ThemeToggle.astro";
-import type { NavigationItem, SiteLogo } from "@/types/site";
+import type { NavigationItem, SiteLogo, SocialLink } from "@/types/site";
 
 type Props = {
   brand: NavigationItem;
   logo?: SiteLogo;
   items: NavigationItem[];
+  socialLinks?: SocialLink[];
   searchHref?: string;
   class?: string;
 };
 
-const { brand, logo, items, searchHref = "/search", class: className } = Astro.props;
+const { brand, logo, items, socialLinks = [], searchHref = "/search", class: className } = Astro.props;
 ---
 
 <header class:list={["sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur", className]}>
@@ -42,8 +44,9 @@ const { brand, logo, items, searchHref = "/search", class: className } = Astro.p
         <span aria-hidden="true">⌕</span>
         <span class="sr-only">Search</span>
         </a>
-        <MobileNavigation brand={brand} {items} {searchHref} />
+        <MobileNavigationTrigger />
       </div>
     </div>
   </Container>
 </header>
+<MobileNavigation {items} {socialLinks} {searchHref} />

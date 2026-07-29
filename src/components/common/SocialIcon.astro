@@ -1,0 +1,16 @@
+---
+import FacebookIcon from "@/assets/icons/socials/facebook.svg";
+import InstagramIcon from "@/assets/icons/socials/instagram.svg";
+import YouTubeIcon from "@/assets/icons/socials/youtube.svg";
+
+type Props = {
+  platform: "youtube" | "instagram" | "facebook";
+  class?: string;
+};
+
+const { platform, class: className } = Astro.props;
+const icons = { youtube: YouTubeIcon, instagram: InstagramIcon, facebook: FacebookIcon };
+const Icon = icons[platform];
+---
+
+<Icon aria-hidden="true" class:list={["size-5 shrink-0", className]} />

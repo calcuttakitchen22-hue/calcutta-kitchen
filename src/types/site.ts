@@ -13,6 +13,7 @@ export type FooterNavigationGroup = {
 export type SocialLink = {
   label: string;
   href: string;
+  platform: "youtube" | "instagram" | "facebook";
 };
 
 export type SiteLogo = {
