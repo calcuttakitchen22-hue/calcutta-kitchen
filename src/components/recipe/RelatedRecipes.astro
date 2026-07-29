@@ -19,8 +19,8 @@ const { recipes, class: className } = Astro.props;
 ---
 
 <section aria-labelledby="related-recipes-heading" class={className} data-print-exclude>
-  <h2 id="related-recipes-heading" class="font-display text-4xl font-semibold tracking-tight text-foreground">Related recipes</h2>
-  <div class="mt-6 grid gap-5 tablet:grid-cols-2 desktop:grid-cols-3">
-    {recipes.map(recipe => <RecipeCard {...recipe} />)}
+  <h2 id="related-recipes-heading" class="font-display text-4xl font-normal tracking-tight text-foreground">Related recipes</h2>
+  <div class="-mx-4 mt-6 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-2 tablet:mx-0 tablet:grid tablet:overflow-visible tablet:px-0 tablet:pb-0 tablet:grid-cols-2">
+    {recipes.map(recipe => <div class="w-[82vw] shrink-0 snap-start tablet:w-auto"><RecipeCard {...recipe} /></div>)}
   </div>
 </section>

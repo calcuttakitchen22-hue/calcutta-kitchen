@@ -6,6 +6,7 @@ export type BreadcrumbItem = {
 };
 
 export type RecipeIngredient = {
+  group?: string;
   quantity?: string;
   unit?: string;
   name: string;
@@ -18,6 +19,7 @@ export type RecipeEquipment = {
 };
 
 export type RecipeStep = {
+  group?: string;
   title?: string;
   instruction: string;
   image?: string;

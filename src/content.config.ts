@@ -55,6 +55,7 @@ const seoSchema = {
 };
 
 const ingredientSchema = z.object({
+  group: z.string().min(1).optional(),
   quantity: z.string().optional(),
   unit: z.string().optional(),
   name: z.string().min(1),
@@ -68,6 +69,7 @@ const equipmentSchema = z.object({
 
 const stepSchema = z
   .object({
+    group: z.string().min(1).optional(),
     title: z.string().min(1).optional(),
     instruction: z.string().min(1),
     image: z.string().optional(),

@@ -94,23 +94,23 @@ const breadcrumbJsonLd = createBreadcrumbJsonLd([
     <Section width="wide" spacing="sm" class="pb-0">
       <Breadcrumbs items={breadcrumbItems} />
     </Section>
-    <Section width="wide" spacing="md" class="pt-6 tablet:pt-12">
+    <Section width="wide" spacing="md" class="pt-6 pb-6 tablet:pt-12 tablet:pb-8">
       <RecipeHero title={recipe.title} titleBn={recipe.titleBn} description={recipe.description} image={recipe.coverImage} imageAlt={recipe.coverImageAlt} />
       <RecipeFacts class="mt-10" prepTime={recipe.prepTime} cookTime={recipe.cookTime} {totalTime} servings={recipe.servings} difficulty={recipe.difficulty} />
-      <RecipeActions title={recipe.title} titleBn={recipe.titleBn} about={recipe.about} ingredients={recipe.ingredients} ingredientsBn={recipe.ingredientsBn} steps={recipe.steps} stepsBn={recipe.stepsBn} tips={recipe.tips} metadata={[`Prep ${recipe.prepTime} min`, `Cook ${recipe.cookTime} min`, recipe.servings]} />
       <section aria-labelledby="overview-heading" class="mt-12 max-w-prose">
         <h2 id="overview-heading" class="font-display text-4xl font-normal tracking-tight text-foreground">About this recipe</h2>
         <div class="mt-5 space-y-4 leading-relaxed text-muted-foreground">{recipe.about.map(paragraph => <p>{paragraph}</p>)}</div>
       </section>
     </Section>
-    <Section width="content" spacing="md">
-      <IngredientList ingredients={recipe.ingredients} ingredientsBn={recipe.ingredientsBn} />
-      {products.length > 0 && <EquipmentList {products} class="mt-12" data-print-exclude />}
-      <StepList steps={recipe.steps} stepsBn={recipe.stepsBn} class="mt-12" />
-      {recipe.tips.length > 0 && <TipsCard tips={recipe.tips} class="mt-12" />}
-      {recipe.faq.length > 0 && <FAQSection items={recipe.faq} class="mt-12" />}
-      {recipe.video && videoThumbnail && <VideoSection class="mt-12" url={recipe.video.url} title={recipe.video.title ?? recipe.title} description={recipe.video.description} thumbnail={videoThumbnail} />}
-      {relatedRecipes.length > 0 && <RelatedRecipes recipes={relatedRecipes} class="mt-12" />}
+    <Section width="content" spacing="md" class="pt-4 tablet:pt-6">
+      {products.length > 0 && <EquipmentList {products} data-print-exclude />}
+      <RecipeActions title={recipe.title} titleBn={recipe.titleBn} about={recipe.about} ingredients={recipe.ingredients} ingredientsBn={recipe.ingredientsBn} steps={recipe.steps} stepsBn={recipe.stepsBn} tips={recipe.tips} metadata={[`Prep ${recipe.prepTime} min`, `Cook ${recipe.cookTime} min`, recipe.servings]} />
+      <IngredientList ingredients={recipe.ingredients} ingredientsBn={recipe.ingredientsBn} class="mt-10" />
+      <StepList steps={recipe.steps} stepsBn={recipe.stepsBn} class="mt-10" />
+      {recipe.tips.length > 0 && <TipsCard tips={recipe.tips} class="mt-10" />}
+      {recipe.faq.length > 0 && <FAQSection items={recipe.faq} class="mt-10" />}
+      {recipe.video && videoThumbnail && <VideoSection class="mt-10" url={recipe.video.url} title={recipe.video.title ?? recipe.title} description={recipe.video.description} thumbnail={videoThumbnail} />}
+      {relatedRecipes.length > 0 && <RelatedRecipes recipes={relatedRecipes} class="mt-10" />}
     </Section>
   </main>
   <Footer brand={{ label: siteConfig.name, href: "/" }} logo={siteConfig.logo} groups={siteConfig.footerNavigation} socialLinks={siteConfig.socialLinks} />

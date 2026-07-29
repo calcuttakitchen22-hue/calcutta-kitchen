@@ -25,7 +25,7 @@ const recipeProducts = recipe.data.affiliateProducts.flatMap(id => {
   const product = productsById.get(id);
   return product ? [product] : [];
 });
-const relatedRecipes = getRelatedRecipes(recipe, recipes).map(entry => ({
+const relatedRecipes = getRelatedRecipes(recipe, recipes, 2).map(entry => ({
   href: `/recipes/${getRecipeSlug(entry.id)}/`,
   title: entry.data.title,
   description: entry.data.description,
