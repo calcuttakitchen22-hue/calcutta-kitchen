@@ -389,7 +389,7 @@ export async function downloadStructuredRecipePdf(
       {
         width: "auto",
         ...text(label, "footerText"),
-        margin: [4, 0, 0, 0],
+        margin: [4, 2.2, 0, 0],
       },
     ],
     columnGap: 0,
@@ -422,25 +422,46 @@ export async function downloadStructuredRecipePdf(
           },
           {
             width: "*",
-            alignment: "center",
-            table: {
-              widths: ["auto", "auto", "auto"],
-              body: [
-                [
-                  footerContactItem(WEBSITE_ICON, "calcuttakitchen.in"),
-                  footerContactItem(ICONS.instagram, "@calcuttakitchen.in"),
-                  footerContactItem(ICONS.youtube, "@calcutta.kitchen"),
-                ],
-              ],
-            },
-            layout: {
-              hLineWidth: () => 0,
-              vLineWidth: () => 0,
-              paddingLeft: (index: number) => (index === 0 ? 0 : 8),
-              paddingRight: (index: number) => (index === 2 ? 0 : 8),
-              paddingTop: () => 0,
-              paddingBottom: () => 0,
-            },
+            columns: [
+              {
+                width: "*",
+                text: "",
+              },
+              {
+                width: "auto",
+                table: {
+                  widths: ["auto", "auto", "auto"],
+                  body: [
+                    [
+                      footerContactItem(WEBSITE_ICON, "calcuttakitchen.in"),
+                      footerContactItem(
+                        ICONS.instagram,
+                        "@calcuttakitchen.in"
+                      ),
+                      footerContactItem(
+                        ICONS.youtube,
+                        "@calcutta.kitchen"
+                      ),
+                    ],
+                  ],
+                },
+                layout: {
+                  hLineWidth: () => 0,
+                  vLineWidth: () => 0,
+                  paddingLeft: (index: number) =>
+                    index === 0 ? 0 : 8,
+                  paddingRight: (index: number) =>
+                    index === 2 ? 0 : 8,
+                  paddingTop: () => 0,
+                  paddingBottom: () => 0,
+                },
+              },
+              {
+                width: "*",
+                text: "",
+              },
+            ],
+            columnGap: 0,
             margin: [0, 10, 0, 0],
           },
           {
