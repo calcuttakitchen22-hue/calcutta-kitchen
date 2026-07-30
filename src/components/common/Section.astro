@@ -30,7 +30,10 @@ const spacingClasses = {
 };
 ---
 
-<section id={id} class:list={[toneClasses[tone], spacingClasses[spacing], className]}>
+<section
+  id={id}
+  class:list={[toneClasses[tone], spacingClasses[spacing], className]}
+>
   <Container size={width}>
     <slot />
   </Container>

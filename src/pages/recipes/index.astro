@@ -8,19 +8,66 @@ import { siteConfig } from "@/config/site";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getRecipeSlug } from "@/utils/recipe";
 
-const recipes = (await getCollection("recipes", ({ data }) => !data.draft))
-  .sort((left, right) => right.data.publishDate.getTime() - left.data.publishDate.getTime());
+const recipes = (
+  await getCollection("recipes", ({ data }) => !data.draft)
+).sort(
+  (left, right) =>
+    right.data.publishDate.getTime() - left.data.publishDate.getTime()
+);
 ---
 
-<BaseLayout metadata={{ title: "Recipes", description: "Browse Calcutta Kitchen recipes for confident home cooking.", canonicalPath: "/recipes/" }}>
-  <Navbar brand={{ label: siteConfig.name, href: "/" }} logo={siteConfig.logo} items={siteConfig.navigation} socialLinks={siteConfig.socialLinks} />
+<BaseLayout
+  metadata={{
+    title: "Recipes",
+    description: "Browse Calcutta Kitchen recipes for confident home cooking.",
+    canonicalPath: "/recipes/",
+  }}
+>
+  <Navbar
+    brand={{ label: siteConfig.name, href: "/" }}
+    logo={siteConfig.logo}
+    items={siteConfig.navigation}
+    socialLinks={siteConfig.socialLinks}
+  />
   <main id="main-content">
     <Section width="wide" spacing="md">
-      <p class="text-sm font-bold tracking-[0.12em] text-accent uppercase">Recipe library</p>
-      <h1 class="mt-2 font-display text-5xl font-semibold tracking-tight text-foreground tablet:text-6xl">Recipes</h1>
-      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">Reliable recipes for everyday Bengali cooking and modern comfort food.</p>
-      {recipes.length > 0 && <div class="mt-10 grid gap-6 tablet:grid-cols-2 desktop:grid-cols-3">{recipes.map(recipe => <RecipeCard href={`/recipes/${getRecipeSlug(recipe.id)}/`} title={recipe.data.title} description={recipe.data.description} image={recipe.data.coverImage} imageAlt={recipe.data.coverImageAlt} eyebrow={recipe.data.cuisine} metadata={[`${recipe.data.cookTime} min cook`, recipe.data.difficulty]} />)}</div>}
+      <p class="text-accent text-sm font-normal tracking-[0.12em] uppercase">
+        Recipe library
+      </p>
+      <h1
+        class="font-display text-foreground tablet:text-6xl mt-2 text-5xl font-semibold tracking-tight"
+      >
+        Recipes
+      </h1>
+      <p class="text-muted-foreground mt-5 max-w-2xl text-lg leading-relaxed">
+        Reliable recipes for everyday Bengali cooking and modern comfort food.
+      </p>
+      {
+        recipes.length > 0 && (
+          <div class="tablet:grid-cols-2 desktop:grid-cols-3 mt-10 grid gap-6">
+            {recipes.map(recipe => (
+              <RecipeCard
+                href={`/recipes/${getRecipeSlug(recipe.id)}/`}
+                title={recipe.data.title}
+                description={recipe.data.description}
+                image={recipe.data.coverImage}
+                imageAlt={recipe.data.coverImageAlt}
+                eyebrow={recipe.data.cuisine}
+                metadata={[
+                  `${recipe.data.cookTime} min cook`,
+                  recipe.data.difficulty,
+                ]}
+              />
+            ))}
+          </div>
+        )
+      }
     </Section>
   </main>
-  <Footer brand={{ label: siteConfig.name, href: "/" }} logo={siteConfig.logo} groups={siteConfig.footerNavigation} socialLinks={siteConfig.socialLinks} />
+  <Footer
+    brand={{ label: siteConfig.name, href: "/" }}
+    logo={siteConfig.logo}
+    groups={siteConfig.footerNavigation}
+    socialLinks={siteConfig.socialLinks}
+  />
 </BaseLayout>

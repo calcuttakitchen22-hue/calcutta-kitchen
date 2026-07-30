@@ -15,10 +15,16 @@ const { class: className } = Astro.props;
   aria-label="Switch to dark mode"
   title="Switch to dark mode"
   class:list={[
-    "relative grid size-11 place-items-center rounded-pill text-foreground transition hover:bg-surface hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus",
+    "rounded-pill text-foreground hover:bg-surface hover:text-accent focus-visible:outline-focus relative grid size-11 place-items-center transition focus-visible:outline-2 focus-visible:outline-offset-2",
     className,
   ]}
 >
-  <IconMoon aria-hidden="true" class="absolute size-5 scale-100 rotate-0 transition dark:scale-0 dark:-rotate-90" />
-  <IconSunHigh aria-hidden="true" class="absolute size-5 scale-0 rotate-90 transition dark:scale-100 dark:rotate-0" />
+  <IconMoon
+    aria-hidden="true"
+    class="absolute size-5 scale-100 rotate-0 transition dark:scale-0 dark:-rotate-90"
+  />
+  <IconSunHigh
+    aria-hidden="true"
+    class="absolute size-5 scale-0 rotate-90 transition dark:scale-100 dark:rotate-0"
+  />
 </button>

@@ -35,8 +35,22 @@ const weightClasses = {
 ---
 
 <div class:list={[align === "center" && "text-center"]}>
-  {eyebrow && <p class="mb-2 text-sm font-bold tracking-[0.12em] text-accent uppercase">{eyebrow}</p>}
-  <Tag id={id} class:list={["font-display tracking-tight text-foreground", weightClasses[weight], levelClasses[level], className]}>
+  {
+    eyebrow && (
+      <p class="text-accent mb-2 text-sm font-normal tracking-[0.12em] uppercase">
+        {eyebrow}
+      </p>
+    )
+  }
+  <Tag
+    id={id}
+    class:list={[
+      "font-display text-foreground tracking-tight",
+      weightClasses[weight],
+      levelClasses[level],
+      className,
+    ]}
+  >
     <slot />
   </Tag>
 </div>

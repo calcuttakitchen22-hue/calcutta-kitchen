@@ -6,7 +6,8 @@ type Props = {
   variant?: "primary" | "secondary" | "text";
   size?: "sm" | "md" | "lg";
   class?: string;
-} & HTMLAttributes<"a"> & HTMLAttributes<"button">;
+} & HTMLAttributes<"a"> &
+  HTMLAttributes<"button">;
 
 const {
   href,
@@ -31,7 +32,7 @@ const sizeClasses = {
 };
 
 const classes = [
-  "inline-flex items-center justify-center gap-2 rounded-pill font-semibold transition duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus",
+  "inline-flex items-center justify-center gap-2 rounded-pill font-normal transition duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus",
   variantClasses[variant],
   sizeClasses[size],
   className,

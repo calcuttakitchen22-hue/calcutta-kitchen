@@ -36,4 +36,9 @@ const relatedRecipes = getRelatedRecipes(recipe, recipes, 2).map(entry => ({
 }));
 ---
 
-<RecipeLayout recipe={recipe.data} {slug} products={recipeProducts} {relatedRecipes} />
+<RecipeLayout
+  recipe={recipe.data}
+  {slug}
+  products={recipeProducts}
+  {relatedRecipes}
+/>

@@ -4,7 +4,6 @@
 @import "./theme.css";
 @import "./globals.css";
 
-
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @layer base {

@@ -13,6 +13,12 @@ const sizeClasses = {
 };
 ---
 
-<div class:list={["mx-auto w-full px-4 tablet:px-6 desktop:px-8", sizeClasses[size], className]}>
+<div
+  class:list={[
+    "tablet:px-6 desktop:px-8 mx-auto w-full px-4",
+    sizeClasses[size],
+    className,
+  ]}
+>
   <slot />
 </div>

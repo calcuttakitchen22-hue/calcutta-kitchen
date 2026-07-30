@@ -9,7 +9,11 @@ type Props = {
 };
 
 const { platform, class: className } = Astro.props;
-const icons = { youtube: YouTubeIcon, instagram: InstagramIcon, facebook: FacebookIcon };
+const icons = {
+  youtube: YouTubeIcon,
+  instagram: InstagramIcon,
+  facebook: FacebookIcon,
+};
 const Icon = icons[platform];
 ---
 

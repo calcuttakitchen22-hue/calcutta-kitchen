@@ -12,44 +12,95 @@ type Props = {
   class?: string;
 };
 
-const { items, socialLinks = [], searchHref = "/search", class: className } = Astro.props;
+const {
+  items,
+  socialLinks = [],
+  searchHref = "/search",
+  class: className,
+} = Astro.props;
 ---
 
-<div id="mobile-navigation" class:list={["fixed inset-0 z-50 hidden desktop:hidden", className]} aria-hidden="true">
-  <button type="button" data-mobile-navigation-backdrop aria-label="Close menu" class="fixed inset-0 bg-foreground/45"></button>
-  <aside role="dialog" aria-modal="true" aria-label="Mobile navigation" class="fixed inset-y-0 right-0 flex w-full max-w-sm flex-col overflow-y-auto bg-background p-4 shadow-card">
+<div
+  id="mobile-navigation"
+  class:list={["desktop:hidden fixed inset-0 z-50 hidden", className]}
+  aria-hidden="true"
+>
+  <button
+    type="button"
+    data-mobile-navigation-backdrop
+    aria-label="Close menu"
+    class="bg-foreground/45 fixed inset-0"></button>
+  <aside
+    role="dialog"
+    aria-modal="true"
+    aria-label="Mobile navigation"
+    class="bg-background shadow-card fixed inset-y-0 right-0 flex w-full max-w-sm flex-col overflow-y-auto p-4"
+  >
     <div class="flex items-center justify-end">
-      <button type="button" data-mobile-navigation-close class="grid size-11 place-items-center rounded-pill text-foreground transition hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
+      <button
+        type="button"
+        data-mobile-navigation-close
+        class="rounded-pill text-foreground hover:bg-surface focus-visible:outline-focus grid size-11 place-items-center transition focus-visible:outline-2 focus-visible:outline-offset-2"
+      >
         <span class="sr-only">Close menu</span>
         <span aria-hidden="true" class="text-2xl">×</span>
       </button>
     </div>
-    <nav class="mx-auto w-full max-w-content">
+    <nav class="max-w-content mx-auto w-full">
       <form action={searchHref} method="get">
         <SearchInput id="mobile-navigation-search" />
       </form>
       <ul class="mt-5">
-      {items.map(item => (
-        <li>
-          <a href={item.href} class="block min-h-11 rounded-sm px-3 py-2 font-semibold text-foreground transition hover:bg-surface hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
-            {item.label}
-          </a>
+        {
+          items.map(item => (
+            <li>
+              <a
+                href={item.href}
+                class="text-foreground hover:bg-surface hover:text-accent focus-visible:outline-focus block min-h-11 rounded-sm px-3 py-2 font-normal transition focus-visible:outline-2 focus-visible:outline-offset-2"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+        <li class="border-border mt-2 border-t pt-2">
+          <ThemeToggle class="w-full justify-start px-3" />
         </li>
-      ))}
-      <li class="mt-2 border-t border-border pt-2">
-        <ThemeToggle class="w-full justify-start px-3" />
-      </li>
       </ul>
-      {socialLinks.length > 0 && <ul class="mt-5 flex gap-2 border-t border-border pt-4">{socialLinks.map(link => <li><a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.label} class="grid size-11 place-items-center rounded-pill text-foreground transition hover:bg-surface hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"><SocialIcon platform={link.platform} /></a></li>)}</ul>}
+      {
+        socialLinks.length > 0 && (
+          <ul class="border-border mt-5 flex gap-2 border-t pt-4">
+            {socialLinks.map(link => (
+              <li>
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={link.label}
+                  class="rounded-pill text-foreground hover:bg-surface hover:text-accent focus-visible:outline-focus grid size-11 place-items-center transition focus-visible:outline-2 focus-visible:outline-offset-2"
+                >
+                  <SocialIcon platform={link.platform} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
     </nav>
   </aside>
 </div>
 
 <script>
   const drawer = document.querySelector<HTMLElement>("#mobile-navigation");
-  const trigger = document.querySelector<HTMLButtonElement>("[data-mobile-navigation-trigger]");
-  const closeButton = drawer?.querySelector<HTMLButtonElement>("[data-mobile-navigation-close]");
-  const backdrop = drawer?.querySelector<HTMLButtonElement>("[data-mobile-navigation-backdrop]");
+  const trigger = document.querySelector<HTMLButtonElement>(
+    "[data-mobile-navigation-trigger]"
+  );
+  const closeButton = drawer?.querySelector<HTMLButtonElement>(
+    "[data-mobile-navigation-close]"
+  );
+  const backdrop = drawer?.querySelector<HTMLButtonElement>(
+    "[data-mobile-navigation-backdrop]"
+  );
   let previousOverflow = "";
 
   const closeDrawer = () => {
@@ -75,6 +126,11 @@ const { items, socialLinks = [], searchHref = "/search", class: className } = As
   closeButton?.addEventListener("click", closeDrawer);
   backdrop?.addEventListener("click", closeDrawer);
   document.addEventListener("keydown", event => {
-    if (event.key === "Escape" && drawer && !drawer.classList.contains("hidden")) closeDrawer();
+    if (
+      event.key === "Escape" &&
+      drawer &&
+      !drawer.classList.contains("hidden")
+    )
+      closeDrawer();
   });
 </script>

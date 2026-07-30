@@ -14,32 +14,61 @@ type Props = {
   class?: string;
 };
 
-const { brand, logo, items, socialLinks = [], searchHref = "/search", class: className } = Astro.props;
+const {
+  brand,
+  logo,
+  items,
+  socialLinks = [],
+  searchHref = "/search",
+  class: className,
+} = Astro.props;
 ---
 
-<header class:list={["sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur", className]}>
+<header
+  class:list={[
+    "border-border bg-background/95 sticky top-0 z-40 border-b backdrop-blur",
+    className,
+  ]}
+>
   <Container size="wide">
     <div class="flex min-h-[72px] items-center justify-between gap-6">
-      <a href={brand.href} aria-label={brand.label} class="flex max-w-[148px] items-center font-display text-2xl font-semibold text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus">
-        {logo ? (
-          <img src={logo.src.src} alt={logo.alt} width={logo.width} height={logo.height} class="h-10 w-auto object-contain" />
-        ) : (
-          brand.label
-        )}
+      <a
+        href={brand.href}
+        aria-label={brand.label}
+        class="font-display text-foreground focus-visible:outline-focus flex max-w-[148px] items-center text-2xl font-semibold focus-visible:outline-2 focus-visible:outline-offset-4"
+      >
+        {
+          logo ? (
+            <img
+              src={logo.src.src}
+              alt={logo.alt}
+              width={logo.width}
+              height={logo.height}
+              class="h-10 w-auto object-contain"
+            />
+          ) : (
+            brand.label
+          )
+        }
       </a>
-      <nav aria-label="Primary navigation" class="hidden desktop:block">
+      <nav aria-label="Primary navigation" class="desktop:block hidden">
         <ul class="flex items-center gap-6">
-          {items.map(item => (
-            <li>
-              <a href={item.href} class="text-sm font-semibold text-foreground transition hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus">
-                {item.label}
-              </a>
-            </li>
-          ))}
+          {
+            items.map(item => (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-foreground hover:text-accent focus-visible:outline-focus text-sm font-normal transition focus-visible:outline-2 focus-visible:outline-offset-4"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </nav>
       <div class="flex items-center gap-1">
-        <ThemeToggle class="hidden desktop:grid" />
+        <ThemeToggle class="desktop:grid hidden" />
         <MobileNavigationTrigger />
       </div>
     </div>

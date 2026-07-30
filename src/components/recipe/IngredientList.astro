@@ -10,50 +10,180 @@ type Props = {
 const { ingredients, ingredientsBn = [], class: className } = Astro.props;
 ---
 
-<section id="ingredients" aria-labelledby="ingredients-heading" class={className}>
-  <div class="flex flex-col items-start gap-3 tablet:flex-row tablet:items-center tablet:justify-between">
+<section
+  id="ingredients"
+  aria-labelledby="ingredients-heading"
+  class={className}
+>
+  <div
+    class="tablet:flex-row tablet:items-center tablet:justify-between flex flex-col items-start gap-3"
+  >
     <div>
-      <h2 id="ingredients-heading" data-language-section="ingredients" data-recipe-language="en" class="font-display text-4xl font-normal tracking-tight text-foreground">Ingredients</h2>
-      <h2 data-language-section="ingredients" data-recipe-language="bn" hidden lang="bn" class="font-display text-4xl font-bold tracking-tight text-foreground">উপকরণ</h2>
+      <h2
+        id="ingredients-heading"
+        data-language-section="ingredients"
+        data-recipe-language="en"
+        class="font-display text-foreground text-4xl font-normal tracking-tight"
+      >
+        Ingredients
+      </h2>
+      <h2
+        data-language-section="ingredients"
+        data-recipe-language="bn"
+        hidden
+        lang="bn"
+        class="font-display text-foreground text-4xl font-bold tracking-tight"
+      >
+        উপকরণ
+      </h2>
     </div>
     <div class="flex flex-wrap gap-2">
-      <button type="button" data-check-all class="min-h-11 rounded-pill border border-border px-4 text-sm font-bold text-accent transition duration-200 hover:-translate-y-px hover:border-accent hover:bg-accent/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Check all</button>
-      <button type="button" data-clear-all class="min-h-11 rounded-pill border border-border px-4 text-sm font-bold text-accent transition duration-200 hover:-translate-y-px hover:border-accent hover:bg-accent/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Clear all</button>
+      <button
+        type="button"
+        data-check-all
+        class="rounded-pill border-border text-accent hover:border-accent hover:bg-accent/10 focus-visible:outline-focus min-h-11 border px-4 text-sm font-normal transition duration-200 hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2"
+        >Check all</button
+      >
+      <button
+        type="button"
+        data-clear-all
+        class="rounded-pill border-border text-accent hover:border-accent hover:bg-accent/10 focus-visible:outline-focus min-h-11 border px-4 text-sm font-normal transition duration-200 hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2"
+        >Clear all</button
+      >
     </div>
   </div>
-  <ul data-language-section="ingredients" data-recipe-language="en" class="mt-6 divide-y divide-border rounded-md border border-border bg-surface px-5">
-    {ingredients.map((ingredient, index) => (
-      <Fragment>
-        {ingredient.group && ingredient.group !== ingredients[index - 1]?.group && <li class="py-4"><h3 class="font-bold text-foreground">{ingredient.group}</h3></li>}
-        <li>
-          <label class="flex cursor-pointer gap-3 py-4 text-base leading-relaxed text-foreground">
-          <input type="checkbox" class="mt-1 size-5 shrink-0 accent-accent" />
-          <span>{[ingredient.quantity, ingredient.unit, ingredient.name].filter(Boolean).join(" ")}</span>
-          {ingredient.notes && <span class="text-muted-foreground"> — {ingredient.notes}</span>}
-          </label>
-        </li>
-      </Fragment>
-    ))}
+  <ul
+    data-language-section="ingredients"
+    data-recipe-language="en"
+    class="divide-border border-border bg-surface mt-6 divide-y rounded-md border px-5"
+  >
+    {
+      ingredients.map((ingredient, index) => (
+        <Fragment>
+          {ingredient.group &&
+            ingredient.group !== ingredients[index - 1]?.group && (
+              <li class="py-4">
+                <h3 class="text-foreground font-normal">{ingredient.group}</h3>
+              </li>
+            )}
+          <li>
+            <label class="text-foreground flex cursor-pointer gap-3 py-4 text-base leading-relaxed">
+              <input
+                type="checkbox"
+                class="accent-accent mt-1 size-5 shrink-0"
+              />
+              <span>
+                {[ingredient.quantity, ingredient.unit, ingredient.name]
+                  .filter(Boolean)
+                  .join(" ")}
+              </span>
+              {ingredient.notes && (
+                <span class="text-muted-foreground"> — {ingredient.notes}</span>
+              )}
+            </label>
+          </li>
+        </Fragment>
+      ))
+    }
   </ul>
-  {ingredientsBn.length > 0 && <ul data-language-section="ingredients" data-recipe-language="bn" hidden lang="bn" class="mt-6 divide-y divide-border rounded-md border border-border bg-surface px-5">{ingredientsBn.map(ingredient => ingredient.startsWith("HEADING:") ? <li class="py-4"><h3 class="font-bold text-foreground">{ingredient.replace(/^HEADING:/, "")}</h3></li> : <li><label class="flex cursor-pointer gap-3 py-4 text-base leading-relaxed text-foreground"><input type="checkbox" class="mt-1 size-5 shrink-0 accent-accent" /><span>{ingredient}</span></label></li>)}</ul>}
+  {
+    ingredientsBn.length > 0 && (
+      <ul
+        data-language-section="ingredients"
+        data-recipe-language="bn"
+        hidden
+        lang="bn"
+        class="divide-border border-border bg-surface mt-6 divide-y rounded-md border px-5"
+      >
+        {ingredientsBn.map(ingredient =>
+          ingredient.startsWith("HEADING:") ? (
+            <li class="py-4">
+              <h3 class="text-foreground font-bold">
+                {ingredient.replace(/^HEADING:/, "")}
+              </h3>
+            </li>
+          ) : (
+            <li>
+              <label class="text-foreground flex cursor-pointer gap-3 py-4 text-base leading-relaxed">
+                <input
+                  type="checkbox"
+                  class="accent-accent mt-1 size-5 shrink-0"
+                />
+                <span>{ingredient}</span>
+              </label>
+            </li>
+          )
+        )}
+      </ul>
+    )
+  }
 </section>
 
 <script>
   const ingredientSection = document.querySelector<HTMLElement>("#ingredients");
   const checklistKey = `calcutta-kitchen:${window.location.pathname}:ingredients`;
-  const updateItem = (input: HTMLInputElement) => input.closest("li")?.classList.toggle("line-through", input.checked);
-  const inputs = () => Array.from(ingredientSection?.querySelectorAll<HTMLInputElement>('input[type="checkbox"]') ?? []);
+  const updateItem = (input: HTMLInputElement) =>
+    input.closest("li")?.classList.toggle("line-through", input.checked);
+  const inputs = () =>
+    Array.from(
+      ingredientSection?.querySelectorAll<HTMLInputElement>(
+        'input[type="checkbox"]'
+      ) ?? []
+    );
   const saved = sessionStorage.getItem(checklistKey);
-  if (saved) inputs().forEach((input, index) => { input.checked = JSON.parse(saved).includes(index); updateItem(input); });
-  ingredientSection?.addEventListener("change", event => { if (!(event.target instanceof HTMLInputElement)) return; updateItem(event.target); sessionStorage.setItem(checklistKey, JSON.stringify(inputs().flatMap((input, index) => input.checked ? [index] : []))); });
-  ingredientSection?.querySelector<HTMLElement>("[data-check-all]")?.addEventListener("click", () => { inputs().forEach(input => { input.checked = true; updateItem(input); }); sessionStorage.setItem(checklistKey, JSON.stringify(inputs().map((_, index) => index))); });
-  ingredientSection?.querySelector<HTMLElement>("[data-clear-all]")?.addEventListener("click", () => { inputs().forEach(input => { input.checked = false; updateItem(input); }); sessionStorage.removeItem(checklistKey); });
+  if (saved)
+    inputs().forEach((input, index) => {
+      input.checked = JSON.parse(saved).includes(index);
+      updateItem(input);
+    });
+  ingredientSection?.addEventListener("change", event => {
+    if (!(event.target instanceof HTMLInputElement)) return;
+    updateItem(event.target);
+    sessionStorage.setItem(
+      checklistKey,
+      JSON.stringify(
+        inputs().flatMap((input, index) => (input.checked ? [index] : []))
+      )
+    );
+  });
+  ingredientSection
+    ?.querySelector<HTMLElement>("[data-check-all]")
+    ?.addEventListener("click", () => {
+      inputs().forEach(input => {
+        input.checked = true;
+        updateItem(input);
+      });
+      sessionStorage.setItem(
+        checklistKey,
+        JSON.stringify(inputs().map((_, index) => index))
+      );
+    });
+  ingredientSection
+    ?.querySelector<HTMLElement>("[data-clear-all]")
+    ?.addEventListener("click", () => {
+      inputs().forEach(input => {
+        input.checked = false;
+        updateItem(input);
+      });
+      sessionStorage.removeItem(checklistKey);
+    });
   const setChecklistLabels = (language: "en" | "bn") => {
-    const checkAll = ingredientSection?.querySelector<HTMLElement>("[data-check-all]");
-    const clearAll = ingredientSection?.querySelector<HTMLElement>("[data-clear-all]");
-    if (checkAll) checkAll.textContent = language === "bn" ? "সব নির্বাচন করুন" : "Check all";
-    if (clearAll) clearAll.textContent = language === "bn" ? "সব মুছুন" : "Clear all";
+    const checkAll =
+      ingredientSection?.querySelector<HTMLElement>("[data-check-all]");
+    const clearAll =
+      ingredientSection?.querySelector<HTMLElement>("[data-clear-all]");
+    if (checkAll)
+      checkAll.textContent =
+        language === "bn" ? "সব নির্বাচন করুন" : "Check all";
+    if (clearAll)
+      clearAll.textContent = language === "bn" ? "সব মুছুন" : "Clear all";
   };
-  setChecklistLabels(document.documentElement.dataset.recipeLanguage === "bn" ? "bn" : "en");
-  document.addEventListener("recipe-language-change", event => setChecklistLabels((event as CustomEvent<{ language: "en" | "bn" }>).detail.language));
+  setChecklistLabels(
+    document.documentElement.dataset.recipeLanguage === "bn" ? "bn" : "en"
+  );
+  document.addEventListener("recipe-language-change", event =>
+    setChecklistLabels(
+      (event as CustomEvent<{ language: "en" | "bn" }>).detail.language
+    )
+  );
 </script>

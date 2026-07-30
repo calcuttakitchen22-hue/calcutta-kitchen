@@ -7,9 +7,32 @@ type Props = {
 const { tips, class: className } = Astro.props;
 ---
 
-<section id="tips" aria-labelledby="tips-heading" class:list={["rounded-lg bg-foreground p-6 text-background tablet:p-8", className]}>
-  <h2 id="tips-heading" class="font-display text-4xl font-normal tracking-tight">Pro tips</h2>
-  <ul class="mt-5 space-y-3 leading-relaxed text-background/90">
-    {tips.map(tip => <li class="flex gap-3"><span aria-hidden="true" class="text-accent">•</span><span>{tip}</span></li>)}
+<section
+  id="tips"
+  aria-labelledby="tips-heading"
+  class:list={[
+    "bg-foreground text-background tablet:p-8 rounded-lg p-6",
+    className,
+  ]}
+>
+  <h2
+    id="tips-heading"
+    class="font-display text-4xl font-normal tracking-tight"
+  >
+    Pro tips
+  </h2>
+  <ul class="text-background/90 mt-5 space-y-3 leading-relaxed">
+    {
+      tips.map(tip => (
+        <li class="flex gap-3">
+          <>
+            <span aria-hidden="true" class="text-accent">
+              •
+            </span>
+            <span>{tip}</span>
+          </>
+        </li>
+      ))
+    }
   </ul>
 </section>

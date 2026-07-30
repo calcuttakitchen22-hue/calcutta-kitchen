@@ -19,16 +19,16 @@ const { title, description, ...props } = data;
     class="border-border bg-muted block overflow-hidden rounded-xl border transition hover:-translate-y-1 hover:shadow-lg"
   >
     {
-  data.featuredImage ? (
-    <img
-      src={data.featuredImage.src}
-      alt={title}
-      class="aspect-[16/9] w-full object-cover"
-    />
-  ) : (
-    <div class="aspect-[16/9] bg-muted"></div>
-  )
-}
+      data.featuredImage ? (
+        <img
+          src={data.featuredImage.src}
+          alt={title}
+          class="aspect-[16/9] w-full object-cover"
+        />
+      ) : (
+        <div class="bg-muted aspect-[16/9]" />
+      )
+    }
 
     <div class="p-5">
       <Heading

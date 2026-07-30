@@ -1,7 +1,12 @@
 ---
 import Container from "@/components/common/Container.astro";
 import SocialIcon from "@/components/common/SocialIcon.astro";
-import type { FooterNavigationGroup, NavigationItem, SiteLogo, SocialLink } from "@/types/site";
+import type {
+  FooterNavigationGroup,
+  NavigationItem,
+  SiteLogo,
+  SocialLink,
+} from "@/types/site";
 
 type Props = {
   brand: NavigationItem;
@@ -13,7 +18,8 @@ type Props = {
 };
 
 const {
-  brand, logo,
+  brand,
+  logo,
   groups = [],
   socialLinks = [],
   copyright = `© ${new Date().getFullYear()} ${brand.label}`,
@@ -23,42 +29,79 @@ const {
 
 <footer class:list={["bg-foreground text-background", className]}>
   <Container size="wide">
-    <div class="grid gap-10 py-12 tablet:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
+    <div
+      class="tablet:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] grid gap-10 py-12"
+    >
       <div>
-        <a href={brand.href} aria-label={brand.label} class="flex max-w-[148px] items-center focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus">
-          {logo ? <img src={logo.src.src} alt={logo.alt} width={logo.width} height={logo.height} class="h-10 w-auto object-contain" /> : <span class="font-display text-3xl font-semibold">{brand.label}</span>}
+        <a
+          href={brand.href}
+          aria-label={brand.label}
+          class="focus-visible:outline-focus flex max-w-[148px] items-center focus-visible:outline-2 focus-visible:outline-offset-4"
+        >
+          {
+            logo ? (
+              <img
+                src={logo.src.src}
+                alt={logo.alt}
+                width={logo.width}
+                height={logo.height}
+                class="h-10 w-auto object-contain"
+              />
+            ) : (
+              <span class="font-display text-3xl font-semibold">
+                {brand.label}
+              </span>
+            )
+          }
         </a>
-        {socialLinks.length > 0 && (
-          <ul class="mt-5 flex flex-wrap gap-2">
-            {socialLinks.map(link => (
-              <li>
-                <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.label} class="grid size-11 place-items-center rounded-pill text-background transition hover:bg-background/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus">
-                  <SocialIcon platform={link.platform} />
-                </a>
-              </li>
-            ))}
-          </ul>
-        )}
+        {
+          socialLinks.length > 0 && (
+            <ul class="mt-5 flex flex-wrap gap-2">
+              {socialLinks.map(link => (
+                <li>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={link.label}
+                    class="rounded-pill text-background hover:bg-background/10 focus-visible:outline-focus grid size-11 place-items-center transition focus-visible:outline-2 focus-visible:outline-offset-4"
+                  >
+                    <SocialIcon platform={link.platform} />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )
+        }
       </div>
-      {groups.length > 0 && (
-        <div class="grid gap-8 sm:grid-cols-2">
-          {groups.map(group => (
-            <section aria-label={group.label}>
-              <h2 class="font-display text-lg font-semibold">{group.label}</h2>
-              <ul class="mt-4 space-y-3">
-                {group.items.map(item => (
-                  <li>
-                    <a href={item.href} class="text-sm underline decoration-transparent underline-offset-4 hover:decoration-current focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus">
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))}
-        </div>
-      )}
+      {
+        groups.length > 0 && (
+          <div class="grid gap-8 sm:grid-cols-2">
+            {groups.map(group => (
+              <section aria-label={group.label}>
+                <h2 class="font-display text-lg font-semibold">
+                  {group.label}
+                </h2>
+                <ul class="mt-4 space-y-3">
+                  {group.items.map(item => (
+                    <li>
+                      <a
+                        href={item.href}
+                        class="focus-visible:outline-focus text-sm underline decoration-transparent underline-offset-4 hover:decoration-current focus-visible:outline-2 focus-visible:outline-offset-4"
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+          </div>
+        )
+      }
     </div>
-    <div class="border-t border-background/25 py-5 text-sm text-background/80">{copyright}</div>
+    <div class="border-background/25 text-background/80 border-t py-5 text-sm">
+      {copyright}
+    </div>
   </Container>
 </footer>

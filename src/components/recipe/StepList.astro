@@ -8,79 +8,258 @@ type Props = {
 };
 
 const { steps, stepsBn = [], class: className } = Astro.props;
-const bengaliSteps = stepsBn.reduce<{ heading?: string; instruction?: string; index?: number }[]>((items, step) => {
-  if (step.startsWith("HEADING:")) return [...items, { heading: step.replace(/^HEADING:/, "") }];
-  return [...items, { instruction: step, index: items.filter(item => item.instruction).length }];
+const bengaliSteps = stepsBn.reduce<
+  { heading?: string; instruction?: string; index?: number }[]
+>((items, step) => {
+  if (step.startsWith("HEADING:"))
+    return [...items, { heading: step.replace(/^HEADING:/, "") }];
+  return [
+    ...items,
+    { instruction: step, index: items.filter(item => item.instruction).length },
+  ];
 }, []);
 ---
 
 <section id="method" aria-labelledby="method-heading" class={className}>
-  <div class="flex flex-col items-start gap-3 tablet:flex-row tablet:items-center tablet:justify-between">
+  <div
+    class="tablet:flex-row tablet:items-center tablet:justify-between flex flex-col items-start gap-3"
+  >
     <div>
-      <h2 id="method-heading" data-language-section="method" data-recipe-language="en" class="font-display text-4xl font-normal tracking-tight text-foreground">Cooking method</h2>
-      <h2 data-language-section="method" data-recipe-language="bn" hidden lang="bn" class="font-display text-4xl font-bold tracking-tight text-foreground">রান্নার পদ্ধতি</h2>
+      <h2
+        id="method-heading"
+        data-language-section="method"
+        data-recipe-language="en"
+        class="font-display text-foreground text-4xl font-normal tracking-tight"
+      >
+        Cooking method
+      </h2>
+      <h2
+        data-language-section="method"
+        data-recipe-language="bn"
+        hidden
+        lang="bn"
+        class="font-display text-foreground text-4xl font-bold tracking-tight"
+      >
+        রান্নার পদ্ধতি
+      </h2>
     </div>
     <div class="flex flex-wrap gap-2">
-      <button type="button" data-method-check-all class="min-h-11 rounded-pill border border-border px-4 text-sm font-bold text-accent transition duration-200 hover:-translate-y-px hover:border-accent hover:bg-accent/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Check all</button>
-      <button type="button" data-method-clear-all class="min-h-11 rounded-pill border border-border px-4 text-sm font-bold text-accent transition duration-200 hover:-translate-y-px hover:border-accent hover:bg-accent/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Clear all</button>
+      <button
+        type="button"
+        data-method-check-all
+        class="rounded-pill border-border text-accent hover:border-accent hover:bg-accent/10 focus-visible:outline-focus min-h-11 border px-4 text-sm font-normal transition duration-200 hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2"
+        >Check all</button
+      >
+      <button
+        type="button"
+        data-method-clear-all
+        class="rounded-pill border-border text-accent hover:border-accent hover:bg-accent/10 focus-visible:outline-focus min-h-11 border px-4 text-sm font-normal transition duration-200 hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2"
+        >Clear all</button
+      >
     </div>
   </div>
-  <ol data-language-section="method" data-recipe-language="en" class="mt-6 space-y-5">
-    {steps.map((step, index) => (
-      <Fragment>
-        {step.group && step.group !== steps[index - 1]?.group && <li class="list-none pt-2"><h3 class="font-display text-2xl font-medium text-foreground">{step.group}</h3></li>}
-        <li data-step-item data-step-index={index} class="cursor-pointer rounded-md border border-border bg-surface p-5">
-          <div class="flex gap-4">
-            <button type="button" data-step-toggle data-step-index={index} aria-label={`Mark step ${index + 1} complete`} aria-pressed="false" class="grid size-8 shrink-0 place-items-center rounded-pill bg-accent font-bold text-accent-foreground transition duration-200 hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
-              {index + 1}
-            </button>
-            <div>
-              {step.title && <h3 class="font-display text-2xl font-normal text-foreground">{step.title}</h3>}
-              <p class:list={["leading-relaxed text-muted-foreground", step.title && "mt-2"]}>{step.instruction}</p>
-              {step.image && step.imageAlt && <img src={step.image} alt={step.imageAlt} loading="lazy" class="mt-4 aspect-video w-full rounded-sm object-cover" />}
-              {step.tip && <p class="mt-4 rounded-sm border-l-4 border-accent bg-background px-4 py-3 text-sm leading-relaxed text-foreground"><span class="font-bold">Tip: </span>{step.tip}</p>}
+  <ol
+    data-language-section="method"
+    data-recipe-language="en"
+    class="mt-6 space-y-5"
+  >
+    {
+      steps.map((step, index) => (
+        <Fragment>
+          {step.group && step.group !== steps[index - 1]?.group && (
+            <li class="list-none pt-2">
+              <h3 class="font-display text-foreground text-2xl font-medium">
+                {step.group}
+              </h3>
+            </li>
+          )}
+          <li
+            data-step-item
+            data-step-index={index}
+            class="border-border bg-surface cursor-pointer rounded-md border p-5"
+          >
+            <div class="flex gap-4">
+              <button
+                type="button"
+                data-step-toggle
+                data-step-index={index}
+                aria-label={`Mark step ${index + 1} complete`}
+                aria-pressed="false"
+                class="rounded-pill bg-accent text-accent-foreground focus-visible:outline-focus grid size-8 shrink-0 place-items-center font-normal transition duration-200 hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2"
+              >
+                {index + 1}
+              </button>
+              <div>
+                {step.title && (
+                  <h3 class="font-display text-foreground text-2xl font-normal">
+                    {step.title}
+                  </h3>
+                )}
+                <p
+                  class:list={[
+                    "text-muted-foreground leading-relaxed",
+                    step.title && "mt-2",
+                  ]}
+                >
+                  {step.instruction}
+                </p>
+                {step.image && step.imageAlt && (
+                  <img
+                    src={step.image}
+                    alt={step.imageAlt}
+                    loading="lazy"
+                    class="mt-4 aspect-video w-full rounded-sm object-cover"
+                  />
+                )}
+                {step.tip && (
+                  <p class="border-accent bg-background text-foreground mt-4 rounded-sm border-l-4 px-4 py-3 text-sm leading-relaxed">
+                    <span class="font-normal">Tip: </span>
+                    {step.tip}
+                  </p>
+                )}
+              </div>
             </div>
-          </div>
-        </li>
-      </Fragment>
-    ))}
+          </li>
+        </Fragment>
+      ))
+    }
   </ol>
-  {stepsBn.length > 0 && <ol data-language-section="method" data-recipe-language="bn" hidden lang="bn" class="mt-6 space-y-5">{bengaliSteps.map(step => step.heading ? <li class="list-none pt-2"><h3 class="font-display text-2xl font-bold text-foreground">{step.heading}</h3></li> : <li data-step-item data-step-index={step.index} class="cursor-pointer rounded-md border border-border bg-surface p-5"><div class="flex gap-4"><button type="button" data-step-toggle data-step-index={step.index} aria-label={`Mark step ${(step.index ?? 0) + 1} complete`} aria-pressed="false" class="grid size-8 shrink-0 place-items-center rounded-pill bg-accent font-bold text-accent-foreground transition duration-200 hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">{(step.index ?? 0) + 1}</button><p class="leading-relaxed text-muted-foreground">{step.instruction}</p></div></li>)}</ol>}
+  {
+    stepsBn.length > 0 && (
+      <ol
+        data-language-section="method"
+        data-recipe-language="bn"
+        hidden
+        lang="bn"
+        class="mt-6 space-y-5"
+      >
+        {bengaliSteps.map(step =>
+          step.heading ? (
+            <li class="list-none pt-2">
+              <h3 class="font-display text-foreground text-2xl font-bold">
+                {step.heading}
+              </h3>
+            </li>
+          ) : (
+            <li
+              data-step-item
+              data-step-index={step.index}
+              class="border-border bg-surface cursor-pointer rounded-md border p-5"
+            >
+              <div class="flex gap-4">
+                <button
+                  type="button"
+                  data-step-toggle
+                  data-step-index={step.index}
+                  aria-label={`Mark step ${(step.index ?? 0) + 1} complete`}
+                  aria-pressed="false"
+                  class="rounded-pill bg-accent text-accent-foreground focus-visible:outline-focus grid size-8 shrink-0 place-items-center font-bold transition duration-200 hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2"
+                >
+                  {(step.index ?? 0) + 1}
+                </button>
+                <p class="text-muted-foreground leading-relaxed">
+                  {step.instruction}
+                </p>
+              </div>
+            </li>
+          )
+        )}
+      </ol>
+    )
+  }
 </section>
 
 <script>
   const methodSection = document.querySelector<HTMLElement>("#method");
   const checklistKey = `calcutta-kitchen:${window.location.pathname}:steps`;
-  const stepButtons = () => Array.from(methodSection?.querySelectorAll<HTMLButtonElement>("[data-step-toggle]") ?? []);
+  const stepButtons = () =>
+    Array.from(
+      methodSection?.querySelectorAll<HTMLButtonElement>(
+        "[data-step-toggle]"
+      ) ?? []
+    );
   const setStepState = (index: number, checked: boolean) => {
-    methodSection?.querySelectorAll<HTMLButtonElement>(`[data-step-toggle][data-step-index="${index}"]`).forEach(button => {
-      button.setAttribute("aria-pressed", String(checked));
-      button.classList.toggle("bg-foreground", checked);
-      button.classList.toggle("bg-accent", !checked);
-    });
-    methodSection?.querySelectorAll<HTMLElement>(`[data-step-item][data-step-index="${index}"]`).forEach(item => item.classList.toggle("line-through", checked));
+    methodSection
+      ?.querySelectorAll<HTMLButtonElement>(
+        `[data-step-toggle][data-step-index="${index}"]`
+      )
+      .forEach(button => {
+        button.setAttribute("aria-pressed", String(checked));
+        button.classList.toggle("bg-foreground", checked);
+        button.classList.toggle("bg-accent", !checked);
+      });
+    methodSection
+      ?.querySelectorAll<HTMLElement>(
+        `[data-step-item][data-step-index="${index}"]`
+      )
+      .forEach(item => item.classList.toggle("line-through", checked));
   };
-  const save = () => sessionStorage.setItem(checklistKey, JSON.stringify([...new Set(stepButtons().filter(button => button.getAttribute("aria-pressed") === "true").map(button => Number(button.dataset.stepIndex)))]));
-  const saved = JSON.parse(sessionStorage.getItem(checklistKey) ?? "[]") as number[];
+  const save = () =>
+    sessionStorage.setItem(
+      checklistKey,
+      JSON.stringify([
+        ...new Set(
+          stepButtons()
+            .filter(button => button.getAttribute("aria-pressed") === "true")
+            .map(button => Number(button.dataset.stepIndex))
+        ),
+      ])
+    );
+  const saved = JSON.parse(
+    sessionStorage.getItem(checklistKey) ?? "[]"
+  ) as number[];
   saved.forEach(index => setStepState(index, true));
   methodSection?.addEventListener("click", event => {
     const target = event.target as HTMLElement;
     const stepItem = target.closest<HTMLElement>("[data-step-item]");
-    if (!stepItem || target.closest("a, button:not([data-step-toggle])")) return;
+    if (!stepItem || target.closest("a, button:not([data-step-toggle])"))
+      return;
     const index = Number(stepItem.dataset.stepIndex);
-    const button = stepItem.querySelector<HTMLButtonElement>("[data-step-toggle]");
+    const button =
+      stepItem.querySelector<HTMLButtonElement>("[data-step-toggle]");
     if (!button) return;
     setStepState(index, button.getAttribute("aria-pressed") !== "true");
     save();
   });
-  methodSection?.querySelector<HTMLButtonElement>("[data-method-check-all]")?.addEventListener("click", () => { [...new Set(stepButtons().map(button => Number(button.dataset.stepIndex)))].forEach(index => setStepState(index, true)); save(); });
-  methodSection?.querySelector<HTMLButtonElement>("[data-method-clear-all]")?.addEventListener("click", () => { [...new Set(stepButtons().map(button => Number(button.dataset.stepIndex)))].forEach(index => setStepState(index, false)); sessionStorage.removeItem(checklistKey); });
+  methodSection
+    ?.querySelector<HTMLButtonElement>("[data-method-check-all]")
+    ?.addEventListener("click", () => {
+      [
+        ...new Set(
+          stepButtons().map(button => Number(button.dataset.stepIndex))
+        ),
+      ].forEach(index => setStepState(index, true));
+      save();
+    });
+  methodSection
+    ?.querySelector<HTMLButtonElement>("[data-method-clear-all]")
+    ?.addEventListener("click", () => {
+      [
+        ...new Set(
+          stepButtons().map(button => Number(button.dataset.stepIndex))
+        ),
+      ].forEach(index => setStepState(index, false));
+      sessionStorage.removeItem(checklistKey);
+    });
   const setChecklistLabels = (language: "en" | "bn") => {
-    const checkAll = methodSection?.querySelector<HTMLElement>("[data-method-check-all]");
-    const clearAll = methodSection?.querySelector<HTMLElement>("[data-method-clear-all]");
-    if (checkAll) checkAll.textContent = language === "bn" ? "সব নির্বাচন করুন" : "Check all";
-    if (clearAll) clearAll.textContent = language === "bn" ? "সব মুছুন" : "Clear all";
+    const checkAll = methodSection?.querySelector<HTMLElement>(
+      "[data-method-check-all]"
+    );
+    const clearAll = methodSection?.querySelector<HTMLElement>(
+      "[data-method-clear-all]"
+    );
+    if (checkAll)
+      checkAll.textContent =
+        language === "bn" ? "সব নির্বাচন করুন" : "Check all";
+    if (clearAll)
+      clearAll.textContent = language === "bn" ? "সব মুছুন" : "Clear all";
   };
-  setChecklistLabels(document.documentElement.dataset.recipeLanguage === "bn" ? "bn" : "en");
-  document.addEventListener("recipe-language-change", event => setChecklistLabels((event as CustomEvent<{ language: "en" | "bn" }>).detail.language));
+  setChecklistLabels(
+    document.documentElement.dataset.recipeLanguage === "bn" ? "bn" : "en"
+  );
+  document.addEventListener("recipe-language-change", event =>
+    setChecklistLabels(
+      (event as CustomEvent<{ language: "en" | "bn" }>).detail.language
+    )
+  );
 </script>

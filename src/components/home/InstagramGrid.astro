@@ -13,15 +13,36 @@ const { posts } = Astro.props;
 ---
 
 <section aria-labelledby="instagram-heading">
-  <h2 id="instagram-heading" class="font-display text-3xl font-semibold tracking-tight text-foreground tablet:text-4xl">Watch on Instagram</h2>
-  <div class="mt-6 grid gap-6 tablet:grid-cols-2 desktop:grid-cols-3">
-    {posts.map(post => (
-      <article class="overflow-hidden rounded-md border border-border bg-surface shadow-card">
-        <a href={post.url} target="_blank" rel="noopener noreferrer" class="block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus">
-          <img src={post.thumbnail} alt={`Instagram preview: ${post.title}`} width="1080" height="1080" loading="lazy" class="aspect-square w-full object-cover" />
-          <h3 class="p-5 font-display text-2xl font-semibold text-foreground">{post.title}</h3>
-        </a>
-      </article>
-    ))}
+  <h2
+    id="instagram-heading"
+    class="font-display text-foreground tablet:text-4xl text-3xl font-semibold tracking-tight"
+  >
+    Watch on Instagram
+  </h2>
+  <div class="tablet:grid-cols-2 desktop:grid-cols-3 mt-6 grid gap-6">
+    {
+      posts.map(post => (
+        <article class="border-border bg-surface shadow-card overflow-hidden rounded-md border">
+          <a
+            href={post.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="focus-visible:outline-focus block focus-visible:outline-2 focus-visible:outline-offset-4"
+          >
+            <img
+              src={post.thumbnail}
+              alt={`Instagram preview: ${post.title}`}
+              width="1080"
+              height="1080"
+              loading="lazy"
+              class="aspect-square w-full object-cover"
+            />
+            <h3 class="font-display text-foreground p-5 text-2xl font-semibold">
+              {post.title}
+            </h3>
+          </a>
+        </article>
+      ))
+    }
   </div>
 </section>
