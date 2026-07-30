@@ -1,6 +1,12 @@
 @plugin "@tailwindcss/typography";
 
 @layer base {
+  body {
+    font-synthesis: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
   :lang(bn) {
     font-family: var(--ck-font-bengali);
     letter-spacing: normal;

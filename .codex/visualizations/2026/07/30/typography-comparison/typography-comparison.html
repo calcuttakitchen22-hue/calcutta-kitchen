@@ -1,0 +1,99 @@
+<div id="calcutta-kitchen-typography-comparison" class="viz-root">
+  <style>
+    #calcutta-kitchen-typography-comparison {
+      --background: #f8f5e6;
+      --foreground: #2b1818;
+      --muted: #6f5a55;
+      --card: #fffdf5;
+      --panel: #f1ead7;
+      --border: #d8cbb7;
+      --accent: #f24e07;
+      --accent-text: #fffaf0;
+      color: var(--foreground);
+      font-family: Futura, "Noto Serif Bengali", Arial, sans-serif;
+      font-size: 16px;
+    }
+
+    #calcutta-kitchen-typography-comparison * { box-sizing: border-box; }
+    #calcutta-kitchen-typography-comparison .viz-toolbar,
+    #calcutta-kitchen-typography-comparison .viz-switch { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+    #calcutta-kitchen-typography-comparison .viz-toolbar { justify-content: space-between; margin-bottom: 1.25rem; }
+    #calcutta-kitchen-typography-comparison .viz-note { color: var(--muted); font-size: 0.875rem; }
+    #calcutta-kitchen-typography-comparison button { border: 1px solid var(--border); border-radius: 0.5rem; padding: 0.5rem 0.75rem; background: transparent; color: var(--foreground); font: inherit; font-size: 0.875rem; font-weight: 400; cursor: pointer; }
+    #calcutta-kitchen-typography-comparison button[aria-pressed="true"] { background: var(--accent); color: var(--accent-text); }
+    #calcutta-kitchen-typography-comparison .viz-grid { display: grid; gap: 1.25rem; }
+    #calcutta-kitchen-typography-comparison .viz-card { border: 1px solid var(--border); border-radius: 1rem; padding: 1.25rem; background: var(--card); }
+    #calcutta-kitchen-typography-comparison .viz-card-header { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-bottom: 1rem; }
+    #calcutta-kitchen-typography-comparison h2 { margin: 0; font-size: 1rem; font-weight: 500; }
+    #calcutta-kitchen-typography-comparison .viz-badge { border-radius: 999px; padding: 0.25rem 0.6rem; background: var(--panel); color: var(--muted); font-size: 0.75rem; }
+    #calcutta-kitchen-typography-comparison .preview-shell { margin-inline: auto; border: 1px solid var(--border); padding: 1.25rem; background: var(--panel); transition: max-width 180ms ease; }
+    #calcutta-kitchen-typography-comparison .preview-shell.mobile { max-width: 360px; }
+    #calcutta-kitchen-typography-comparison .preview-shell.desktop { max-width: 520px; }
+    #calcutta-kitchen-typography-comparison .preview-shell p { margin: 0 0 1rem; }
+    #calcutta-kitchen-typography-comparison .eyebrow { color: var(--muted); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; }
+    #calcutta-kitchen-typography-comparison h3 { margin: 0 0 1rem; font-family: Futura, "Noto Serif Bengali", sans-serif; font-size: 1.8rem; font-weight: 500; line-height: 1.15; }
+    #calcutta-kitchen-typography-comparison .body { color: var(--foreground); font-family: Futura, "Noto Serif Bengali", sans-serif; font-size: 1rem; line-height: 1.7; }
+    #calcutta-kitchen-typography-comparison .current h3,
+    #calcutta-kitchen-typography-comparison .current .body { font-weight: 500; }
+    #calcutta-kitchen-typography-comparison .recommended h3,
+    #calcutta-kitchen-typography-comparison .recommended .body { font-weight: 400; }
+    #calcutta-kitchen-typography-comparison .cta { display: inline-block; border-radius: 999px; padding: 0.7rem 1.1rem; background: var(--accent); color: var(--accent-text); font-size: 0.875rem; font-weight: 400; }
+    #calcutta-kitchen-typography-comparison .viz-legend { margin-top: 1.25rem; color: var(--muted); font-size: 0.8rem; }
+    @media (min-width: 768px) {
+      #calcutta-kitchen-typography-comparison .viz-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
+
+  <div class="viz-toolbar">
+    <p class="viz-note">Compare the same mixed Bengali/English copy with and without unavailable Futura weights.</p>
+    <div class="viz-switch" role="group" aria-label="Preview size">
+      <button id="typographyDesktop" type="button" aria-pressed="true">Desktop</button>
+      <button id="typographyMobile" type="button" aria-pressed="false">Mobile</button>
+    </div>
+  </div>
+
+  <div class="viz-grid">
+    <section class="viz-card current" aria-labelledby="current-typography-heading">
+      <div class="viz-card-header">
+        <h2 id="current-typography-heading">Current approach</h2>
+        <span class="viz-badge">Requested 500+</span>
+      </div>
+      <div class="preview-shell desktop">
+        <p class="eyebrow">Kitchen essentials</p>
+        <h3>Good রান্না begins with the right বাসন.</h3>
+        <p class="body">The right cookware won't make you a better cook overnight—but it might save you from blaming the recipe. These are the tools we trust in our kitchen, <strong>EVERY SINGLE DAY.</strong></p>
+        <span class="cta">See What We Use →</span>
+      </div>
+    </section>
+
+    <section class="viz-card recommended" aria-labelledby="recommended-typography-heading">
+      <div class="viz-card-header">
+        <h2 id="recommended-typography-heading">Recommended approach</h2>
+        <span class="viz-badge">Futura Book 400</span>
+      </div>
+      <div class="preview-shell desktop">
+        <p class="eyebrow">Kitchen essentials</p>
+        <h3>Good রান্না begins with the right বাসন.</h3>
+        <p class="body">The right cookware won't make you a better cook overnight—but it might save you from blaming the recipe. These are the tools we trust in our kitchen, <strong>EVERY SINGLE DAY.</strong></p>
+        <span class="cta">See What We Use →</span>
+      </div>
+    </section>
+  </div>
+
+  <p class="viz-legend">Futura Book is the only shipped Futura file. Bengali glyphs fall back to Noto Serif Bengali.</p>
+
+  <script>
+    const root = document.getElementById("calcutta-kitchen-typography-comparison");
+    const desktop = root.querySelector("#typographyDesktop");
+    const mobile = root.querySelector("#typographyMobile");
+    const shells = root.querySelectorAll(".preview-shell");
+    const setSize = isMobile => {
+      shells.forEach(shell => shell.classList.toggle("mobile", isMobile));
+      shells.forEach(shell => shell.classList.toggle("desktop", !isMobile));
+      desktop.setAttribute("aria-pressed", String(!isMobile));
+      mobile.setAttribute("aria-pressed", String(isMobile));
+    };
+    desktop.addEventListener("click", () => setSize(false));
+    mobile.addEventListener("click", () => setSize(true));
+  </script>
+</div>

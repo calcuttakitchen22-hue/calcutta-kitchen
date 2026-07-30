@@ -1,0 +1,667 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout
+  title="Typography Playground | Calcutta Kitchen"
+  description="Internal typography evaluation playground."
+>
+  <main class="type-playground">
+    <header class="playground-header">
+      <p class="eyebrow">Internal design tool</p>
+      <h1>Typography Playground</h1>
+      <p>
+        Compare the Calcutta Kitchen type system across weights, sizes,
+        languages and responsive widths.
+      </p>
+    </header>
+
+    <section class="controls" aria-labelledby="live-controls-heading">
+      <h2 id="live-controls-heading">Live controls</h2>
+      <div class="control-grid">
+        <label
+          >Heading font<select data-control="headingFont"
+            ><option>Borax VF</option><option>Futura</option><option
+              >Noto Serif Bengali</option
+            ><option>system-ui</option></select
+          ></label
+        >
+        <label
+          >Body font<select data-control="bodyFont"
+            ><option>Futura</option><option>Borax VF</option><option
+              >Noto Serif Bengali</option
+            ><option>system-ui</option></select
+          ></label
+        >
+        <label
+          >Heading size <output data-output="headingSize">40px</output><input
+            data-control="headingSize"
+            type="range"
+            min="20"
+            max="64"
+            value="40"
+          /></label
+        >
+        <label
+          >Body size <output data-output="bodySize">16px</output><input
+            data-control="bodySize"
+            type="range"
+            min="12"
+            max="28"
+            value="16"
+          /></label
+        >
+        <label
+          >Letter spacing <output data-output="letterSpacing">0em</output><input
+            data-control="letterSpacing"
+            type="range"
+            min="-3"
+            max="12"
+            value="0"
+          /></label
+        >
+        <label
+          >Line height <output data-output="lineHeight">1.5</output><input
+            data-control="lineHeight"
+            type="range"
+            min="12"
+            max="20"
+            value="15"
+          /></label
+        >
+        <label
+          >Weight<select data-control="weight"
+            ><option value="400">400</option><option value="500">500</option
+            ><option value="600">600</option><option value="700">700</option
+            ><option value="800">800</option><option value="900">900</option
+            ></select
+          ></label
+        >
+        <label class="check"
+          ><input data-control="uppercase" type="checkbox" /> Uppercase</label
+        >
+        <label class="check"
+          ><input data-control="bold" type="checkbox" /> Bold</label
+        >
+      </div>
+    </section>
+
+    <section class="responsive-preview" aria-labelledby="responsive-heading">
+      <div class="section-heading">
+        <h2 id="responsive-heading">Responsive preview</h2><div
+          class="preset-buttons"
+        >
+          <button data-preset="1440">Desktop</button><button data-preset="768"
+            >Tablet</button
+          ><button data-preset="390">Mobile</button>
+        </div>
+      </div>
+      <div class="preview-frame" data-preview-frame>
+        <div class="preview-content">
+          <p class="eyebrow">Kitchen essentials</p><h3 data-preview-heading>
+            Good রান্না begins with the right বাসন.
+          </h3><p data-preview-body>
+            The right cookware won't make you a better cook overnight—but it
+            might save you from blaming the recipe. These are the tools we trust
+            in our kitchen, EVERY SINGLE DAY.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="font-comparison-heading">
+      <div class="section-heading">
+        <h2 id="font-comparison-heading">Font comparison</h2>
+      </div><div class="font-comparison">
+        <article>
+          <h3>Borax</h3><p class="sample borax">
+            Good রান্না begins with the right বাসন.
+          </p>
+        </article><article>
+          <h3>Futura</h3><p class="sample futura">
+            Good রান্না begins with the right বাসন.
+          </p>
+        </article><article>
+          <h3>Noto Serif Bengali</h3><p class="sample bengali">
+            Good রান্না begins with the right বাসন.
+          </p>
+        </article><article>
+          <h3>System Sans</h3><p class="sample system">
+            Good রান্না begins with the right বাসন.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="weight-heading">
+      <div class="section-heading">
+        <h2 id="weight-heading">Weight playground</h2>
+      </div><div class="weight-list">
+        {
+          [100, 200, 300, 400, 500, 600, 700, 800, 900].map(weight => (
+            <div class="weight-row">
+              <>
+                <span>{weight}</span>
+                <p style={`font-weight:${weight}`}>
+                  ABCDEFGHIJKLMNOPQRSTUVWXYZ · abcdefghijklmnopqrstuvwxyz ·
+                  1234567890 · Good রান্না begins with the right বাসন.
+                </p>
+              </>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section aria-labelledby="size-heading">
+      <div class="section-heading">
+        <h2 id="size-heading">Size playground</h2>
+      </div><div class="size-list">
+        {
+          [20, 24, 28, 32, 36, 40, 44, 48, 56, 64].map(size => (
+            <p style={`font-size:${size}px`}>
+              {size}px — Good রান্না begins with the right বাসন.
+            </p>
+          ))
+        }
+      </div>
+    </section>
+
+    <section aria-labelledby="spacing-heading">
+      <div class="section-heading">
+        <h2 id="spacing-heading">Letter spacing</h2>
+      </div><div class="spacing-list">
+        {
+          [-0.03, -0.02, -0.01, 0, 0.01, 0.02, 0.03, 0.05, 0.08, 0.12].map(
+            value => (
+              <p style={`letter-spacing:${value}em`}>
+                {value}em — Good রান্না begins with the right বাসন.
+              </p>
+            )
+          )
+        }
+      </div>
+    </section>
+
+    <section aria-labelledby="line-heading">
+      <div class="section-heading">
+        <h2 id="line-heading">Line height</h2>
+      </div><div class="line-list">
+        {
+          [1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8].map(value => (
+            <p style={`line-height:${value}`}>
+              {value} — The right cookware won't make you a better cook
+              overnight—but it might save you from blaming the recipe.
+            </p>
+          ))
+        }
+      </div>
+    </section>
+
+    <section aria-labelledby="uppercase-heading">
+      <div class="section-heading">
+        <h2 id="uppercase-heading">Uppercase test</h2>
+      </div><div class="uppercase-list">
+        {
+          [400, 500, 600, 700].map(weight => (
+            <p style={`font-weight:${weight}`}>EVERY SINGLE DAY</p>
+          ))
+        }
+      </div>
+    </section>
+
+    <section aria-labelledby="button-heading">
+      <div class="section-heading">
+        <h2 id="button-heading">Button playground</h2>
+      </div><div class="button-grid">
+        {
+          ["Futura", "Borax", "Noto Serif Bengali", "System Sans"].map(font => (
+            <button
+              style={`font-family:${font === "System Sans" ? "system-ui" : `'${font}'`}`}
+            >
+              {font}
+            </button>
+          ))
+        }{
+          [400, 500, 600, 700].map(weight => (
+            <button style={`font-family:Futura;font-weight:${weight}`}>
+              Futura {weight}
+            </button>
+          ))
+        }
+      </div>
+    </section>
+
+    <section aria-labelledby="nav-heading">
+      <div class="section-heading">
+        <h2 id="nav-heading">Navigation</h2>
+      </div><nav class="nav-samples">
+        {
+          [14, 15, 16, 17, 18].map(size => (
+            <div>
+              <>
+                <span>{size}px</span>
+                <a style={`font-size:${size}px;font-weight:500`} href="#">
+                  Home
+                </a>
+                <a style={`font-size:${size}px;font-weight:500`} href="#">
+                  Recipes
+                </a>
+                <a style={`font-size:${size}px;font-weight:500`} href="#">
+                  Collections
+                </a>
+                <a style={`font-size:${size}px;font-weight:500`} href="#">
+                  Kitchen Tools
+                </a>
+                <a style={`font-size:${size}px;font-weight:500`} href="#">
+                  About
+                </a>
+                <a style={`font-size:${size}px;font-weight:500`} href="#">
+                  Work With Us
+                </a>
+              </>
+            </div>
+          ))
+        }
+      </nav>
+    </section>
+
+    <section aria-labelledby="recipe-card-heading">
+      <div class="section-heading">
+        <h2 id="recipe-card-heading">Recipe card</h2>
+      </div><article class="recipe-card">
+        <div>
+          <p class="eyebrow">Featured recipe</p><h3>Chicken Kosha</h3><p
+            class="metadata"
+          >
+            Prep 20 min · Cook 45 min · Serves 4
+          </p><p>
+            The slow-cooked Bengali classic with deep caramelised onions and
+            warming spices.
+          </p><button>View recipe</button>
+        </div>
+      </article>
+    </section>
+
+    <section aria-labelledby="tools-heading">
+      <div class="section-heading">
+        <h2 id="tools-heading">Kitchen Tools</h2>
+      </div><div class="tools-preview">
+        <h3 data-tools-heading>Good রান্না begins with the right বাসন.</h3><p
+          data-tools-body
+        >
+          The right cookware won't make you a better cook overnight—but it might
+          save you from blaming the recipe. These are the tools we trust in our
+          kitchen, EVERY SINGLE DAY.
+        </p><div class="tool-controls">
+          <label
+            >Heading font<select data-control="toolsHeadingFont"
+              ><option>Borax VF</option><option>Futura</option><option
+                >Noto Serif Bengali</option
+              ><option>system-ui</option></select
+            ></label
+          ><label
+            >Body font<select data-control="toolsBodyFont"
+              ><option>Futura</option><option>Borax VF</option><option
+                >Noto Serif Bengali</option
+              ><option>system-ui</option></select
+            ></label
+          >
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="mixed-heading">
+      <div class="section-heading">
+        <h2 id="mixed-heading">Mixed-language stress test</h2>
+      </div><div class="mixed-list">
+        <p>Good রান্না begins with the right বাসন.</p><p lang="bn">
+          রেসিপি নয়, রান্না শেখাই
+        </p><p>Traditional Bengali Cooking</p><p>আজকের Recipe</p><p>
+          Kitchen Tools &amp; বাসন
+        </p><p>EVERY SINGLE DAY</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="developer-heading">
+      <div class="section-heading">
+        <h2 id="developer-heading">Developer information</h2>
+      </div><dl class="developer-info">
+        <dt>Current font-family</dt><dd data-info="fontFamily">Futura</dd><dt>
+          Current font-weight
+        </dt><dd data-info="fontWeight">400</dd><dt>Current font-size</dt><dd
+          data-info="fontSize"
+        >
+          40px
+        </dd><dt>Current line-height</dt><dd data-info="lineHeight">1.5</dd><dt>
+          Current letter-spacing
+        </dt><dd data-info="letterSpacing">0em</dd><dt>
+          Current text-transform
+        </dt><dd data-info="textTransform">none</dd><dt>
+          Current width preset
+        </dt><dd data-info="width">1440px</dd>
+      </dl>
+    </section>
+  </main>
+
+  <script>
+    const root = document.querySelector<HTMLElement>(".type-playground");
+    if (!root) throw new Error("Typography playground root is missing.");
+    const controls = (name: string) =>
+      root.querySelector<HTMLInputElement | HTMLSelectElement>(
+        `[data-control="${name}"]`
+      );
+    const heading = root.querySelector<HTMLElement>("[data-preview-heading]");
+    const body = root.querySelector<HTMLElement>("[data-preview-body]");
+    const info = (name: string) =>
+      root.querySelector<HTMLElement>(`[data-info="${name}"]`);
+    const fontValue = (value: string) =>
+      value === "system-ui"
+        ? "system-ui, sans-serif"
+        : `"${value}", sans-serif`;
+    const update = () => {
+      const headingFont = controls("headingFont")?.value ?? "Futura";
+      const bodyFont = controls("bodyFont")?.value ?? "Futura";
+      const headingSize = `${controls("headingSize")?.value ?? 40}px`;
+      const bodySize = `${controls("bodySize")?.value ?? 16}px`;
+      const spacing = `${Number(controls("letterSpacing")?.value ?? 0) / 100}em`;
+      const lineHeight = Number(controls("lineHeight")?.value ?? 15) / 10;
+      const weight = controls("weight")?.value ?? "400";
+      const transform = root.querySelector<HTMLInputElement>(
+        '[data-control="uppercase"]'
+      )?.checked
+        ? "uppercase"
+        : "none";
+      const finalWeight = root.querySelector<HTMLInputElement>(
+        '[data-control="bold"]'
+      )?.checked
+        ? "700"
+        : weight;
+      Object.assign(heading!.style, {
+        fontFamily: fontValue(headingFont),
+        fontSize: headingSize,
+        letterSpacing: spacing,
+        lineHeight,
+        fontWeight: finalWeight,
+        textTransform: transform,
+      });
+      Object.assign(body!.style, {
+        fontFamily: fontValue(bodyFont),
+        fontSize: bodySize,
+        letterSpacing: spacing,
+        lineHeight,
+        fontWeight: finalWeight,
+        textTransform: transform,
+      });
+      root.querySelector<HTMLElement>(
+        "[data-tools-heading]"
+      )!.style.fontFamily = fontValue(
+        controls("toolsHeadingFont")?.value ?? "Borax VF"
+      );
+      root.querySelector<HTMLElement>("[data-tools-body]")!.style.fontFamily =
+        fontValue(controls("toolsBodyFont")?.value ?? "Futura");
+      info("fontFamily")!.textContent = `${headingFont} / ${bodyFont}`;
+      info("fontWeight")!.textContent = finalWeight;
+      info("fontSize")!.textContent = `${headingSize} / ${bodySize}`;
+      info("lineHeight")!.textContent = String(lineHeight);
+      info("letterSpacing")!.textContent = spacing;
+      info("textTransform")!.textContent = transform;
+    };
+    root
+      .querySelectorAll<HTMLInputElement | HTMLSelectElement>("[data-control]")
+      .forEach(control => control.addEventListener("input", update));
+    root
+      .querySelectorAll<HTMLInputElement | HTMLSelectElement>("[data-control]")
+      .forEach(control => control.addEventListener("change", update));
+    root.querySelectorAll<HTMLButtonElement>("[data-preset]").forEach(button =>
+      button.addEventListener("click", () => {
+        root.querySelector<HTMLElement>(
+          "[data-preview-frame]"
+        )!.style.maxWidth = `${button.dataset.preset}px`;
+        info("width")!.textContent = `${button.dataset.preset}px`;
+      })
+    );
+    update();
+  </script>
+</Layout>
+
+<style>
+  .type-playground {
+    --cream: var(--color-background);
+    --orange: var(--color-accent);
+    --maroon: var(--color-foreground);
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 3rem 1.25rem 6rem;
+    display: grid;
+    gap: 3rem;
+  }
+  .playground-header {
+    border-bottom: 2px solid var(--color-accent);
+    padding-bottom: 2rem;
+  }
+  .eyebrow {
+    color: var(--color-accent);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  h1 {
+    margin: 0.5rem 0 1rem;
+    font-family: "Borax VF", serif;
+    color: var(--color-foreground);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+  }
+  h2 {
+    font-family: "Borax VF", serif;
+    font-size: 2rem;
+    margin: 0;
+  }
+  .section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .controls,
+  .responsive-preview,
+  section:not(.responsive-preview) {
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 2rem;
+  }
+  .control-grid,
+  .tool-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 1rem;
+  }
+  label {
+    display: grid;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--color-muted-foreground);
+  }
+  select,
+  input[type="range"] {
+    width: 100%;
+  }
+  select {
+    border: 1px solid var(--color-border);
+    border-radius: 0.4rem;
+    padding: 0.5rem;
+    background: var(--color-background);
+    color: var(--color-foreground);
+  }
+  .check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  output {
+    float: right;
+    color: var(--color-accent);
+  }
+  .preset-buttons,
+  .button-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  button {
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    padding: 0.65rem 1rem;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    cursor: pointer;
+  }
+  .preview-frame {
+    width: 100%;
+    max-width: 1440px;
+    margin: auto;
+    padding: 2rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-muted);
+    transition: max-width 0.2s ease;
+  }
+  .preview-content,
+  .tools-preview,
+  .recipe-card {
+    padding: 2rem;
+    background: var(--color-background);
+  }
+  [data-preview-heading],
+  [data-tools-heading] {
+    font-family: "Borax VF", serif;
+    font-size: 2.5rem;
+    line-height: 1.2;
+    margin: 0.5rem 0 1rem;
+  }
+  [data-preview-body],
+  [data-tools-body] {
+    max-width: 70ch;
+    line-height: 1.6;
+  }
+  .font-comparison,
+  .weight-list,
+  .size-list,
+  .spacing-list,
+  .line-list,
+  .uppercase-list,
+  .mixed-list {
+    display: grid;
+    gap: 1rem;
+  }
+  .font-comparison {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+  .font-comparison article,
+  .recipe-card {
+    border: 1px solid var(--color-border);
+    padding: 1rem;
+    background: var(--color-background);
+  }
+  .sample {
+    font-size: 1.5rem;
+    line-height: 1.4;
+  }
+  .borax {
+    font-family: "Borax VF", serif;
+  }
+  .futura {
+    font-family: Futura, sans-serif;
+  }
+  .bengali {
+    font-family: "Noto Serif Bengali", serif;
+  }
+  .system {
+    font-family: system-ui, sans-serif;
+  }
+  .weight-row {
+    display: grid;
+    grid-template-columns: 4rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .weight-row p,
+  .size-list p,
+  .spacing-list p,
+  .line-list p,
+  .uppercase-list p {
+    margin: 0;
+  }
+  .recipe-card {
+    max-width: 680px;
+  }
+  .recipe-card h3 {
+    font-family: "Borax VF", serif;
+    font-size: 2.5rem;
+    margin: 0.5rem 0;
+  }
+  .recipe-card .metadata {
+    color: var(--color-muted-foreground);
+  }
+  .recipe-card button {
+    margin-top: 1rem;
+    background: var(--color-accent);
+    color: var(--color-accent-foreground);
+  }
+  .nav-samples {
+    display: grid;
+    gap: 0.75rem;
+  }
+  .nav-samples > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    border-bottom: 1px solid var(--color-border);
+    padding: 0.5rem 0;
+  }
+  .nav-samples span {
+    width: 3rem;
+    color: var(--color-muted-foreground);
+  }
+  .nav-samples a {
+    color: var(--color-foreground);
+    text-decoration: none;
+  }
+  .developer-info {
+    display: grid;
+    grid-template-columns: minmax(12rem, 1fr) 2fr;
+    gap: 0.5rem 1rem;
+    max-width: 620px;
+  }
+  .developer-info dt {
+    color: var(--color-muted-foreground);
+  }
+  .developer-info dd {
+    margin: 0;
+    font-family: ui-monospace, monospace;
+  }
+  @media (max-width: 767px) {
+    .type-playground {
+      padding-inline: 1rem;
+      gap: 2rem;
+    }
+    .preview-frame {
+      padding: 1rem;
+    }
+    .preview-content,
+    .tools-preview {
+      padding: 1.25rem;
+    }
+    .section-heading {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+    .developer-info {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
