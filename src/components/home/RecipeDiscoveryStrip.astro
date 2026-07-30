@@ -15,15 +15,26 @@ type Props = {
 const { items } = Astro.props;
 ---
 
-<nav aria-label="Recipe discovery" class="border-b border-border bg-surface py-3">
-  <ul class="mx-auto flex w-full max-w-wide snap-x snap-mandatory gap-3 overflow-x-auto px-4 scroll-px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden tablet:flex-wrap tablet:overflow-visible tablet:px-6 tablet:scroll-px-6 desktop:px-8 desktop:scroll-px-8">
-    {items.map(item => (
-      <li class="shrink-0 snap-start">
-        <a href={item.href} lang={item.language} class="inline-flex min-h-11 items-center gap-2 rounded-pill border border-border bg-background px-4 text-sm font-semibold text-foreground transition hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
-          <Icon name={item.icon} aria-hidden="true" class="size-4 shrink-0" />
-          {item.label}
-        </a>
-      </li>
-    ))}
+<nav
+  aria-label="Recipe discovery"
+  class="border-border bg-surface border-b py-3"
+>
+  <ul
+    class="max-w-wide tablet:flex-wrap tablet:overflow-visible tablet:px-6 tablet:scroll-px-6 desktop:px-8 desktop:scroll-px-8 mx-auto flex w-full snap-x snap-mandatory scroll-px-4 [scrollbar-width:none] gap-3 overflow-x-auto px-4 [&::-webkit-scrollbar]:hidden"
+  >
+    {
+      items.map(item => (
+        <li class="shrink-0 snap-start">
+          <a
+            href={item.href}
+            lang={item.language}
+            class="rounded-pill border-border bg-background text-foreground hover:border-accent hover:text-accent focus-visible:outline-focus inline-flex min-h-11 items-center gap-2 border px-4 text-sm font-medium transition focus-visible:outline-2 focus-visible:outline-offset-2"
+          >
+            <Icon name={item.icon} aria-hidden="true" class="size-4 shrink-0" />
+            {item.label}
+          </a>
+        </li>
+      ))
+    }
   </ul>
 </nav>

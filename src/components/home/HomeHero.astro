@@ -13,23 +13,85 @@ type Props = {
   class?: string;
 };
 
-const { image, imageAlt, youtubeHref, instagramHref, class: className } = Astro.props;
+const {
+  image,
+  imageAlt,
+  youtubeHref,
+  instagramHref,
+  class: className,
+} = Astro.props;
 ---
 
-<section class:list={["relative isolate overflow-hidden bg-foreground py-12 text-background tablet:py-24", className]}>
-  {image && imageAlt && <Image src={image} alt={imageAlt} widths={[640, 960, 1440, 1920]} sizes="100vw" loading="eager" class="absolute inset-0 -z-20 size-full object-cover" />}
-  {image && <div aria-hidden="true" class="absolute inset-0 -z-10 bg-foreground/75"></div>}
-  <div class="mx-auto w-full max-w-content px-4 tablet:px-6 desktop:px-8">
+<section
+  class:list={[
+    "bg-foreground text-background tablet:py-24 relative isolate overflow-hidden py-12",
+    className,
+  ]}
+>
+  {
+    image && imageAlt && (
+      <Image
+        src={image}
+        alt={imageAlt}
+        widths={[640, 960, 1440, 1920]}
+        sizes="100vw"
+        loading="eager"
+        class="absolute inset-0 -z-20 size-full object-cover"
+      />
+    )
+  }
+  {
+    image && (
+      <div aria-hidden="true" class="bg-foreground/75 absolute inset-0 -z-10" />
+    )
+  }
+  <div class="max-w-content tablet:px-6 desktop:px-8 mx-auto w-full px-4">
     <div class="max-w-3xl">
-      <p class="text-sm font-bold tracking-[0.12em] text-accent uppercase">Calcutta Kitchen</p>
-      <h1 lang="bn" class="mt-4 font-display text-5xl font-bold leading-[1.08] tracking-tight tablet:text-6xl">রেসিপি নয়,<br class="tablet:hidden" /> রান্না শেখাই</h1>
-      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-background/90">Explore authentic Bengali recipes, practical kitchen techniques, and everyday comfort food made simple.</p>
+      <p class="text-accent text-sm font-semibold tracking-[0.12em] uppercase">
+        Calcutta Kitchen
+      </p>
+      <h1
+        lang="bn"
+        class="font-display tablet:text-6xl mt-4 text-5xl leading-[1.08] font-bold tracking-tight"
+      >
+        রেসিপি নয়,<br class="tablet:hidden" /> রান্না শেখাই
+      </h1>
+      <p class="text-background/90 mt-6 max-w-2xl text-lg leading-relaxed">
+        Explore authentic Bengali recipes, practical kitchen techniques, and
+        everyday comfort food made simple.
+      </p>
       <form action="/search" method="get" class="mt-8 max-w-2xl">
         <SearchInput id="homepage-search" class="text-foreground" />
       </form>
       <div class="mt-6 flex flex-wrap gap-3">
-        {youtubeHref && <Button href={youtubeHref} variant="secondary" target="_blank" rel="noopener noreferrer"><SocialIcon platform="youtube" />Watch on YouTube</Button>}
-        {instagramHref && <Button href={instagramHref} variant="secondary" target="_blank" rel="noopener noreferrer"><SocialIcon platform="instagram" />Follow on Instagram</Button>}
+        {
+          youtubeHref && (
+            <Button
+              href={youtubeHref}
+              variant="secondary"
+              class="font-medium"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <SocialIcon platform="youtube" />
+              Watch on YouTube
+            </Button>
+          )
+        }
+        {
+          instagramHref && (
+            <Button
+              href={instagramHref}
+              variant="secondary"
+              class="font-medium"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <SocialIcon platform="instagram" />
+              Follow on Instagram
+            </Button>
+          )
+        }
       </div>
     </div>
   </div>
