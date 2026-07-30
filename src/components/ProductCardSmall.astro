@@ -16,11 +16,11 @@ const { product } = Astro.props;
     rel="sponsored noopener noreferrer"
     class="block"
   >
-    <div class="bg-background p-6">
+    <div class="aspect-[4/3] bg-background p-6">
       <img
         src={product.imageUrl}
         alt={product.name}
-        class="mx-auto h-40 object-contain transition duration-300 group-hover:scale-105"
+        class="mx-auto size-full object-contain transition duration-300 group-hover:scale-105"
       />
     </div>
   </a>

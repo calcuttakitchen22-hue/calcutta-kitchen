@@ -29,7 +29,7 @@ const bengaliSteps = stepsBn.reduce<{ heading?: string; instruction?: string; in
     {steps.map((step, index) => (
       <Fragment>
         {step.group && step.group !== steps[index - 1]?.group && <li class="list-none pt-2"><h3 class="font-display text-2xl font-medium text-foreground">{step.group}</h3></li>}
-        <li data-step-item data-step-index={index} class="rounded-md border border-border bg-surface p-5">
+        <li data-step-item data-step-index={index} class="cursor-pointer rounded-md border border-border bg-surface p-5">
           <div class="flex gap-4">
             <button type="button" data-step-toggle data-step-index={index} aria-label={`Mark step ${index + 1} complete`} aria-pressed="false" class="grid size-8 shrink-0 place-items-center rounded-pill bg-accent font-bold text-accent-foreground transition duration-200 hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
               {index + 1}
@@ -45,7 +45,7 @@ const bengaliSteps = stepsBn.reduce<{ heading?: string; instruction?: string; in
       </Fragment>
     ))}
   </ol>
-  {stepsBn.length > 0 && <ol data-language-section="method" data-recipe-language="bn" hidden lang="bn" class="mt-6 space-y-5">{bengaliSteps.map(step => step.heading ? <li class="list-none pt-2"><h3 class="font-display text-2xl font-bold text-foreground">{step.heading}</h3></li> : <li data-step-item data-step-index={step.index} class="rounded-md border border-border bg-surface p-5"><div class="flex gap-4"><button type="button" data-step-toggle data-step-index={step.index} aria-label={`Mark step ${(step.index ?? 0) + 1} complete`} aria-pressed="false" class="grid size-8 shrink-0 place-items-center rounded-pill bg-accent font-bold text-accent-foreground transition duration-200 hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">{(step.index ?? 0) + 1}</button><p class="leading-relaxed text-muted-foreground">{step.instruction}</p></div></li>)}</ol>}
+  {stepsBn.length > 0 && <ol data-language-section="method" data-recipe-language="bn" hidden lang="bn" class="mt-6 space-y-5">{bengaliSteps.map(step => step.heading ? <li class="list-none pt-2"><h3 class="font-display text-2xl font-bold text-foreground">{step.heading}</h3></li> : <li data-step-item data-step-index={step.index} class="cursor-pointer rounded-md border border-border bg-surface p-5"><div class="flex gap-4"><button type="button" data-step-toggle data-step-index={step.index} aria-label={`Mark step ${(step.index ?? 0) + 1} complete`} aria-pressed="false" class="grid size-8 shrink-0 place-items-center rounded-pill bg-accent font-bold text-accent-foreground transition duration-200 hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">{(step.index ?? 0) + 1}</button><p class="leading-relaxed text-muted-foreground">{step.instruction}</p></div></li>)}</ol>}
 </section>
 
 <script>
@@ -64,9 +64,12 @@ const bengaliSteps = stepsBn.reduce<{ heading?: string; instruction?: string; in
   const saved = JSON.parse(sessionStorage.getItem(checklistKey) ?? "[]") as number[];
   saved.forEach(index => setStepState(index, true));
   methodSection?.addEventListener("click", event => {
-    const button = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-step-toggle]");
+    const target = event.target as HTMLElement;
+    const stepItem = target.closest<HTMLElement>("[data-step-item]");
+    if (!stepItem || target.closest("a, button:not([data-step-toggle])")) return;
+    const index = Number(stepItem.dataset.stepIndex);
+    const button = stepItem.querySelector<HTMLButtonElement>("[data-step-toggle]");
     if (!button) return;
-    const index = Number(button.dataset.stepIndex);
     setStepState(index, button.getAttribute("aria-pressed") !== "true");
     save();
   });

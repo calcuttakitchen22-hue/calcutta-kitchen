@@ -1,0 +1,445 @@
+---
+import logo from "@/assets/images/calcutta-kitchen-logo.svg";
+import watermark from "@/assets/images/pdf-watermark.png";
+import { getTotalRecipeTime } from "@/utils/recipe";
+import type { RecipeLayoutData } from "@/types/recipe";
+
+type Props = {
+  recipe: RecipeLayoutData;
+};
+
+const { recipe } = Astro.props;
+const totalTime = getTotalRecipeTime(recipe);
+const bengaliSteps = recipe.stepsBn.reduce<
+  { heading?: string; instruction?: string }[]
+>((items, step) => {
+  if (step.startsWith("HEADING:")) {
+    return [...items, { heading: step.replace(/^HEADING:/, "") }];
+  }
+
+  return [...items, { instruction: step }];
+}, []);
+---
+
+<main class="print-page">
+  <img class="print-watermark" src={watermark.src} alt="" aria-hidden="true" />
+  <div class="print-controls" data-print-controls>
+    <button type="button" data-print-trigger>Print / Save PDF</button>
+    <a href={`/recipes/${Astro.params.slug}/`}>Back to recipe</a>
+  </div>
+
+  <article class="print-document" data-print-document>
+    <header class="print-header">
+      <img src={logo.src} alt="Calcutta Kitchen" width="228" height="93" />
+      <p>রেসিপি নয়, রান্না শেখাই</p>
+    </header>
+
+    <section class="print-title-block">
+      <h1>{recipe.title}</h1>
+      {
+        recipe.titleBn && (
+          <p lang="bn" class="print-bengali-title">
+            ({recipe.titleBn})
+          </p>
+        )
+      }
+      <dl class="print-metadata">
+        <div><dt>Prep</dt><dd>{recipe.prepTime} min</dd></div>
+        <div><dt>Cook</dt><dd>{recipe.cookTime} min</dd></div>
+        <div><dt>Total</dt><dd>{totalTime} min</dd></div>
+        <div><dt>Serves</dt><dd>{recipe.servings}</dd></div>
+        <div><dt>Difficulty</dt><dd>{recipe.difficulty}</dd></div>
+      </dl>
+    </section>
+
+    <section class="print-section">
+      <h2 class="print-section-heading">About this recipe</h2>
+      {
+        recipe.about.map(paragraph => (
+          <p class="print-paragraph">{paragraph}</p>
+        ))
+      }
+    </section>
+
+    <section class="print-section">
+      <h2 class="print-section-heading">
+        <span data-print-language="en">Ingredients</span><span
+          data-print-language="bn"
+          lang="bn"
+          hidden>উপকরণ</span>
+      </h2>
+      <ul data-print-language="en" class="print-list">
+        {
+          recipe.ingredients.map((ingredient, index) => (
+            <Fragment>
+              {ingredient.group &&
+                ingredient.group !== recipe.ingredients[index - 1]?.group && (
+                  <li class="print-group-heading">{ingredient.group}</li>
+                )}
+              <li class="print-list-item">
+                {[
+                  ingredient.quantity,
+                  ingredient.unit,
+                  ingredient.name,
+                  ingredient.notes,
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
+              </li>
+            </Fragment>
+          ))
+        }
+      </ul>
+      {
+        recipe.ingredientsBn.length > 0 && (
+          <ul data-print-language="bn" lang="bn" hidden class="print-list">
+            {recipe.ingredientsBn.map(ingredient =>
+              ingredient.startsWith("HEADING:") ? (
+                <li class="print-group-heading">
+                  {ingredient.replace(/^HEADING:/, "")}
+                </li>
+              ) : (
+                <li class="print-list-item">{ingredient}</li>
+              )
+            )}
+          </ul>
+        )
+      }
+    </section>
+
+    <section class="print-section">
+      <h2 class="print-section-heading">
+        <span data-print-language="en">Cooking method</span><span
+          data-print-language="bn"
+          lang="bn"
+          hidden>রান্নার পদ্ধতি</span>
+      </h2>
+      <ol data-print-language="en" class="print-steps">
+        {
+          recipe.steps.map((step, index) => (
+            <Fragment>
+              {step.group && step.group !== recipe.steps[index - 1]?.group && (
+                <li class="print-group-heading">{step.group}</li>
+              )}
+              <li class="print-step">{step.instruction}</li>
+            </Fragment>
+          ))
+        }
+      </ol>
+      {
+        recipe.stepsBn.length > 0 && (
+          <ol data-print-language="bn" lang="bn" hidden class="print-steps">
+            {bengaliSteps.map(step =>
+              step.heading ? (
+                <li class="print-group-heading">{step.heading}</li>
+              ) : (
+                <li class="print-step">{step.instruction}</li>
+              )
+            )}
+          </ol>
+        )
+      }
+    </section>
+
+    {
+      recipe.tips.length > 0 && (
+        <section class="print-section">
+          <h2 class="print-section-heading">Chef's tips</h2>
+          <ul class="print-list">
+            {recipe.tips.map(tip => (
+              <li class="print-tip">{tip}</li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    <footer class="print-footer">
+      <strong>Calcutta Kitchen</strong>
+      <span>calcuttakitchen.in</span>
+      <span>@calcuttakitchen.in</span>
+    </footer>
+  </article>
+</main>
+
+<style>
+  :global(html) {
+    background: #e8dfc9;
+  }
+
+  :global(body) {
+    margin: 0;
+    color: #2b1818;
+    background: #e8dfc9;
+    font-family: "Futura", "Noto Serif Bengali", sans-serif;
+  }
+
+  .print-page {
+    position: relative;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+
+  .print-document {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 794px);
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 3.5rem 4rem;
+    background: #f8f5e6;
+    box-shadow: 0 12px 40px rgb(43 24 24 / 18%);
+  }
+
+  .print-watermark {
+    position: fixed;
+    z-index: 0;
+    top: 50%;
+    left: 50%;
+    width: min(70vw, 560px);
+    height: auto;
+    opacity: 0.08;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .print-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .print-controls a,
+  .print-controls button {
+    border: 1px solid #700d1d;
+    border-radius: 9999px;
+    padding: 0.75rem 1rem;
+    color: #700d1d;
+    background: #f8f5e6;
+    font: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .print-controls button {
+    color: #f8f5e6;
+    background: #f24e07;
+    border-color: #f24e07;
+  }
+
+  .print-header {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e8dfc9;
+  }
+
+  .print-header img {
+    display: block;
+    width: 11rem;
+    height: auto;
+  }
+
+  .print-header p {
+    margin: 0.5rem 0 0;
+    color: #700d1d;
+    font-weight: 700;
+  }
+
+  .print-title-block {
+    padding: 2rem 0;
+  }
+
+  .print-title-block h1,
+  .print-section-heading,
+  .print-group-heading {
+    color: #700d1d;
+    font-family: "Borax VF", "Noto Serif Bengali", Georgia, serif;
+  }
+
+  .print-title-block h1 {
+    margin: 0;
+    font-size: clamp(2rem, 6vw, 3rem);
+    font-weight: 400;
+    line-height: 1.15;
+  }
+
+  .print-bengali-title {
+    margin: 0.5rem 0 0;
+    color: #f24e07;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .print-metadata {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
+    gap: 0.75rem;
+    margin: 1.5rem 0 0;
+  }
+
+  .print-metadata div {
+    padding: 0.75rem;
+    border: 1px solid #e8dfc9;
+    border-radius: 0.5rem;
+  }
+
+  .print-metadata dt {
+    color: #6b625c;
+    font-size: 0.75rem;
+  }
+  .print-metadata dd {
+    margin: 0.25rem 0 0;
+    font-weight: 700;
+  }
+
+  .print-section {
+    margin-top: 2.5rem;
+  }
+  .print-section-heading {
+    margin: 0 0 1rem;
+    font-size: 1.75rem;
+    font-weight: 400;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  .print-paragraph {
+    margin: 0.75rem 0 0;
+    line-height: 1.7;
+  }
+  .print-list {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+  .print-list-item,
+  .print-tip {
+    margin-top: 0.5rem;
+    line-height: 1.625;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .print-list li::marker {
+    color: #f24e07;
+  }
+  .print-group-heading {
+    margin: 1rem 0 0;
+    padding: 0;
+    font-weight: 700;
+    list-style: none;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  .print-steps {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: recipe-step;
+  }
+  .print-step {
+    display: grid;
+    grid-template-columns: 1.6rem minmax(0, 1fr);
+    gap: 0.75rem;
+    align-items: start;
+    margin-top: 0.75rem;
+    line-height: 1.625;
+    counter-increment: recipe-step;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .print-step::before {
+    display: grid;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    place-items: center;
+    color: #f8f5e6;
+    background: #700d1d;
+    content: counter(recipe-step);
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .print-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e8dfc9;
+    color: #700d1d;
+    font-size: 0.875rem;
+  }
+
+  @media print {
+    @page {
+      size: A4;
+      margin: 24mm 16mm 22mm;
+    }
+    :global(html),
+    :global(body) {
+      background: #fff;
+    }
+    .print-page {
+      min-height: 0;
+      padding: 0;
+    }
+    .print-document {
+      width: auto;
+      margin: 0;
+      padding: 0;
+      box-shadow: none;
+      background: transparent;
+    }
+    .print-controls {
+      display: none !important;
+    }
+    .print-watermark {
+      display: block;
+      width: 68vw;
+      opacity: 0.08;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .print-document {
+      padding: 2rem 1.5rem;
+    }
+    .print-page {
+      padding: 1rem 0;
+    }
+  }
+</style>
+
+<script>
+  const language =
+    new URLSearchParams(window.location.search).get("lang") === "bn"
+      ? "bn"
+      : "en";
+  document.documentElement.lang = language === "bn" ? "bn" : "en";
+  document
+    .querySelectorAll<HTMLElement>("[data-print-language]")
+    .forEach(element => {
+      element.hidden =
+        element.dataset.printLanguage !== language &&
+        element.dataset.printLanguage === "bn";
+      if (language === "bn" && element.dataset.printLanguage === "en") {
+        const sectionHasBengali = element.parentElement?.querySelector(
+          "[data-print-language='bn']"
+        );
+        element.hidden = Boolean(sectionHasBengali);
+      }
+    });
+  const printDocument = () => window.print();
+  document
+    .querySelector<HTMLButtonElement>("[data-print-trigger]")
+    ?.addEventListener("click", printDocument);
+  if (new URLSearchParams(window.location.search).get("autoprint") === "1") {
+    const images = [...document.images].map(image =>
+      image.complete
+        ? Promise.resolve()
+        : new Promise(resolve =>
+            image.addEventListener("load", resolve, { once: true })
+          )
+    );
+    Promise.all([document.fonts.ready, ...images]).then(printDocument);
+  }
+</script>

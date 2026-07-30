@@ -98,7 +98,7 @@ const instagramHref = siteConfig.socialLinks.find(link => link.platform === "ins
       <Section width="wide" spacing="sm">
         <section aria-labelledby="explore-calcutta-kitchen-heading">
           <p class="text-sm font-bold tracking-[0.12em] text-accent uppercase">Curated for you</p>
-          <h2 id="explore-calcutta-kitchen-heading" class="mt-2 font-display text-3xl font-semibold tracking-tight text-foreground tablet:text-4xl">Explore Calcutta Kitchen</h2>
+          <h2 id="explore-calcutta-kitchen-heading" class="mt-2 font-display text-3xl font-medium tracking-tight text-foreground tablet:text-4xl">Explore Calcutta Kitchen</h2>
           <div class="mt-6 -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden tablet:mx-0 tablet:grid tablet:overflow-visible tablet:px-0 tablet:pb-0 tablet:grid-cols-2">
           {featuredCollections.map(collection => (
             <EditorialPreview
@@ -145,7 +145,7 @@ const instagramHref = siteConfig.socialLinks.find(link => link.platform === "ins
 
     {latestRecipes.length > 0 && (
       <Section width="wide" spacing="lg">
-        <h2 class="font-display text-3xl font-semibold tracking-tight text-foreground tablet:text-4xl">Latest recipes</h2>
+        <h2 class="font-display text-3xl font-medium tracking-tight text-foreground tablet:text-4xl">Latest recipes</h2>
         <div class="mt-8 grid gap-6 tablet:grid-cols-2 desktop:grid-cols-3">
           {latestRecipes.map(recipe => (
             <RecipeCard

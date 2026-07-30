@@ -25,15 +25,17 @@ const { ingredients, ingredientsBn = [], class: className } = Astro.props;
     {ingredients.map((ingredient, index) => (
       <Fragment>
         {ingredient.group && ingredient.group !== ingredients[index - 1]?.group && <li class="py-4"><h3 class="font-bold text-foreground">{ingredient.group}</h3></li>}
-        <li class="flex gap-3 py-4 text-base leading-relaxed text-foreground">
+        <li>
+          <label class="flex cursor-pointer gap-3 py-4 text-base leading-relaxed text-foreground">
           <input type="checkbox" class="mt-1 size-5 shrink-0 accent-accent" />
           <span>{[ingredient.quantity, ingredient.unit, ingredient.name].filter(Boolean).join(" ")}</span>
           {ingredient.notes && <span class="text-muted-foreground"> — {ingredient.notes}</span>}
+          </label>
         </li>
       </Fragment>
     ))}
   </ul>
-  {ingredientsBn.length > 0 && <ul data-language-section="ingredients" data-recipe-language="bn" hidden lang="bn" class="mt-6 divide-y divide-border rounded-md border border-border bg-surface px-5">{ingredientsBn.map(ingredient => ingredient.startsWith("HEADING:") ? <li class="py-4"><h3 class="font-bold text-foreground">{ingredient.replace(/^HEADING:/, "")}</h3></li> : <li class="flex gap-3 py-4 text-base leading-relaxed text-foreground"><input type="checkbox" class="mt-1 size-5 shrink-0 accent-accent" /><span>{ingredient}</span></li>)}</ul>}
+  {ingredientsBn.length > 0 && <ul data-language-section="ingredients" data-recipe-language="bn" hidden lang="bn" class="mt-6 divide-y divide-border rounded-md border border-border bg-surface px-5">{ingredientsBn.map(ingredient => ingredient.startsWith("HEADING:") ? <li class="py-4"><h3 class="font-bold text-foreground">{ingredient.replace(/^HEADING:/, "")}</h3></li> : <li><label class="flex cursor-pointer gap-3 py-4 text-base leading-relaxed text-foreground"><input type="checkbox" class="mt-1 size-5 shrink-0 accent-accent" /><span>{ingredient}</span></label></li>)}</ul>}
 </section>
 
 <script>

@@ -27,6 +27,7 @@
     "html2canvas": "^1.4.1",
     "jspdf": "^4.2.1",
     "lodash.kebabcase": "^4.1.1",
+    "pdfmake": "^0.3.11",
     "remark-collapse": "^0.1.2",
     "remark-toc": "^9.0.0",
     "satori": "^0.26.0",

@@ -1,0 +1,30 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import PrintableRecipe from "@/components/recipe/PrintableRecipe.astro";
+import { getRecipeSlug } from "@/utils/recipe";
+import "@/styles/global.css";
+
+export async function getStaticPaths() {
+  const recipes = await getCollection("recipes", ({ data }) => !data.draft);
+  return recipes.map(recipe => ({
+    params: { slug: getRecipeSlug(recipe.id) },
+    props: { recipe },
+  }));
+}
+
+type Props = { recipe: CollectionEntry<"recipes"> };
+const { recipe } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,follow" />
+    <title>{recipe.data.title} printable recipe | Calcutta Kitchen</title>
+  </head>
+  <body>
+    <PrintableRecipe recipe={recipe.data} />
+  </body>
+</html>
