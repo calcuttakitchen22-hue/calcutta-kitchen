@@ -201,7 +201,7 @@ function methodStepRow(number: number, instruction: string, style = "body") {
 }
 
 function methodMarkerSvg(number: number): string {
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#F24E07"/><text x="12" y="16" text-anchor="middle" font-family="Futura, sans-serif" font-size="10" font-weight="700" fill="#F8F5E6">${number}</text></svg>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#F24E07"/><text x="12" y="16" text-anchor="middle" font-family="Futura, sans-serif" font-size="10" font-weight="400" fill="#F8F5E6">${number}</text></svg>`;
 }
 
 function groupedRows<T extends { group?: string }>(
@@ -434,24 +434,16 @@ export async function downloadStructuredRecipePdf(
                   body: [
                     [
                       footerContactItem(WEBSITE_ICON, "calcuttakitchen.in"),
-                      footerContactItem(
-                        ICONS.instagram,
-                        "@calcuttakitchen.in"
-                      ),
-                      footerContactItem(
-                        ICONS.youtube,
-                        "@calcutta.kitchen"
-                      ),
+                      footerContactItem(ICONS.instagram, "@calcuttakitchen.in"),
+                      footerContactItem(ICONS.youtube, "@calcutta.kitchen"),
                     ],
                   ],
                 },
                 layout: {
                   hLineWidth: () => 0,
                   vLineWidth: () => 0,
-                  paddingLeft: (index: number) =>
-                    index === 0 ? 0 : 8,
-                  paddingRight: (index: number) =>
-                    index === 2 ? 0 : 8,
+                  paddingLeft: (index: number) => (index === 0 ? 0 : 8),
+                  paddingRight: (index: number) => (index === 2 ? 0 : 8),
                   paddingTop: () => 0,
                   paddingBottom: () => 0,
                 },
