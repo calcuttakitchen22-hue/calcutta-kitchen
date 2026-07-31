@@ -1,133 +1,237 @@
 ---
-import Layout from "@/layouts/Layout.astro";
 import ProductCard from "@/components/ProductCard.astro";
+import Button from "@/components/common/Button.astro";
+import Heading from "@/components/common/Heading.astro";
+import SearchInput from "@/components/common/SearchInput.astro";
+import Section from "@/components/common/Section.astro";
+import Footer from "@/components/navigation/Footer.astro";
+import Navbar from "@/components/navigation/Navbar.astro";
+import { siteConfig } from "@/config/site";
 import { products } from "@/data/products";
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
 
 type Product = (typeof products)[number];
-
-const categoryIcons: Record<string, string> = {
-  "Pots & Pans": "🍳",
-  "Kitchen Gadgets": "⚡",
-  "Knives & Cutting": "🔪",
-  "Mixing & Prep Bowls": "🥣",
-  "Measuring & Prep": "⚖️",
-  "Stir, Flip & Whisk": "🥄",
-};
 
 const grouped: Record<string, Product[]> = {};
 
 products
-  .sort((a, b) => a.displayOrder - b.displayOrder)
-  .forEach((product: Product) => {
-    if (!grouped[product.category]) {
-      grouped[product.category] = [];
-    }
-
-    grouped[product.category].push(product);
+  .slice()
+  .sort((left, right) => left.displayOrder - right.displayOrder)
+  .forEach(product => {
+    (grouped[product.category] ??= []).push(product);
   });
 
 const categories = Object.keys(grouped);
 ---
 
-<Layout
-  title="Kitchen Tools We Trust | Calcutta Kitchen"
-  description="Explore the cookware, utensils, knives and kitchen gadgets that we personally use and recommend."
+<BaseLayout
+  metadata={{
+    title: "Kitchen Tools We Trust",
+    description:
+      "Explore the cookware, utensils, knives and kitchen gadgets that we personally use and recommend.",
+    canonicalPath: "/kitchen-tools/",
+  }}
 >
-  <Header />
+  <Navbar
+    brand={{ label: siteConfig.name, href: "/" }}
+    logo={siteConfig.logo}
+    items={siteConfig.navigation}
+    socialLinks={siteConfig.socialLinks}
+  />
 
   <main id="main-content">
-    <section class="mx-auto max-w-7xl px-6 py-12">
-      <div class="max-w-4xl">
-        <h1 class="text-5xl leading-tight font-normal">
+    <Section width="wide" spacing="sm" class="tablet:py-12 desktop:py-16 py-10">
+      <div class="max-w-3xl">
+        <p
+          class="text-accent mb-3 text-sm font-normal tracking-[0.12em] uppercase"
+        >
+          Tools we use
+        </p>
+        <Heading
+          level={1}
+          weight="normal"
+          class="tablet:text-5xl desktop:text-6xl text-4xl"
+        >
           Kitchen Tools We Trust
-        </h1>
-
-        <p class="mt-6 text-lg leading-8 text-gray-600">
-          Every recipe on Calcutta Kitchen is tested in our own home kitchen.
-          Over the years we've found ourselves reaching for the same trusted
-          cookware, utensils and appliances again and again.
-        </p>
-
-        <p class="mt-4 text-lg leading-8 text-gray-600">
-          If you're building your kitchen or simply looking to upgrade a few
-          essentials, these are the products we genuinely recommend.
-        </p>
-
-        <div class="mt-10 flex flex-wrap gap-8">
-          <div>
-            <p class="text-3xl font-normal">{products.length}</p>
-            <p class="text-sm text-gray-500">Products</p>
-          </div>
-
-          <div>
-            <p class="text-3xl font-normal">{categories.length}</p>
-            <p class="text-sm text-gray-500">Categories</p>
-          </div>
-
-          <div>
-            <p class="text-3xl font-normal">100%</p>
-            <p class="text-sm text-gray-500">Personally Curated</p>
-          </div>
+        </Heading>
+        <div
+          class="text-muted-foreground tablet:mt-5 mt-4 max-w-xl space-y-3 leading-7"
+        >
+          <p>
+            Every recipe on Calcutta Kitchen is tested in our own home kitchen.
+            Over the years we&apos;ve found ourselves reaching for the same
+            trusted cookware, utensils and appliances again and again.
+          </p>
+          <p>
+            If you&apos;re building your kitchen or simply looking to upgrade a
+            few essentials, these are the products we genuinely recommend.
+          </p>
         </div>
+        <form
+          id="tools-search-form"
+          class="tablet:mt-6 mt-5 flex gap-3"
+          role="search"
+        >
+          <SearchInput
+            id="tools-search"
+            label="Search kitchen tools"
+            placeholder="Search tools..."
+            class="min-w-0 flex-1"
+          />
+          <Button class="tablet:px-5 tablet:text-base shrink-0 px-3 text-xs">
+            Search Tools
+          </Button>
+        </form>
       </div>
+    </Section>
 
-      <!-- Category Navigation -->
-
-      <div class="sticky top-0 z-10 mt-12 border-y bg-white py-6">
-        <div class="flex flex-wrap justify-center gap-3">
+    <section
+      aria-label="Tool categories"
+      class="border-border bg-background/95 sticky top-[72px] z-30 border-y backdrop-blur"
+    >
+      <div
+        class="tablet:px-6 desktop:px-8 max-w-wide mx-auto w-full [scrollbar-width:none] overflow-x-auto px-4 py-3 [&::-webkit-scrollbar]:hidden"
+      >
+        <ul class="tablet:w-auto tablet:flex-wrap flex w-max gap-2">
           {
             categories.map(category => (
-              <a
-                href={`#${category.replace(/\s+/g, "-").toLowerCase()}`}
-                class="rounded-full border px-4 py-2 text-sm transition hover:bg-orange-500 hover:text-white"
-              >
-                {categoryIcons[category]} {category}
-              </a>
+              <li>
+                <a
+                  href={`#${category.replace(/\s+/g, "-").toLowerCase()}`}
+                  data-tool-category-link
+                  class="border-accent bg-accent text-accent-foreground focus-visible:outline-focus rounded-pill inline-flex min-h-11 touch-manipulation items-center border px-4 text-sm font-normal whitespace-nowrap transition duration-200 hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 active:scale-[0.98]"
+                >
+                  {category}
+                </a>
+              </li>
             ))
           }
-        </div>
+        </ul>
       </div>
+    </section>
 
-      <!-- Categories -->
-
+    <div id="tools">
+      <p
+        id="tools-search-empty"
+        class="text-muted-foreground max-w-content mx-auto hidden px-4 py-8 text-center"
+        aria-live="polite"
+      >
+        No tools match this search.
+      </p>
       {
-        Object.entries(grouped).map(
-          ([category, items]: [string, Product[]]) => (
-            <section
-              id={category.replace(/\s+/g, "-").toLowerCase()}
-              class="scroll-mt-32 py-16"
-            >
-              <h2 class="mb-10 text-3xl font-normal">
-                {categoryIcons[category]} {category}
-              </h2>
-
-              <div class="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-                {items.map((product: Product) => (
-                  <ProductCard product={product} />
-                ))}
-              </div>
-            </section>
-          )
-        )
+        Object.entries(grouped).map(([category, items], index) => (
+          <Section
+            id={category.replace(/\s+/g, "-").toLowerCase()}
+            width="wide"
+            spacing="sm"
+            tone={index % 2 === 1 ? "surface" : "default"}
+            class="tablet:scroll-mt-36 tablet:py-12 desktop:py-16 scroll-mt-32 py-8"
+          >
+            <div class="flex flex-wrap items-end justify-between gap-4">
+              <Heading
+                level={2}
+                weight="normal"
+                class="tablet:text-4xl text-3xl"
+              >
+                {category}
+              </Heading>
+              <p class="text-muted-foreground text-sm">
+                {items.length} {items.length === 1 ? "tool" : "tools"}
+              </p>
+            </div>
+            <div class="tablet:grid-cols-2 desktop:grid-cols-3 tablet:mt-8 tablet:gap-6 mt-5 grid grid-cols-2 gap-3">
+              {items.map(product => (
+                <div
+                  data-tool-card
+                  data-tool-search={`${product.name} ${product.description} ${product.category}`.toLowerCase()}
+                >
+                  <ProductCard {product} />
+                </div>
+              ))}
+            </div>
+          </Section>
+        ))
       }
+    </div>
 
-      <!-- Footer -->
-
-      <div class="mt-20 rounded-xl bg-gray-100 p-8">
-        <h3 class="mb-3 text-xl font-normal">Affiliate Disclosure</h3>
-
-        <p class="leading-7 text-gray-600">
+    <Section width="wide" spacing="sm" class="tablet:py-12 desktop:py-16 py-8">
+      <aside
+        class="border-border bg-surface tablet:p-8 mx-auto max-w-4xl rounded-md border p-5"
+      >
+        <h2
+          class="font-display text-foreground text-2xl leading-snug font-normal"
+        >
+          Affiliate Disclosure
+        </h2>
+        <p class="text-muted-foreground mt-3 leading-7">
           Some links on this page are affiliate links. If you purchase through
           them, we may earn a small commission at no extra cost to you. It helps
           support Calcutta Kitchen and allows us to continue creating free
           recipes. We only recommend products that we personally use or
           genuinely believe offer excellent value.
         </p>
-      </div>
-    </section>
+      </aside>
+    </Section>
   </main>
 
-  <Footer />
-</Layout>
+  <Footer
+    brand={{ label: siteConfig.name, href: "/" }}
+    logo={siteConfig.logo}
+    groups={siteConfig.footerNavigation}
+    socialLinks={siteConfig.socialLinks}
+  />
+</BaseLayout>
+
+<script>
+  const searchForm =
+    document.querySelector<HTMLFormElement>("#tools-search-form");
+  const searchInput = document.querySelector<HTMLInputElement>("#tools-search");
+  const cards = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-tool-card]")
+  );
+  const sections = Array.from(
+    document.querySelectorAll<HTMLElement>("#tools > section")
+  );
+  const categoryLinks = Array.from(
+    document.querySelectorAll<HTMLAnchorElement>("[data-tool-category-link]")
+  );
+  const emptyState = document.querySelector<HTMLElement>("#tools-search-empty");
+
+  const filterTools = (value: string) => {
+    const query = value.trim().toLowerCase();
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      const matches = !query || card.dataset.toolSearch?.includes(query);
+      card.classList.toggle("hidden", !matches);
+      if (matches) visibleCount += 1;
+    });
+
+    sections.forEach(section => {
+      section.classList.toggle(
+        "hidden",
+        !section.querySelector("[data-tool-card]:not(.hidden)")
+      );
+    });
+
+    emptyState?.classList.toggle("hidden", visibleCount > 0);
+  };
+
+  searchInput?.addEventListener("input", () => filterTools(searchInput.value));
+  searchForm?.addEventListener("submit", event => {
+    event.preventDefault();
+    filterTools(searchInput?.value ?? "");
+    document.querySelector("#tools")?.scrollIntoView({ behavior: "smooth" });
+  });
+
+  categoryLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      categoryLinks.forEach(categoryLink => {
+        categoryLink.classList.remove("bg-background", "text-foreground");
+        categoryLink.classList.add("bg-accent", "text-accent-foreground");
+      });
+      link.classList.remove("bg-accent", "text-accent-foreground");
+      link.classList.add("bg-background", "text-foreground");
+    });
+  });
+</script>

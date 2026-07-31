@@ -1,46 +1,44 @@
 ---
+import Button from "@/components/common/Button.astro";
+
 const { product } = Astro.props;
 ---
 
-<div
-  class="group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+<article
+  class="border-border bg-background shadow-card flex h-full flex-col overflow-hidden rounded-md border"
 >
-  <div class="bg-gray-50 p-8">
+  <div
+    class="bg-surface tablet:p-6 flex aspect-square items-center justify-center p-2"
+  >
     <img
       src={product.imageUrl}
       alt={product.name}
-      class="mx-auto h-56 object-contain transition duration-300 group-hover:scale-105"
+      width="640"
+      height="480"
+      loading="lazy"
+      decoding="async"
+      class="h-full w-full object-contain"
     />
   </div>
 
-  <div class="flex flex-1 flex-col p-6">
-    <h3 class="min-h-[3.5rem] text-xl leading-7 font-normal">
+  <div class="tablet:p-5 flex flex-1 flex-col p-3">
+    <h3
+      class="font-display text-foreground tablet:text-xl tablet:min-h-[3.5rem] line-clamp-2 min-h-[2.5rem] text-base leading-snug font-normal"
+    >
       {product.name}
     </h3>
-
-    <p class="mt-3 min-h-[4.5rem] text-sm leading-6 text-gray-600">
+    <p
+      class="text-muted-foreground tablet:text-sm tablet:leading-6 tablet:min-h-[4.5rem] mt-2 line-clamp-3 min-h-[3.75rem] text-xs leading-5"
+    >
       {product.description}
     </p>
-
-    <div class="mt-5 border-t pt-5">
-      <h4
-        class="mb-2 text-xs font-normal tracking-[0.18em] text-gray-500 uppercase"
-      >
-        Why we use it
-      </h4>
-
-      <p class="mt-2 line-clamp-2 min-h-[3rem] text-sm leading-6 text-gray-600">
-        {product.whyWeUseIt}
-      </p>
-    </div>
-
-    <a
+    <Button
       href={product.affiliateUrl}
       target="_blank"
       rel="noopener sponsored"
-      class="mt-auto inline-flex w-full items-center justify-center rounded-xl bg-[#F24E07] px-5 py-3 font-normal text-white transition duration-300 hover:bg-[#d94506]"
+      class="tablet:mt-5 tablet:px-5 tablet:text-base tablet:whitespace-normal mt-4 w-full px-1 text-[0.6875rem] whitespace-nowrap"
     >
-      🛒 View on Amazon
-    </a>
+      View on Amazon
+    </Button>
   </div>
-</div>
+</article>
