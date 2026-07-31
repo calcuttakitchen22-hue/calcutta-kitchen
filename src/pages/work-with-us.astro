@@ -1,11 +1,12 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
 import Button from "@/components/common/Button.astro";
 import Container from "@/components/common/Container.astro";
 import Heading from "@/components/common/Heading.astro";
 import Section from "@/components/common/Section.astro";
+import Footer from "@/components/navigation/Footer.astro";
+import Navbar from "@/components/navigation/Navbar.astro";
+import { siteConfig } from "@/config/site";
 
 const collaborationBenefits = [
   {
@@ -144,16 +145,28 @@ const faqs = [
 ];
 ---
 
-<Layout
-  title="Work With Us | Calcutta Kitchen"
-  description="Partner with Calcutta Kitchen for recipe development, food storytelling, sponsored content, and brand collaborations."
+<BaseLayout
+  metadata={{
+    title: "Work With Us",
+    description:
+      "Partner with Calcutta Kitchen for recipe development, food storytelling, sponsored content, and brand collaborations.",
+    canonicalPath: "/work-with-us/",
+  }}
 >
-  <Header />
+  <Navbar
+    brand={{ label: siteConfig.name, href: "/" }}
+    logo={siteConfig.logo}
+    items={siteConfig.navigation}
+    socialLinks={siteConfig.socialLinks}
+  />
 
   <main id="main-content">
-    <Section spacing="lg" class="overflow-hidden">
+    <Section
+      spacing="sm"
+      class="tablet:py-12 desktop:py-16 overflow-hidden py-10"
+    >
       <div
-        class="desktop:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] desktop:gap-16 grid items-center gap-10"
+        class="tablet:gap-8 desktop:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] desktop:gap-12 grid items-center gap-6"
       >
         <div class="max-w-2xl">
           <p
@@ -161,22 +174,31 @@ const faqs = [
           >
             Brand collaborations
           </p>
-          <Heading level={1} weight="normal" class="tablet:text-6xl text-5xl">
+          <Heading
+            level={1}
+            weight="normal"
+            class="tablet:text-5xl desktop:text-6xl text-4xl"
+          >
             Work With Calcutta Kitchen
           </Heading>
-          <p class="text-muted-foreground mt-6 max-w-xl text-lg leading-8">
+          <p
+            class="text-muted-foreground tablet:mt-5 tablet:text-lg mt-4 max-w-xl leading-7"
+          >
             Recipe-led storytelling for brands that want to become part of the
             everyday cooking conversation.
           </p>
-          <div class="mt-8 flex flex-wrap gap-3">
+          <div class="tablet:mt-6 mt-5 flex flex-wrap gap-3">
             <span
-              class="rounded-pill border-border text-muted-foreground inline-flex min-h-11 items-center justify-center border px-5 text-base font-normal"
+              class="rounded-pill border-border text-muted-foreground inline-flex min-h-11 items-center justify-center border px-5 text-base font-normal max-sm:w-full"
               aria-label="Media kit coming soon"
             >
               Download Media Kit — coming soon
             </span>
-            <Button href="#contact" variant="secondary"
+            <Button href="#contact" variant="secondary" class="max-sm:w-full"
               >Start a Collaboration</Button
+            >
+            <Button href="#campaigns" variant="primary" class="max-sm:w-full"
+              >View Brand Collaborations</Button
             >
           </div>
         </div>
@@ -194,9 +216,13 @@ const faqs = [
       </div>
     </Section>
 
-    <Section spacing="md" tone="surface">
+    <Section
+      spacing="sm"
+      tone="surface"
+      class="tablet:py-10 desktop:py-12 py-8"
+    >
       <div
-        class="desktop:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] desktop:gap-16 grid gap-10"
+        class="tablet:gap-8 desktop:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] desktop:gap-12 grid gap-6"
       >
         <div>
           <p
@@ -204,21 +230,23 @@ const faqs = [
           >
             The Calcutta Kitchen approach
           </p>
-          <Heading level={2} weight="normal">Why brands work with us</Heading>
-          <p class="text-muted-foreground mt-5 max-w-xl leading-7">
+          <Heading level={2} weight="normal" class="tablet:text-4xl text-3xl"
+            >Why brands work with us</Heading
+          >
+          <p class="text-muted-foreground mt-4 max-w-xl leading-7">
             Since 2022, Calcutta Kitchen has built a food-loving community
             through approachable recipes, engaging food stories, and creator-led
             collaborations.
           </p>
         </div>
-        <div class="tablet:grid-cols-2 grid gap-4">
+        <div class="grid grid-cols-2 gap-3">
           {
             collaborationBenefits.map(benefit => (
-              <article class="border-border bg-background rounded-md border p-5">
-                <h3 class="font-display text-foreground text-xl leading-snug font-normal">
+              <article class="border-border bg-background tablet:p-5 rounded-md border p-4">
+                <h3 class="font-display text-foreground tablet:text-xl text-lg leading-snug font-normal">
                   {benefit.title}
                 </h3>
-                <p class="text-muted-foreground mt-3 leading-7">
+                <p class="text-muted-foreground mt-2 leading-6">
                   {benefit.description}
                 </p>
               </article>
@@ -228,7 +256,7 @@ const faqs = [
       </div>
     </Section>
 
-    <Section spacing="md">
+    <Section spacing="sm" class="tablet:py-10 desktop:py-12 py-8">
       <div
         class="tablet:flex-row tablet:items-end tablet:justify-between flex flex-col gap-4"
       >
@@ -238,21 +266,23 @@ const faqs = [
           >
             Audience snapshot
           </p>
-          <Heading level={2} weight="normal">A growing food community</Heading>
+          <Heading level={2} weight="normal" class="tablet:text-4xl text-3xl"
+            >A growing food community</Heading
+          >
         </div>
         <p class="text-muted-foreground max-w-md leading-7">
           A community built around authentic recipes and practical cooking
           inspiration.
         </p>
       </div>
-      <dl class="desktop:grid-cols-5 mt-8 grid gap-3 sm:grid-cols-2">
+      <dl class="desktop:grid-cols-5 tablet:mt-6 mt-5 grid grid-cols-2 gap-3">
         {
           audienceStats.map(stat => (
-            <div class="border-border bg-surface rounded-md border p-5">
+            <div class="border-border bg-surface tablet:p-5 rounded-md border p-4">
               <dt class="text-muted-foreground text-sm leading-6">
                 {stat.label}
               </dt>
-              <dd class="font-display text-accent mt-2 text-3xl leading-none font-normal">
+              <dd class="font-display text-accent mt-2 text-2xl leading-none font-normal">
                 {stat.value}
               </dd>
             </div>
@@ -261,23 +291,31 @@ const faqs = [
       </dl>
     </Section>
 
-    <Section spacing="md" tone="surface">
+    <Section
+      spacing="sm"
+      tone="surface"
+      class="tablet:py-10 desktop:py-12 py-8"
+    >
       <div class="max-w-2xl">
         <p
           class="text-accent mb-3 text-sm font-normal tracking-[0.12em] uppercase"
         >
           Ways to work together
         </p>
-        <Heading level={2} weight="normal">Collaboration opportunities</Heading>
+        <Heading level={2} weight="normal" class="tablet:text-4xl text-3xl"
+          >Collaboration opportunities</Heading
+        >
       </div>
-      <div class="tablet:grid-cols-2 desktop:grid-cols-3 mt-8 grid gap-4">
+      <div
+        class="tablet:grid-cols-2 desktop:grid-cols-3 tablet:mt-6 mt-5 grid grid-cols-2 gap-3"
+      >
         {
           services.map(service => (
-            <article class="border-border bg-background rounded-md border p-5">
-              <h3 class="font-display text-foreground text-xl leading-snug font-normal">
+            <article class="border-border bg-background tablet:p-5 rounded-md border p-4">
+              <h3 class="font-display text-foreground tablet:text-xl text-lg leading-snug font-normal">
                 {service.title}
               </h3>
-              <p class="text-muted-foreground mt-3 leading-7">
+              <p class="text-muted-foreground mt-2 leading-6">
                 {service.description}
               </p>
             </article>
@@ -286,20 +324,26 @@ const faqs = [
       </div>
     </Section>
 
-    <Section spacing="md" id="campaigns">
+    <Section
+      spacing="sm"
+      id="campaigns"
+      class="tablet:py-10 desktop:py-12 py-8"
+    >
       <div class="max-w-2xl">
         <p
           class="text-accent mb-3 text-sm font-normal tracking-[0.12em] uppercase"
         >
           Previous collaborations
         </p>
-        <Heading level={2} weight="normal">Brands we have worked with</Heading>
-        <p class="text-muted-foreground mt-5 leading-7">
+        <Heading level={2} weight="normal" class="tablet:text-4xl text-3xl"
+          >Brands we have worked with</Heading
+        >
+        <p class="text-muted-foreground mt-4 leading-7">
           A selection of recent brand collaborations. Each card opens the
           published campaign on Instagram.
         </p>
       </div>
-      <ul class="tablet:grid-cols-3 mt-8 grid gap-4 sm:grid-cols-2">
+      <ul class="tablet:grid-cols-3 tablet:mt-6 mt-5 grid grid-cols-2 gap-3">
         {
           brands.map(brand => (
             <li>
@@ -307,7 +351,7 @@ const faqs = [
                 href={brand.link}
                 target="_blank"
                 rel="noreferrer"
-                class="focus-visible:outline-focus border-border bg-surface hover:border-accent flex min-h-32 items-center justify-center rounded-md border p-6 transition focus-visible:outline-2 focus-visible:outline-offset-2"
+                class="focus-visible:outline-focus border-border bg-surface tablet:min-h-28 tablet:p-5 hover:border-accent flex min-h-24 items-center justify-center rounded-md border p-4 transition focus-visible:outline-2 focus-visible:outline-offset-2"
                 aria-label={`View ${brand.name} collaboration on Instagram`}
               >
                 <img
@@ -316,7 +360,7 @@ const faqs = [
                   width="240"
                   height="100"
                   loading="lazy"
-                  class="max-h-14 w-auto max-w-full object-contain"
+                  class="tablet:max-h-14 max-h-12 w-auto max-w-full object-contain"
                 />
               </a>
             </li>
@@ -325,9 +369,13 @@ const faqs = [
       </ul>
     </Section>
 
-    <Section spacing="md" tone="surface">
+    <Section
+      spacing="sm"
+      tone="surface"
+      class="tablet:py-10 desktop:py-12 py-8"
+    >
       <div
-        class="desktop:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] desktop:gap-16 grid gap-10"
+        class="tablet:gap-8 desktop:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] desktop:gap-12 grid gap-6"
       >
         <div>
           <p
@@ -335,19 +383,21 @@ const faqs = [
           >
             Content principles
           </p>
-          <Heading level={2} weight="normal">Why our content performs</Heading>
-          <p class="text-muted-foreground mt-5 max-w-xl leading-7">
+          <Heading level={2} weight="normal" class="tablet:text-4xl text-3xl"
+            >Why our content performs</Heading
+          >
+          <p class="text-muted-foreground mt-4 max-w-xl leading-7">
             Educational storytelling, visually appetising food, practical
             recipes, and an authentic creator voice give every collaboration a
             clear place in the everyday cooking conversation.
           </p>
         </div>
-        <div class="grid gap-4 sm:grid-cols-3">
+        <div class="grid grid-cols-3 gap-3">
           {
             ["Recipe videos", "Creator stories", "Food photography"].map(
               format => (
-                <article class="border-border bg-background flex aspect-[4/5] items-end rounded-md border p-5">
-                  <h3 class="font-display text-foreground text-xl leading-snug font-normal">
+                <article class="border-border bg-background tablet:aspect-[4/5] tablet:p-5 flex aspect-[4/3] items-end rounded-md border p-3">
+                  <h3 class="font-display text-foreground tablet:text-xl text-base leading-snug font-normal">
                     {format}
                   </h3>
                 </article>
@@ -358,9 +408,9 @@ const faqs = [
       </div>
     </Section>
 
-    <Section spacing="md">
+    <Section spacing="sm" class="tablet:py-10 desktop:py-12 py-8">
       <div
-        class="desktop:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] desktop:gap-16 grid gap-10"
+        class="tablet:gap-8 desktop:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] desktop:gap-12 grid gap-6"
       >
         <div>
           <p
@@ -368,20 +418,18 @@ const faqs = [
           >
             From first brief to final delivery
           </p>
-          <Heading level={2} weight="normal"
+          <Heading level={2} weight="normal" class="tablet:text-4xl text-3xl"
             >A clear collaboration process</Heading
           >
         </div>
-        <ol class="grid gap-4 sm:grid-cols-2">
+        <ol class="grid grid-cols-2 gap-3">
           {
             collaborationProcess.map((step, index) => (
-              <li class="border-border bg-surface flex gap-4 rounded-md border p-5">
-                <span class="font-display text-accent text-2xl leading-none font-normal">
+              <li class="border-border bg-surface tablet:p-5 flex gap-3 rounded-md border p-4">
+                <span class="font-display text-accent text-xl leading-none font-normal">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <span class="text-foreground pt-0.5 text-lg leading-7">
-                  {step}
-                </span>
+                <span class="text-foreground pt-0.5 leading-6">{step}</span>
               </li>
             ))
           }
@@ -389,19 +437,30 @@ const faqs = [
       </div>
     </Section>
 
-    <Section spacing="md" tone="surface">
+    <Section
+      spacing="sm"
+      tone="surface"
+      class="tablet:py-10 desktop:py-12 py-8"
+    >
       <div class="mx-auto max-w-3xl">
         <p
           class="text-accent mb-3 text-center text-sm font-normal tracking-[0.12em] uppercase"
         >
           Common questions
         </p>
-        <Heading level={2} align="center" weight="normal">FAQ</Heading>
-        <div class="divide-border border-border mt-8 divide-y border-y">
+        <Heading
+          level={2}
+          align="center"
+          weight="normal"
+          class="tablet:text-4xl text-3xl">FAQ</Heading
+        >
+        <div
+          class="divide-border border-border tablet:mt-6 mt-5 divide-y border-y"
+        >
           {
             faqs.map(faq => (
-              <details class="group py-5">
-                <summary class="text-foreground focus-visible:outline-focus flex cursor-pointer list-none items-center justify-between gap-6 text-lg leading-7 focus-visible:outline-2 focus-visible:outline-offset-4">
+              <details class="group tablet:py-5 py-4">
+                <summary class="text-foreground focus-visible:outline-focus flex cursor-pointer list-none items-center justify-between gap-4 leading-6 focus-visible:outline-2 focus-visible:outline-offset-4">
                   <span>{faq.question}</span>
                   <span
                     aria-hidden="true"
@@ -410,7 +469,7 @@ const faqs = [
                     +
                   </span>
                 </summary>
-                <p class="text-muted-foreground mt-3 max-w-2xl leading-7">
+                <p class="text-muted-foreground mt-2 max-w-2xl leading-6">
                   {faq.answer}
                 </p>
               </details>
@@ -420,30 +479,44 @@ const faqs = [
       </div>
     </Section>
 
-    <Section id="contact" spacing="lg" class="text-center">
+    <Section
+      id="contact"
+      spacing="sm"
+      class="tablet:py-12 desktop:py-16 py-10 text-center"
+    >
       <Container size="content" class="max-w-3xl px-0">
         <p
           class="text-accent mb-3 text-sm font-normal tracking-[0.12em] uppercase"
         >
           Start a conversation
         </p>
-        <Heading level={2} align="center" weight="normal">
+        <Heading
+          level={2}
+          align="center"
+          weight="normal"
+          class="tablet:text-4xl text-3xl"
+        >
           Let&apos;s build something meaningful together.
         </Heading>
-        <p class="text-muted-foreground mx-auto mt-5 max-w-2xl leading-7">
+        <p class="text-muted-foreground mx-auto mt-4 max-w-2xl leading-7">
           Looking for recipe content, product integrations, food photography, or
           creator-led campaigns? We would love to hear about your idea.
         </p>
-        <div class="mt-8 flex flex-wrap justify-center gap-3">
-          <Button href="mailto:calcuttakitchen22@gmail.com">Email Us</Button>
+        <div class="tablet:mt-6 mt-5 flex flex-wrap justify-center gap-3">
+          <Button
+            href="mailto:calcuttakitchen22@gmail.com"
+            class="max-sm:w-full">Email Us</Button
+          >
           <span
-            class="rounded-pill border-border text-muted-foreground inline-flex min-h-11 items-center justify-center border px-5 text-base font-normal"
+            class="rounded-pill border-border text-muted-foreground inline-flex min-h-11 items-center justify-center border px-5 text-base font-normal max-sm:w-full"
             aria-label="Media kit coming soon"
           >
             Download Media Kit — coming soon
           </span>
         </div>
-        <div class="text-muted-foreground mt-8 space-y-1 text-sm leading-6">
+        <div
+          class="text-muted-foreground tablet:mt-6 mt-5 space-y-1 text-sm leading-6"
+        >
           <p>calcuttakitchen22@gmail.com · +91 7063640680</p>
           <p>calcuttakitchen.in · @calcuttakitchen.in</p>
         </div>
@@ -451,5 +524,10 @@ const faqs = [
     </Section>
   </main>
 
-  <Footer />
-</Layout>
+  <Footer
+    brand={{ label: siteConfig.name, href: "/" }}
+    logo={siteConfig.logo}
+    groups={siteConfig.footerNavigation}
+    socialLinks={siteConfig.socialLinks}
+  />
+</BaseLayout>
