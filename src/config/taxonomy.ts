@@ -5,13 +5,14 @@ export const taxonomySlugs = {
   protein: ["chicken", "fish", "mutton", "vegetarian", "egg", "seafood"],
   meal: ["breakfast", "lunch", "dinner", "snack", "dessert", "beverage"],
   cuisine: ["bengali", "indian", "italian", "chinese", "asian", "continental", "fusion"],
-  type: ["rice", "curry", "bread", "baking", "sauce", "sweet"],
+  type: ["rice", "curry", "bread", "baking", "sauce", "sweet", "fried", "steamed"],
   series: ["cook-like-a-lyadhkhor"],
 } as const;
 
 const taxonomyValueSchema = z.object({
   slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
   label: z.string().min(1),
+  bengaliLabel: z.string().min(1).optional(),
   intro: z.string().min(1),
   related: z.array(z.string()).default([]),
 });
@@ -57,6 +58,8 @@ const taxonomyRegistryInput = {
     { slug: "baking", label: "Baking", intro: "Reliable baking recipes with tested home-kitchen guidance.", related: ["sweet", "bread"] },
     { slug: "sauce", label: "Sauces & Dips", intro: "Sauces, dips, and accompaniments that add flavour to meals.", related: [] },
     { slug: "sweet", label: "Sweets", intro: "Indian and global sweets for celebrations and sharing.", related: ["dessert"] },
+    { slug: "fried", label: "Fried", bengaliLabel: "\u09ad\u09be\u099c\u09be", intro: "Recipes where frying is the primary cooking technique or defining preparation method.", related: ["fish"] },
+    { slug: "steamed", label: "Steamed", bengaliLabel: "\u09ad\u09be\u09aa\u09be", intro: "Recipes where steaming is the primary cooking technique or defining preparation method.", related: ["fish"] },
   ],
   series: [
     { slug: "cook-like-a-lyadhkhor", label: "Cook Like a Lyadhkhor", intro: "A signature series for relaxed, confident home cooking.", related: [] },

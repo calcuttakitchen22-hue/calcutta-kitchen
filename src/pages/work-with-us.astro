@@ -2,35 +2,71 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
+import Button from "@/components/common/Button.astro";
+import Container from "@/components/common/Container.astro";
+import Heading from "@/components/common/Heading.astro";
+import Section from "@/components/common/Section.astro";
+
+const collaborationBenefits = [
+  {
+    title: "Authentic storytelling",
+    description:
+      "Food-first stories that bring a product naturally into the cooking conversation.",
+  },
+  {
+    title: "Recipe-led content",
+    description:
+      "Practical recipes that give audiences a clear reason to save, watch, and cook.",
+  },
+  {
+    title: "A distinctive point of view",
+    description:
+      "A recognisable narration style shaped around approachable home cooking.",
+  },
+  {
+    title: "Cooking across cultures",
+    description:
+      "Content spanning traditional Bengali recipes, global cuisine, and fusion dishes.",
+  },
+];
+
+const audienceStats = [
+  { value: "395K+", label: "Combined audience" },
+  { value: "95K+", label: "Instagram" },
+  { value: "50K+", label: "YouTube" },
+  { value: "250K+", label: "Facebook" },
+  { value: "20+", label: "Brand collaborations" },
+];
 
 const services = [
   {
     title: "Sponsored Reels",
-    desc: "Authentic brand integrations within recipe-driven content.",
+    description: "Authentic brand integrations within recipe-driven content.",
   },
   {
     title: "Dedicated Recipe Videos",
-    desc: "Custom recipes developed around your product.",
+    description: "Custom recipes developed around your product.",
   },
   {
     title: "YouTube Integrations",
-    desc: "Native placements within long-form cooking content.",
+    description: "Native placements within long-form cooking content.",
   },
   {
     title: "UGC Content",
-    desc: "Creator-style content for brand-owned channels.",
+    description: "Creator-style content for brand-owned channels.",
   },
   {
     title: "Recipe Development",
-    desc: "Original recipes designed around campaigns and product launches.",
+    description:
+      "Original recipes designed around campaigns and product launches.",
   },
   {
     title: "Food Photography",
-    desc: "Commercial-quality food photography for social and digital.",
+    description: "Commercial-quality food photography for social and digital.",
   },
   {
     title: "Product Reviews",
-    desc: "Creator-led product demonstrations and reviews.",
+    description: "Creator-led product demonstrations and reviews.",
   },
 ];
 
@@ -81,449 +117,339 @@ const brands = [
     link: "https://www.instagram.com/reel/DSKtbnxCH_Z/",
   },
 ];
+
+const collaborationProcess = [
+  "Brief & alignment",
+  "Creative direction",
+  "Production",
+  "Review & delivery",
+];
+
+const faqs = [
+  {
+    question: "What can we collaborate on?",
+    answer:
+      "Calcutta Kitchen works on sponsored reels, dedicated recipe videos, YouTube integrations, UGC content, recipe development, food photography, and product reviews.",
+  },
+  {
+    question: "Can we see previous brand collaborations?",
+    answer:
+      "Yes. The campaign selection above links to previous collaboration reels on Instagram.",
+  },
+  {
+    question: "How do we get in touch?",
+    answer:
+      "Email calcuttakitchen22@gmail.com or chat on WhatsApp at +91 7063640680.",
+  },
+];
 ---
 
-<Layout title="Work With Us | Calcutta Kitchen">
+<Layout
+  title="Work With Us | Calcutta Kitchen"
+  description="Partner with Calcutta Kitchen for recipe development, food storytelling, sponsored content, and brand collaborations."
+>
   <Header />
 
-  <main class="app-layout">
-    <section class="hero">
-      <div class="hero-content">
-        <h1>Stories That Audiences Remember</h1>
-
-        <p>
-          Since 2022, Calcutta Kitchen has built a community of nearly
-          <strong>400,000</strong> food lovers through authentic storytelling, engaging
-          recipes, and creator-led brand collaborations.
-        </p>
-
-        <div class="hero-buttons">
-          <a href="#contact" class="btn-primary">
+  <main id="main-content">
+    <Section spacing="lg" class="overflow-hidden">
+      <div
+        class="desktop:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] desktop:gap-16 grid items-center gap-10"
+      >
+        <div class="max-w-2xl">
+          <p
+            class="text-accent mb-3 text-sm font-normal tracking-[0.12em] uppercase"
+          >
+            Brand collaborations
+          </p>
+          <Heading level={1} weight="normal" class="tablet:text-6xl text-5xl">
             Work With Calcutta Kitchen
-          </a>
-
-          <a href="#brands" class="btn-secondary"> View Brand Campaigns </a>
+          </Heading>
+          <p class="text-muted-foreground mt-6 max-w-xl text-lg leading-8">
+            Recipe-led storytelling for brands that want to become part of the
+            everyday cooking conversation.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <span
+              class="rounded-pill border-border text-muted-foreground inline-flex min-h-11 items-center justify-center border px-5 text-base font-normal"
+              aria-label="Media kit coming soon"
+            >
+              Download Media Kit — coming soon
+            </span>
+            <Button href="#contact" variant="secondary"
+              >Start a Collaboration</Button
+            >
+          </div>
         </div>
+
+        <figure class="bg-surface shadow-card overflow-hidden rounded-lg">
+          <img
+            src="/media-kit/creator-pic.JPG"
+            alt="The creator behind Calcutta Kitchen"
+            width="1200"
+            height="900"
+            loading="eager"
+            class="aspect-[4/3] h-full w-full object-cover"
+          />
+        </figure>
       </div>
-    </section>
+    </Section>
 
-    <section class="creator">
-      <div class="creator-grid">
-        <img
-          src="/media-kit/creator-pic.JPG"
-          alt="Calcutta Kitchen"
-          class="creator-image"
-        />
-
+    <Section spacing="md" tone="surface">
+      <div
+        class="desktop:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] desktop:gap-16 grid gap-10"
+      >
         <div>
-          <h2>About Calcutta Kitchen</h2>
-
-          <p>
-            Calcutta Kitchen was founded in 2022 with a simple mission: make
-            cooking easy, approachable and exciting for a new generation.
+          <p
+            class="text-accent mb-3 text-sm font-normal tracking-[0.12em] uppercase"
+          >
+            The Calcutta Kitchen approach
           </p>
-
-          <p>
-            Through a distinctive narration style and food-first storytelling,
-            Calcutta Kitchen has become one of Bengal's recognizable food
-            creator brands.
-          </p>
-
-          <p>
-            Today we create content spanning traditional Bengali recipes, global
-            cuisine and innovative fusion dishes while helping brands connect
-            authentically with highly engaged food audiences.
+          <Heading level={2} weight="normal">Why brands work with us</Heading>
+          <p class="text-muted-foreground mt-5 max-w-xl leading-7">
+            Since 2022, Calcutta Kitchen has built a food-loving community
+            through approachable recipes, engaging food stories, and creator-led
+            collaborations.
           </p>
         </div>
-      </div>
-    </section>
-
-    <section class="stats">
-      <div class="stat">
-        <h2>395K+</h2>
-        <p>Combined Audience</p>
-      </div>
-
-      <div class="stat">
-        <h2>95K+</h2>
-        <p>Instagram</p>
-      </div>
-
-      <div class="stat">
-        <h2>50K+</h2>
-        <p>YouTube</p>
-      </div>
-
-      <div class="stat">
-        <h2>250K+</h2>
-        <p>Facebook</p>
-      </div>
-
-      <div class="stat">
-        <h2>20+</h2>
-        <p>Brand Collaborations</p>
-      </div>
-    </section>
-    <section id="brands">
-      <h2>Brands We've Worked With</h2>
-
-      <div class="brand-grid">
-        {
-          brands.map(brand => (
-            <a href={brand.link} target="_blank" class="brand-card">
-              <img src={`/media-kit/${brand.logo}`} alt={brand.name} />
-            </a>
-          ))
-        }
-      </div>
-    </section>
-    <section class="info-section">
-      <div>
-        <h2>Services</h2>
-
-        <div class="grid">
+        <div class="tablet:grid-cols-2 grid gap-4">
           {
-            services.map(service => (
-              <div class="service-card">
-                <h3>{service.title}</h3>
-              </div>
+            collaborationBenefits.map(benefit => (
+              <article class="border-border bg-background rounded-md border p-5">
+                <h3 class="font-display text-foreground text-xl leading-snug font-normal">
+                  {benefit.title}
+                </h3>
+                <p class="text-muted-foreground mt-3 leading-7">
+                  {benefit.description}
+                </p>
+              </article>
             ))
           }
         </div>
       </div>
-    </section>
-    <section id="contact" class="contact">
-      <h2>Let's Create Something Delicious Together</h2>
+    </Section>
 
-      <p>
-        Looking for recipe content, product integrations, food photography or
-        creator-led campaigns?
-      </p>
+    <Section spacing="md">
+      <div
+        class="tablet:flex-row tablet:items-end tablet:justify-between flex flex-col gap-4"
+      >
+        <div>
+          <p
+            class="text-accent mb-3 text-sm font-normal tracking-[0.12em] uppercase"
+          >
+            Audience snapshot
+          </p>
+          <Heading level={2} weight="normal">A growing food community</Heading>
+        </div>
+        <p class="text-muted-foreground max-w-md leading-7">
+          A community built around authentic recipes and practical cooking
+          inspiration.
+        </p>
+      </div>
+      <dl class="desktop:grid-cols-5 mt-8 grid gap-3 sm:grid-cols-2">
+        {
+          audienceStats.map(stat => (
+            <div class="border-border bg-surface rounded-md border p-5">
+              <dt class="text-muted-foreground text-sm leading-6">
+                {stat.label}
+              </dt>
+              <dd class="font-display text-accent mt-2 text-3xl leading-none font-normal">
+                {stat.value}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </Section>
 
-      <div class="hero-buttons">
-        <a
-          href="https://wa.me/917063640680"
-          target="_blank"
-          class="btn-primary"
+    <Section spacing="md" tone="surface">
+      <div class="max-w-2xl">
+        <p
+          class="text-accent mb-3 text-sm font-normal tracking-[0.12em] uppercase"
         >
-          Chat On WhatsApp
-        </a>
-
-        <a href="mailto:calcuttakitchen22@gmail.com" class="btn-secondary">
-          Email Us
-        </a>
+          Ways to work together
+        </p>
+        <Heading level={2} weight="normal">Collaboration opportunities</Heading>
       </div>
-
-      <div class="contact-details">
-        <p><strong>Email:</strong> calcuttakitchen22@gmail.com</p>
-
-        <p><strong>Phone:</strong> +91 7063640680</p>
-
-        <p><strong>Website:</strong> calcuttakitchen.in</p>
-
-        <p><strong>Instagram:</strong> @calcuttakitchen.in</p>
+      <div class="tablet:grid-cols-2 desktop:grid-cols-3 mt-8 grid gap-4">
+        {
+          services.map(service => (
+            <article class="border-border bg-background rounded-md border p-5">
+              <h3 class="font-display text-foreground text-xl leading-snug font-normal">
+                {service.title}
+              </h3>
+              <p class="text-muted-foreground mt-3 leading-7">
+                {service.description}
+              </p>
+            </article>
+          ))
+        }
       </div>
-    </section>
+    </Section>
+
+    <Section spacing="md" id="campaigns">
+      <div class="max-w-2xl">
+        <p
+          class="text-accent mb-3 text-sm font-normal tracking-[0.12em] uppercase"
+        >
+          Previous collaborations
+        </p>
+        <Heading level={2} weight="normal">Brands we have worked with</Heading>
+        <p class="text-muted-foreground mt-5 leading-7">
+          A selection of recent brand collaborations. Each card opens the
+          published campaign on Instagram.
+        </p>
+      </div>
+      <ul class="tablet:grid-cols-3 mt-8 grid gap-4 sm:grid-cols-2">
+        {
+          brands.map(brand => (
+            <li>
+              <a
+                href={brand.link}
+                target="_blank"
+                rel="noreferrer"
+                class="focus-visible:outline-focus border-border bg-surface hover:border-accent flex min-h-32 items-center justify-center rounded-md border p-6 transition focus-visible:outline-2 focus-visible:outline-offset-2"
+                aria-label={`View ${brand.name} collaboration on Instagram`}
+              >
+                <img
+                  src={`/media-kit/${brand.logo}`}
+                  alt={brand.name}
+                  width="240"
+                  height="100"
+                  loading="lazy"
+                  class="max-h-14 w-auto max-w-full object-contain"
+                />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </Section>
+
+    <Section spacing="md" tone="surface">
+      <div
+        class="desktop:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] desktop:gap-16 grid gap-10"
+      >
+        <div>
+          <p
+            class="text-accent mb-3 text-sm font-normal tracking-[0.12em] uppercase"
+          >
+            Content principles
+          </p>
+          <Heading level={2} weight="normal">Why our content performs</Heading>
+          <p class="text-muted-foreground mt-5 max-w-xl leading-7">
+            Educational storytelling, visually appetising food, practical
+            recipes, and an authentic creator voice give every collaboration a
+            clear place in the everyday cooking conversation.
+          </p>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-3">
+          {
+            ["Recipe videos", "Creator stories", "Food photography"].map(
+              format => (
+                <article class="border-border bg-background flex aspect-[4/5] items-end rounded-md border p-5">
+                  <h3 class="font-display text-foreground text-xl leading-snug font-normal">
+                    {format}
+                  </h3>
+                </article>
+              )
+            )
+          }
+        </div>
+      </div>
+    </Section>
+
+    <Section spacing="md">
+      <div
+        class="desktop:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] desktop:gap-16 grid gap-10"
+      >
+        <div>
+          <p
+            class="text-accent mb-3 text-sm font-normal tracking-[0.12em] uppercase"
+          >
+            From first brief to final delivery
+          </p>
+          <Heading level={2} weight="normal"
+            >A clear collaboration process</Heading
+          >
+        </div>
+        <ol class="grid gap-4 sm:grid-cols-2">
+          {
+            collaborationProcess.map((step, index) => (
+              <li class="border-border bg-surface flex gap-4 rounded-md border p-5">
+                <span class="font-display text-accent text-2xl leading-none font-normal">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span class="text-foreground pt-0.5 text-lg leading-7">
+                  {step}
+                </span>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </Section>
+
+    <Section spacing="md" tone="surface">
+      <div class="mx-auto max-w-3xl">
+        <p
+          class="text-accent mb-3 text-center text-sm font-normal tracking-[0.12em] uppercase"
+        >
+          Common questions
+        </p>
+        <Heading level={2} align="center" weight="normal">FAQ</Heading>
+        <div class="divide-border border-border mt-8 divide-y border-y">
+          {
+            faqs.map(faq => (
+              <details class="group py-5">
+                <summary class="text-foreground focus-visible:outline-focus flex cursor-pointer list-none items-center justify-between gap-6 text-lg leading-7 focus-visible:outline-2 focus-visible:outline-offset-4">
+                  <span>{faq.question}</span>
+                  <span
+                    aria-hidden="true"
+                    class="text-accent transition group-open:rotate-45"
+                  >
+                    +
+                  </span>
+                </summary>
+                <p class="text-muted-foreground mt-3 max-w-2xl leading-7">
+                  {faq.answer}
+                </p>
+              </details>
+            ))
+          }
+        </div>
+      </div>
+    </Section>
+
+    <Section id="contact" spacing="lg" class="text-center">
+      <Container size="content" class="max-w-3xl px-0">
+        <p
+          class="text-accent mb-3 text-sm font-normal tracking-[0.12em] uppercase"
+        >
+          Start a conversation
+        </p>
+        <Heading level={2} align="center" weight="normal">
+          Let&apos;s build something meaningful together.
+        </Heading>
+        <p class="text-muted-foreground mx-auto mt-5 max-w-2xl leading-7">
+          Looking for recipe content, product integrations, food photography, or
+          creator-led campaigns? We would love to hear about your idea.
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+          <Button href="mailto:calcuttakitchen22@gmail.com">Email Us</Button>
+          <span
+            class="rounded-pill border-border text-muted-foreground inline-flex min-h-11 items-center justify-center border px-5 text-base font-normal"
+            aria-label="Media kit coming soon"
+          >
+            Download Media Kit — coming soon
+          </span>
+        </div>
+        <div class="text-muted-foreground mt-8 space-y-1 text-sm leading-6">
+          <p>calcuttakitchen22@gmail.com · +91 7063640680</p>
+          <p>calcuttakitchen.in · @calcuttakitchen.in</p>
+        </div>
+      </Container>
+    </Section>
   </main>
 
   <Footer />
 </Layout>
-
-<style>
-  :root {
-    --orange: #f24e07;
-    --maroon: #700d1d;
-    --cream: #f8f5e6;
-  }
-
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image: url("/media-kit/watermark.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 900px;
-    opacity: 0.025;
-    pointer-events: none;
-    z-index: -1;
-  }
-  .hero {
-    padding-top: 2rem;
-    padding-bottom: 1rem;
-  }
-
-  .hero h1 {
-    font-size: clamp(2rem, 4vw, 2.8rem);
-    line-height: 1.2;
-    max-width: 850px;
-    margin: 0 auto;
-  }
-
-  section {
-    max-width: 1200px;
-    margin: auto;
-    padding: 3rem 1.5rem;
-  }
-
-  .hero {
-    padding-bottom: 1rem;
-  }
-
-  .creator {
-    padding-top: 2rem;
-    padding-bottom: 0;
-  }
-  .stats {
-    margin-top: 0;
-    padding-top: 1.5rem;
-    padding-bottom: 0;
-  }
-
-  .creator-grid {
-    display: grid;
-    gap: 2rem;
-    align-items: center;
-    grid-template-columns: 400px 1fr;
-  }
-
-  #brands {
-    padding-top: 1.5rem;
-    margin-top: 0;
-  }
-  .creator h2,
-  .info-section h2,
-  #brands h2,
-  #contact h2 {
-    font-size: 2.25rem;
-    font-weight: 400;
-    color: var(--maroon);
-    margin-bottom: 1.5rem;
-  }
-
-  .info-section {
-    display: block;
-    padding-top: 0;
-  }
-
-  .stats {
-    padding-bottom: 0;
-  }
-
-  .info-section h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
-  .brand-card {
-    width: 180px;
-    height: 90px;
-    flex-shrink: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-    border-radius: 16px;
-    background: white;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    transition: 0.25s ease;
-  }
-
-  .brand-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-  }
-
-  .brand-grid::-webkit-scrollbar {
-    height: 6px;
-  }
-
-  .brand-grid::-webkit-scrollbar-thumb {
-    background: var(--orange);
-    border-radius: 20px;
-  }
-  .brand-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  }
-
-  .brand-card img {
-    width: auto;
-    height: 50px;
-    max-width: 140px;
-    object-fit: contain;
-  }
-
-  .hero {
-    text-align: center;
-  }
-
-  .hero-content {
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  .hero p {
-    max-width: 700px;
-    margin: 1rem auto;
-    font-size: 1.1rem;
-  }
-
-  .hero-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-top: 2rem;
-  }
-
-  .btn-primary {
-    background: var(--orange);
-    color: white;
-    text-decoration: none;
-    padding: 1rem 1.5rem;
-    border-radius: 12px;
-    font-weight: 400;
-  }
-
-  .btn-secondary {
-    border: 1px solid var(--orange);
-    color: var(--orange);
-    text-decoration: none;
-    padding: 1rem 1.5rem;
-    border-radius: 12px;
-    font-weight: 400;
-  }
-
-  .stats {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(5, 1fr);
-  }
-
-  .stat {
-    text-align: center;
-    padding: 2rem 1rem;
-    border-radius: 20px;
-    background: rgba(248, 245, 230, 0.85);
-  }
-
-  .stat h2 {
-    color: var(--orange);
-    font-size: 2.2rem;
-    font-weight: 400;
-    margin-bottom: 0.5rem;
-    line-height: 1;
-  }
-
-  .stat p {
-    font-size: 1rem;
-    font-weight: 400;
-    margin: 0;
-  }
-  .grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  .grid::-webkit-scrollbar {
-    height: 6px;
-  }
-
-  .grid::-webkit-scrollbar-thumb {
-    background: var(--orange);
-    border-radius: 20px;
-  }
-
-  .card {
-    padding: 1.5rem;
-    border-radius: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    background: white;
-  }
-
-  .creator-image {
-    width: 100%;
-    border-radius: 20px;
-  }
-
-  .service-card {
-    background: var(--maroon);
-    color: white;
-    border-radius: 16px;
-    padding: 1.5rem;
-    text-align: center;
-    transition: 0.25s ease;
-    min-width: 220px;
-    flex: 1 1 220px;
-  }
-
-  .service-card:hover {
-    background: var(--orange);
-    transform: translateY(-4px);
-  }
-
-  .service-card h3 {
-    margin: 0;
-    font-size: 1.1rem;
-  }
-  .contact {
-    text-align: center;
-  }
-
-  .contact-details {
-    margin-top: 2rem;
-  }
-
-  .contact-details p {
-    margin: 0.5rem 0;
-  }
-
-  @media (max-width: 900px) {
-    .creator-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .stats {
-      display: grid !important;
-      grid-template-columns: repeat(2, 1fr) !important;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr) !important;
-      gap: 0.75rem;
-    }
-
-    .service-card {
-      min-width: auto;
-      width: 100%;
-      flex: unset;
-      padding: 1rem;
-    }
-
-    .brand-grid {
-      display: grid !important;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.75rem;
-    }
-    .brand-card {
-      width: 100%;
-      height: 80px;
-      min-width: 0;
-    }
-
-    .brand-card img {
-      max-width: 100%;
-      max-height: 40px;
-      width: auto;
-      height: auto;
-    }
-
-    .hero h1 {
-      font-size: 2rem;
-    }
-  }
-</style>
