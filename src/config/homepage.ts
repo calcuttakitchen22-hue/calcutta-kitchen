@@ -25,12 +25,12 @@ const homepageCurationSchema = z.object({
 
 const homepageCurationInput = {
   featuredRecipes: [
-    "chicken-kosha",
-    "aloo-posto",
-    "mango-bhapa-doi",
-    "maacher-jhol",
-    "ghugni",
+    "kolkata-chicken-biryani",
+    "mutton-kosha",
+    "kolkata-chicken-roll",
+    "basanti-pulao",
     "sorshe-ilish",
+    "ghugni",
   ],
   featuredCollections: ["weeknight-dinners"],
   featuredSeries: ["cook-like-a-lyadhkhor"],
