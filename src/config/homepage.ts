@@ -25,12 +25,12 @@ const homepageCurationSchema = z.object({
 
 const homepageCurationInput = {
   featuredRecipes: [
+    "chicken-momo",
     "kolkata-chicken-biryani",
     "mutton-kosha",
     "kolkata-chicken-roll",
     "basanti-pulao",
     "sorshe-ilish",
-    "chicken-momo",
   ],
   featuredCollections: ["weeknight-dinners"],
   featuredSeries: ["cook-like-a-lyadhkhor"],
