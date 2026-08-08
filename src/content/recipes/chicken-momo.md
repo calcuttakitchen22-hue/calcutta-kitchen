@@ -196,7 +196,9 @@ faq:
     answer: "Resting allows the dough to relax, making it easier to roll thinly without shrinking back."
   - question: "How long should chicken momos be steamed?"
     answer: "Steam them for approximately 8–10 minutes over vigorously boiling water. Avoid prolonged steaming because it can dry out the chicken filling."
-
+video:
+      url: "https://youtu.be/LYyQYxqjJ4U"
+      title: "Chicken Momo"
 relatedRecipes:
   - "momo-chutney"
 author: "Calcutta Kitchen"
