@@ -490,5 +490,17 @@ export const products = [
     "imageUrl": "https://m.media-amazon.com/images/I/510nEJzc1nL._SL1500_.jpg",
     "displayOrder": 41,
     "featured": false
+  },
+  {
+    "id": "2-tier-steamer",
+    "name": "Vinod Stainless Steel 2-Tier Steamer",
+    "type": "cookware",
+    "category": "Pots & Pans",
+    "description": "Crafted from high-quality stainless steel, this Vinod idli steamer ensures uniform heat distribution and retains the authentic taste.",
+    "whyWeUseIt": "This multi-cooker with steamer is ideal not just for idlis but also for momos, modaks, vegetables, and dhokla.",
+    "affiliateUrl": "https://link.amazon/B0hLlrPY8",
+    "imageUrl": "https://m.media-amazon.com/images/I/61+CI8GQe5L.*SL1000*.jpg",
+    "displayOrder": 42,
+    "featured": false
   }
 ];

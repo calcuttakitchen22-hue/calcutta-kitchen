@@ -63,7 +63,14 @@ const { ingredients, ingredientsBn = [], class: className } = Astro.props;
           {ingredient.group &&
             ingredient.group !== ingredients[index - 1]?.group && (
               <li class="py-4">
-                <h3 class="text-foreground font-normal">{ingredient.group}</h3>
+                <h3 class="text-foreground">
+                  <strong
+                    class="font-display text-lg font-medium"
+                    style="font-synthesis: weight;"
+                  >
+                    {ingredient.group}
+                  </strong>
+                </h3>
               </li>
             )}
           <li>

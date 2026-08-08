@@ -24,6 +24,7 @@ type RecipeRecommendationCandidate = {
     meal: string[];
     series?: string;
     publishDate: Date;
+    relatedRecipes?: string[];
   };
 };
 
@@ -32,7 +33,21 @@ export function getRelatedRecipes<T extends RecipeRecommendationCandidate>(
   recipes: T[],
   limit = 6
 ): T[] {
-  const sharesValue = (left: string[], right: string[]) => left.some(value => right.includes(value));
+  if (currentRecipe.data.relatedRecipes?.length) {
+    const recipesBySlug = new Map(
+      recipes.map(recipe => [getRecipeSlug(recipe.id), recipe])
+    );
+
+    return currentRecipe.data.relatedRecipes
+      .flatMap(slug => {
+        const recipe = recipesBySlug.get(slug);
+        return recipe && recipe.id !== currentRecipe.id ? [recipe] : [];
+      })
+      .slice(0, limit);
+  }
+
+  const sharesValue = (left: string[], right: string[]) =>
+    left.some(value => right.includes(value));
 
   return recipes
     .filter(recipe => recipe.id !== currentRecipe.id)
@@ -41,19 +56,28 @@ export function getRelatedRecipes<T extends RecipeRecommendationCandidate>(
         Number(sharesValue(left.data.protein, currentRecipe.data.protein)),
         Number(left.data.cuisine === currentRecipe.data.cuisine),
         Number(sharesValue(left.data.meal, currentRecipe.data.meal)),
-        Number(Boolean(left.data.series && left.data.series === currentRecipe.data.series)),
+        Number(
+          Boolean(
+            left.data.series && left.data.series === currentRecipe.data.series
+          )
+        ),
         left.data.publishDate.getTime(),
       ];
       const rightRank = [
         Number(sharesValue(right.data.protein, currentRecipe.data.protein)),
         Number(right.data.cuisine === currentRecipe.data.cuisine),
         Number(sharesValue(right.data.meal, currentRecipe.data.meal)),
-        Number(Boolean(right.data.series && right.data.series === currentRecipe.data.series)),
+        Number(
+          Boolean(
+            right.data.series && right.data.series === currentRecipe.data.series
+          )
+        ),
         right.data.publishDate.getTime(),
       ];
 
       for (let index = 0; index < leftRank.length; index += 1) {
-        if (leftRank[index] !== rightRank[index]) return rightRank[index] - leftRank[index];
+        if (leftRank[index] !== rightRank[index])
+          return rightRank[index] - leftRank[index];
       }
 
       return 0;
@@ -74,7 +98,9 @@ export function getYouTubeThumbnailUrl(url: string): string | undefined {
       videoId = parsedUrl.searchParams.get("v") ?? undefined;
     }
 
-    return videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : undefined;
+    return videoId
+      ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
+      : undefined;
   } catch {
     return undefined;
   }

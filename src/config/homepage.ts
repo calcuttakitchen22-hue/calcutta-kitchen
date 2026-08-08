@@ -30,7 +30,7 @@ const homepageCurationInput = {
     "kolkata-chicken-roll",
     "basanti-pulao",
     "sorshe-ilish",
-    "ghugni",
+    "chicken-momo",
   ],
   featuredCollections: ["weeknight-dinners"],
   featuredSeries: ["cook-like-a-lyadhkhor"],
