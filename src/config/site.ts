@@ -34,6 +34,7 @@ export const siteConfig: SiteConfiguration = {
       items: [
         { label: "About Us", href: "/about" },
         { label: "Work With Us", href: "/work-with-us" },
+        { label: "Privacy Policy", href: "/privacy-policy" },
       ],
     },
   ],

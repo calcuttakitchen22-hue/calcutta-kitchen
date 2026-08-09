@@ -1,0 +1,418 @@
+---
+import Footer from "@/components/navigation/Footer.astro";
+import Navbar from "@/components/navigation/Navbar.astro";
+import Container from "@/components/common/Container.astro";
+import Heading from "@/components/common/Heading.astro";
+import { siteConfig } from "@/config/site";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const effectiveDate = "9 August 2026";
+
+const sections = [
+  { id: "information-we-process", label: "Information we process" },
+  { id: "how-we-use-information", label: "How we use information" },
+  { id: "cookies-and-analytics", label: "Cookies and analytics" },
+  { id: "third-party-services", label: "Third-party services" },
+  { id: "data-sharing", label: "Data sharing" },
+  { id: "retention-and-security", label: "Retention and security" },
+  { id: "your-rights", label: "Your rights and deletion" },
+  { id: "childrens-privacy", label: "Children's privacy" },
+  { id: "changes-and-contact", label: "Changes and contact" },
+];
+---
+
+<BaseLayout
+  metadata={{
+    title: "Privacy Policy",
+    description:
+      "How Calcutta Kitchen handles website information and comment data received through Meta's Instagram and Facebook APIs.",
+    canonicalPath: "/privacy-policy",
+  }}
+>
+  <Navbar
+    brand={{ label: siteConfig.name, href: "/" }}
+    logo={siteConfig.logo}
+    items={siteConfig.navigation}
+    socialLinks={siteConfig.socialLinks}
+  />
+
+  <main id="main-content">
+    <header class="border-border tablet:py-16 border-b py-10">
+      <Container size="content">
+        <p class="text-accent mb-3 text-sm tracking-[0.12em] uppercase">
+          Legal
+        </p>
+        <Heading
+          level={1}
+          weight="normal"
+          class="tablet:text-5xl desktop:text-6xl text-4xl"
+        >
+          Privacy Policy
+        </Heading>
+        <p class="text-muted-foreground mt-5 max-w-3xl text-lg leading-8">
+          This policy explains how Calcutta Kitchen handles information through
+          calcuttakitchen.in and through our use of Meta's Instagram and
+          Facebook APIs, including tools that can automatically respond to
+          comments.
+        </p>
+        <p class="text-muted-foreground mt-4 text-sm">
+          Effective date: {effectiveDate}
+        </p>
+      </Container>
+    </header>
+
+    <Container size="content" class="tablet:py-16 py-10">
+      <div
+        class="desktop:grid-cols-[15rem_minmax(0,1fr)] desktop:grid grid gap-10"
+      >
+        <nav
+          aria-label="Privacy policy contents"
+          class="desktop:sticky desktop:top-28 desktop:self-start"
+        >
+          <h2 class="font-display text-foreground text-xl font-medium">
+            On this page
+          </h2>
+          <ul class="border-border mt-4 space-y-3 border-l pl-4">
+            {
+              sections.map(section => (
+                <li>
+                  <a
+                    href={`#${section.id}`}
+                    class="text-muted-foreground hover:text-accent focus-visible:outline-focus text-sm leading-6 underline decoration-transparent underline-offset-4 transition hover:decoration-current focus-visible:outline-2 focus-visible:outline-offset-2"
+                  >
+                    {section.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+
+        <article class="desktop:mt-0 mt-10 max-w-3xl space-y-12">
+          <section aria-labelledby="scope-heading">
+            <h2
+              id="scope-heading"
+              class="font-display text-foreground text-3xl font-normal"
+            >
+              Scope
+            </h2>
+            <p class="text-muted-foreground mt-4 leading-7">
+              This policy applies to the Calcutta Kitchen website and to the
+              Calcutta Kitchen application that connects with Meta platforms. It
+              does not cover how Meta, YouTube, or other third parties use
+              information under their own policies.
+            </p>
+          </section>
+
+          <section
+            id="information-we-process"
+            aria-labelledby="information-heading"
+            class="scroll-mt-28"
+          >
+            <h2
+              id="information-heading"
+              class="font-display text-foreground text-3xl font-normal"
+            >
+              Information we process
+            </h2>
+            <div class="text-muted-foreground mt-4 space-y-5 leading-7">
+              <div>
+                <h3 class="text-foreground text-lg font-medium">
+                  Information you provide
+                </h3>
+                <p class="mt-2">
+                  If you contact us by email, WhatsApp, or another available
+                  channel, we process the information you choose to send, such
+                  as your name, contact details, message, and any attachments.
+                  The website does not currently provide user accounts or a
+                  general-purpose contact form.
+                </p>
+              </div>
+              <div>
+                <h3 class="text-foreground text-lg font-medium">
+                  Website usage information
+                </h3>
+                <p class="mt-2">
+                  Our hosting infrastructure may process ordinary technical
+                  request information needed to deliver and protect the site,
+                  such as an IP address, browser and device details, requested
+                  pages, timestamps, and error or security logs. Search terms
+                  and recipe interface choices are handled in the browser where
+                  the relevant feature works locally.
+                </p>
+              </div>
+              <div>
+                <h3 class="text-foreground text-lg font-medium">
+                  Meta platform information
+                </h3>
+                <p class="mt-2">
+                  When you comment on Calcutta Kitchen content on Instagram or
+                  Facebook, Meta may provide our application with the comment
+                  text; your username or account identifier where Meta makes it
+                  available; and identifiers for the relevant post, media, and
+                  comment. We receive this information only in connection with
+                  the Calcutta Kitchen accounts and permissions enabled for the
+                  application. We do not use the integration to collect
+                  unrelated profile information.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section
+            id="how-we-use-information"
+            aria-labelledby="use-heading"
+            class="scroll-mt-28"
+          >
+            <h2
+              id="use-heading"
+              class="font-display text-foreground text-3xl font-normal"
+            >
+              How we use information
+            </h2>
+            <ul
+              class="text-muted-foreground marker:text-accent mt-4 list-disc space-y-2 pl-5 leading-7"
+            >
+              <li>
+                to provide, maintain, troubleshoot, and secure the website;
+              </li>
+              <li>
+                to respond to messages, questions, and collaboration enquiries;
+              </li>
+              <li>
+                to identify a comment and the Calcutta Kitchen post or media it
+                relates to;
+              </li>
+              <li>
+                to operate, monitor, and improve comment-response workflows; and
+              </li>
+              <li>
+                to comply with applicable obligations and enforce our rights.
+              </li>
+            </ul>
+            <div
+              class="border-border bg-surface tablet:p-6 mt-6 rounded-md border p-5"
+            >
+              <h3 class="font-display text-foreground text-xl font-medium">
+                Automated comment replies
+              </h3>
+              <p class="text-muted-foreground mt-2 leading-7">
+                Our Meta integration may evaluate the text or context of a
+                comment and publish an automated response from a Calcutta
+                Kitchen account. For example, a reply may acknowledge a comment
+                or provide relevant information. Automation is limited to
+                supporting interactions with our content; comment data is not
+                used to make decisions that produce legal or similarly
+                significant effects for the commenter.
+              </p>
+            </div>
+          </section>
+
+          <section
+            id="cookies-and-analytics"
+            aria-labelledby="cookies-heading"
+            class="scroll-mt-28"
+          >
+            <h2
+              id="cookies-heading"
+              class="font-display text-foreground text-3xl font-normal"
+            >
+              Cookies, local storage, and analytics
+            </h2>
+            <p class="text-muted-foreground mt-4 leading-7">
+              The current website does not use advertising cookies or an
+              analytics service. It uses browser storage for functional choices
+              such as theme preference and temporary recipe, language, search,
+              or navigation state. This information generally remains on your
+              device and can be removed through your browser settings. If we
+              introduce analytics or other non-essential tracking, we will
+              update this policy and provide any notice or choice required by
+              applicable law.
+            </p>
+          </section>
+
+          <section
+            id="third-party-services"
+            aria-labelledby="third-parties-heading"
+            class="scroll-mt-28"
+          >
+            <h2
+              id="third-parties-heading"
+              class="font-display text-foreground text-3xl font-normal"
+            >
+              Third-party services
+            </h2>
+            <p class="text-muted-foreground mt-4 leading-7">
+              We use service providers where needed to operate the website and
+              connected features. These may include our website hosting and
+              security provider, Meta for Instagram and Facebook integrations,
+              and YouTube or social platforms when you follow a link or view
+              embedded content. External retailers may also receive information
+              when you follow a product or affiliate link. Their processing is
+              governed by their own privacy terms.
+            </p>
+          </section>
+
+          <section
+            id="data-sharing"
+            aria-labelledby="sharing-heading"
+            class="scroll-mt-28"
+          >
+            <h2
+              id="sharing-heading"
+              class="font-display text-foreground text-3xl font-normal"
+            >
+              Data sharing
+            </h2>
+            <p class="text-muted-foreground mt-4 leading-7">
+              We do not sell personal information. We may share information with
+              providers that process it on our behalf to host, secure, or
+              operate the website and Meta integration; with Meta when the
+              application reads or publishes information through Meta's APIs;
+              when you ask us to or direct us to; or when reasonably necessary
+              to comply with law, protect rights and safety, investigate misuse,
+              or complete a business reorganisation. We limit sharing to what is
+              reasonably necessary for those purposes.
+            </p>
+          </section>
+
+          <section
+            id="retention-and-security"
+            aria-labelledby="retention-heading"
+            class="scroll-mt-28"
+          >
+            <h2
+              id="retention-heading"
+              class="font-display text-foreground text-3xl font-normal"
+            >
+              Data retention and security
+            </h2>
+            <div class="text-muted-foreground mt-4 space-y-4 leading-7">
+              <p>
+                We keep information only for as long as reasonably necessary for
+                the purpose described in this policy, including operating the
+                relevant workflow, maintaining security and troubleshooting
+                records, resolving enquiries, meeting legal obligations, and
+                establishing or defending claims. Meta comment data is retained
+                only as needed to process and verify the interaction, unless a
+                longer period is required for security, legal, or dispute
+                reasons. Published comments and replies may remain visible on
+                Meta platforms until removed there.
+              </p>
+              <p>
+                We use reasonable administrative and technical safeguards
+                designed to protect information against unauthorised access,
+                loss, misuse, or alteration. No internet transmission or storage
+                system can be guaranteed to be completely secure.
+              </p>
+            </div>
+          </section>
+
+          <section
+            id="your-rights"
+            aria-labelledby="rights-heading"
+            class="scroll-mt-28"
+          >
+            <h2
+              id="rights-heading"
+              class="font-display text-foreground text-3xl font-normal"
+            >
+              Your rights and data deletion requests
+            </h2>
+            <p class="text-muted-foreground mt-4 leading-7">
+              Depending on where you live, you may have rights to request access
+              to, correction of, deletion of, or restriction or objection to
+              certain processing of your personal information, and to withdraw
+              consent where processing is based on consent. You may also have
+              the right to complain to your local data-protection authority.
+            </p>
+            <div class="border-border tablet:p-6 mt-6 rounded-md border p-5">
+              <h3 class="font-display text-foreground text-xl font-medium">
+                How to request deletion
+              </h3>
+              <p class="text-muted-foreground mt-2 leading-7">
+                Email <a
+                  class="text-accent focus-visible:outline-focus underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2"
+                  href="mailto:calcuttakitchen22@gmail.com?subject=Data%20Deletion%20Request"
+                  >calcuttakitchen22@gmail.com</a
+                >
+                with the subject “Data Deletion Request”. Include enough information
+                for us to identify the relevant interaction, such as the Instagram
+                or Facebook username, the comment or post link, and the platform used.
+                Do not send passwords or access tokens. We may ask for reasonable
+                verification before acting. We will delete or de-identify information
+                under our control unless we must retain it for a legal or security
+                reason.
+              </p>
+              <p class="text-muted-foreground mt-3 leading-7">
+                To remove a comment, reply, or other information held by Meta,
+                you may also need to delete it on Instagram or Facebook or use
+                the privacy controls provided by Meta.
+              </p>
+            </div>
+          </section>
+
+          <section
+            id="childrens-privacy"
+            aria-labelledby="children-heading"
+            class="scroll-mt-28"
+          >
+            <h2
+              id="children-heading"
+              class="font-display text-foreground text-3xl font-normal"
+            >
+              Children's privacy
+            </h2>
+            <p class="text-muted-foreground mt-4 leading-7">
+              Our website and Meta integration are not directed to children
+              under 13, and we do not knowingly collect personal information
+              from children under 13. If you believe a child has provided us
+              with personal information, contact us so we can review and delete
+              it where appropriate.
+            </p>
+          </section>
+
+          <section
+            id="changes-and-contact"
+            aria-labelledby="changes-heading"
+            class="scroll-mt-28"
+          >
+            <h2
+              id="changes-heading"
+              class="font-display text-foreground text-3xl font-normal"
+            >
+              Changes to this policy and contact information
+            </h2>
+            <p class="text-muted-foreground mt-4 leading-7">
+              We may update this policy to reflect changes to our practices,
+              services, or legal requirements. We will publish the revised
+              policy here and update the effective date. If a change is
+              significant, we may provide an additional notice where
+              appropriate.
+            </p>
+            <address class="text-muted-foreground mt-5 leading-7 not-italic">
+              <span class="text-foreground font-medium">Calcutta Kitchen</span
+              ><br />
+              Website: <a
+                class="text-accent focus-visible:outline-focus underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2"
+                href="https://calcuttakitchen.in">calcuttakitchen.in</a
+              ><br />
+              Email: <a
+                class="text-accent focus-visible:outline-focus underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2"
+                href="mailto:calcuttakitchen22@gmail.com"
+                >calcuttakitchen22@gmail.com</a
+              >
+            </address>
+          </section>
+        </article>
+      </div>
+    </Container>
+  </main>
+
+  <Footer
+    brand={{ label: siteConfig.name, href: "/" }}
+    logo={siteConfig.logo}
+    groups={siteConfig.footerNavigation}
+    socialLinks={siteConfig.socialLinks}
+  />
+</BaseLayout>
