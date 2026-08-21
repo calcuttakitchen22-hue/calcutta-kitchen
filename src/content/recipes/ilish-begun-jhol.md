@@ -220,7 +220,7 @@ faq:
   - question: "Why add raw mustard oil at the end?"
     answer: "A small amount of raw mustard oil adds the characteristic sharp mustard aroma to the finished jhol."
 video:
-      url: "https://youtu.be/LYyQYxqjJ4U"
+      url: "https://youtu.be/DmYmrlfnxvg"
       title: "Ilish Begun Jhol"
 relatedRecipes: []
 author: "Calcutta Kitchen"
