@@ -1432,6 +1432,7 @@ import "@/styles/global.css";
     font-size: 12px;
   }
   .invoice-header {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -1451,8 +1452,12 @@ import "@/styles/global.css";
     text-align: right;
   }
   .invoice-logo {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
     display: block;
-    margin: 0 0 14px auto;
     width: auto !important;
     height: auto !important;
     max-width: 110px !important;
