@@ -335,10 +335,8 @@ export async function downloadStructuredRecipePdf(
   const generatedStepCount = methodContent.filter(
     item => "table" in item
   ).length;
-  const groupHeadingStyle =
-    language === "bn" ? "groupHeadingBn" : "groupHeading";
   const generatedGroupHeadingCount = methodContent.filter(
-    item => item.style === groupHeadingStyle
+    item => item.style === "groupHeading" || item.style === "groupHeadingBn"
   ).length;
   const missingInstructions = steps.filter(
     step =>

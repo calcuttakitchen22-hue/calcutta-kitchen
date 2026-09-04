@@ -244,12 +244,6 @@ import "@/styles/global.css";
               </div>
 
               <div class="invoice-header-right">
-                <img
-                  class="invoice-logo"
-                  id="invoice-preview-logo"
-                  alt="Calcutta Kitchen"
-                  hidden
-                />
                 <div class="invoice-title">INVOICE</div>
                 <div class="invoice-meta">
                   <strong class="invoice-number" id="preview-invoice-number"
@@ -457,9 +451,6 @@ import "@/styles/global.css";
       const form = document.querySelector<HTMLFormElement>("#invoice-form")!;
       const itemsEl =
         document.querySelector<HTMLTableSectionElement>("#items")!;
-      const previewLogo = document.querySelector<HTMLImageElement>(
-        "#invoice-preview-logo"
-      )!;
       const previewItems = document.querySelector<HTMLTableSectionElement>(
         "#invoice-preview-items"
       )!;
@@ -718,14 +709,6 @@ import "@/styles/global.css";
         invoice: Invoice,
         totals: ReturnType<typeof calculateInvoiceTotals>
       ) {
-        const effectiveLogo = isUsableLogo(invoice.business.logo)
-          ? invoice.business.logo
-          : invoiceDefaults.business.logo;
-        previewLogo.hidden = !effectiveLogo;
-        if (effectiveLogo) {
-          previewLogo.src = effectiveLogo;
-          previewLogo.alt = `${invoice.business.name || "Calcutta Kitchen"} logo`;
-        }
 
         previewText(
           "preview-business-name",
@@ -1024,9 +1007,6 @@ import "@/styles/global.css";
         render();
       }
 
-      previewLogo.addEventListener("error", () => {
-        previewLogo.hidden = true;
-      });
       form.addEventListener("input", render);
       form.addEventListener("change", render);
       document.querySelector("#add-item")!.addEventListener("click", () => {
@@ -1450,19 +1430,6 @@ import "@/styles/global.css";
     flex: 1;
     min-width: 205px;
     text-align: right;
-  }
-  .invoice-logo {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-
-    display: block;
-    width: auto !important;
-    height: auto !important;
-    max-width: 110px !important;
-    max-height: 55px !important;
-    object-fit: contain;
   }
   .business-details {
     min-width: 0;
