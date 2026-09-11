@@ -11,7 +11,7 @@ draft: false
 prepTime: 45
 cookTime: 120
 additionalTime: 180
-servings: "Mon Nov 09 2026 00:00:00 GMT+0530 (India Standard Time)"
+servings: "9-11"
 difficulty: "hard"
 protein:
   - "mutton"
