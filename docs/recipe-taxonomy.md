@@ -77,6 +77,7 @@ The slug is `snack`, not `snacks`. `meals` is not a recipe value; it was an inva
 | 6 | `sweet` | Sweets | — | Sweet dish form. | Mango Bhapa Doi | No |
 | 7 | `fried` | Fried | ভাজা | Frying is the primary cooking technique or defining preparation method. | Maach Bhaja | No |
 | 8 | `steamed` | Steamed | ভাপা | Steaming is the primary cooking technique or defining preparation method. | Ilish Bhapa | No |
+| 9 | `noodles` | Noodles | — | Noodle-led dish. | Chicken Chowmein | No |
 
 Snack, dessert, and beverage are meal contexts, not duplicate types. Fried and steamed are canonical technique-led types. Grilled remains a migration-review candidate, not an active value.
 

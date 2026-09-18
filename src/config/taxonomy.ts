@@ -5,7 +5,7 @@ export const taxonomySlugs = {
   protein: ["chicken", "fish", "mutton", "vegetarian", "egg", "seafood"],
   meal: ["breakfast", "lunch", "dinner", "snack", "dessert", "beverage"],
   cuisine: ["bengali", "indian", "italian", "chinese", "asian", "continental", "fusion"],
-  type: ["rice", "curry", "bread", "baking", "sauce", "sweet", "fried", "steamed"],
+  type: ["rice", "curry", "bread", "baking", "sauce", "sweet", "fried", "steamed", "noodles"],
   series: ["cook-like-a-lyadhkhor"],
 } as const;
 
@@ -60,6 +60,7 @@ const taxonomyRegistryInput = {
     { slug: "sweet", label: "Sweets", intro: "Indian and global sweets for celebrations and sharing.", related: ["dessert"] },
     { slug: "fried", label: "Fried", bengaliLabel: "\u09ad\u09be\u099c\u09be", intro: "Recipes where frying is the primary cooking technique or defining preparation method.", related: ["fish"] },
     { slug: "steamed", label: "Steamed", bengaliLabel: "\u09ad\u09be\u09aa\u09be", intro: "Recipes where steaming is the primary cooking technique or defining preparation method.", related: ["fish"] },
+    { slug: "noodles", label: "Noodles", intro: "Noodle dishes for quick meals and comforting favourites.", related: ["chinese", "asian"] },
   ],
   series: [
     { slug: "cook-like-a-lyadhkhor", label: "Cook Like a Lyadhkhor", intro: "A signature series for relaxed, confident home cooking.", related: [] },

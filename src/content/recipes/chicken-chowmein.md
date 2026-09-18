@@ -6,7 +6,7 @@ about:
   - "This chicken chowmein is built around control rather than a long ingredient list: soak the noodles briefly instead of boiling them, rinse and drain them well, cut the vegetables into thin uniform matchsticks, cook the chicken and eggs separately, and finish everything in a smoking-hot wok. A short pause before the final toss helps the noodles pick up a little char, while soy sauce, chilli sauces, vinegar, sugar and optional MSG create the familiar salty, tangy and savoury street-style profile."
 coverImage: "../../assets/recipes/chicken-chowmein.JPG"
 coverImageAlt: "Kolkata street-style chicken chowmein with noodles, chicken, egg, cabbage, carrot, capsicum and spring onion."
-publishDate: 2026-09-17
+publishDate: 2026-09-18
 draft: false
 prepTime: 20
 cookTime: 15
@@ -20,7 +20,7 @@ meal:
   - "dinner"
 cuisine: "chinese"
 type:
-  - "fried"
+  - "noodles"
 tags:
   - "chicken-chowmein"
   - "kolkata-chowmein"
@@ -258,10 +258,12 @@ faq:
     answer: "Soy sauce and chilli sauces already contribute salt, so adding extra salt too early can make the finished chowmein overly salty."
   - question: "Why leave the noodles undisturbed for 20–30 seconds?"
     answer: "That brief contact with the hot wok helps create a little surface char before the final toss."
-
+video:
+      url: "https://youtu.be/X5jHT2U5Nzc"
+      title: "Chicken Chowmein"
 relatedRecipes:
   - "chicken-momo"
 author: "Calcutta Kitchen"
-seoTitle: "Kolkata Chicken Chowmein Recipe | Calcutta Kitchen"
+seoTitle: "Chicken Chowmein Recipe | Calcutta Kitchen"
 seoDescription: "Make Kolkata street-style chicken chowmein with tender chicken, egg, crisp vegetables and high-heat wok technique, without boiling the noodles."
 ---
